@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -59,16 +60,15 @@ const Index = () => {
   const [feedbackGiven, setFeedbackGiven] = useState<Record<number, boolean>>({});
   const [playingAudio, setPlayingAudio] = useState<number | null>(null);
   const [isListening, setIsListening] = useState(false);
+  const [usageCount, setUsageCount] = useState(0);
+  const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const FREE_USAGE_LIMIT = 5;
 
   useEffect(() => {
     // Check authentication
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate('/auth');
-        return;
-      }
-      setUser(session.user);
+      setUser(session?.user || null);
       setAuthLoading(false);
     };
 
@@ -76,12 +76,14 @@ const Index = () => {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT' || !session) {
-        navigate('/auth');
-      } else {
-        setUser(session.user);
-      }
+      setUser(session?.user || null);
     });
+
+    // Load usage count from localStorage for anonymous users
+    const savedCount = localStorage.getItem('anonymousUsageCount');
+    if (savedCount) {
+      setUsageCount(parseInt(savedCount, 10));
+    }
 
     return () => subscription.unsubscribe();
   }, [navigate]);
@@ -101,6 +103,14 @@ const Index = () => {
         variant: "destructive",
       });
       return;
+    }
+
+    // Check usage limit for anonymous users
+    if (!user) {
+      if (usageCount >= FREE_USAGE_LIMIT) {
+        setShowUpgradeDialog(true);
+        return;
+      }
     }
 
     setRewriteLoading(true);
@@ -131,6 +141,13 @@ const Index = () => {
       }
       if (data.inferred?.desired_emotion && !emotion) {
         setEmotion(data.inferred.desired_emotion);
+      }
+
+      // Increment usage count for anonymous users
+      if (!user) {
+        const newCount = usageCount + 1;
+        setUsageCount(newCount);
+        localStorage.setItem('anonymousUsageCount', newCount.toString());
       }
 
     } catch (error: any) {
@@ -316,14 +333,23 @@ const Index = () => {
             <Button variant="ghost" size="sm" onClick={() => navigate('/privacy')}>
               Privacy
             </Button>
-            <Button variant="outline" size="sm" onClick={handleSignOut} className="hover:scale-105 transition-transform">
-              Sign Out
-            </Button>
+            {user && (
+              <Button variant="outline" size="sm" onClick={handleSignOut} className="hover:scale-105 transition-transform">
+                Sign Out
+              </Button>
+            )}
+            {!user && (
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">
+                  {usageCount}/{FREE_USAGE_LIMIT} free uses
+                </span>
+              </div>
+            )}
           </div>
           
           {/* Mobile Navigation */}
           <div className="md:hidden flex justify-center">
-            <MobileNav />
+            <MobileNav user={user} usageCount={usageCount} freeLimit={FREE_USAGE_LIMIT} />
           </div>
         </div>
 
@@ -592,6 +618,38 @@ const Index = () => {
           </div>
         </footer>
       </div>
+
+      {/* Upgrade Dialog */}
+      <Dialog open={showUpgradeDialog} onOpenChange={setShowUpgradeDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>You've used all 5 free rewrites! 🎉</DialogTitle>
+            <DialogDescription className="space-y-3 pt-4">
+              <p>
+                Ready to keep improving your communication? Sign in to continue using Just Ask April.
+              </p>
+              <p className="text-sm">
+                Get unlimited rewrites, save your history, and unlock advanced features.
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setShowUpgradeDialog(false)}
+              className="w-full sm:w-auto"
+            >
+              Maybe later
+            </Button>
+            <Button
+              onClick={() => navigate('/auth')}
+              className="w-full sm:w-auto bg-gradient-to-r from-secondary to-accent"
+            >
+              Sign in to continue
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

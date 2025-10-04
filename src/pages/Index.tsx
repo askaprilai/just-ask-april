@@ -367,7 +367,7 @@ const Index = () => {
               className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105"
               size="lg"
             >
-              {loading ? "April is auditing..." : "Audit My Communication"}
+              {loading ? "April is thinking..." : "How do I say it better?"}
             </Button>
           </CardContent>
         </Card>

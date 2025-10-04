@@ -4,6 +4,7 @@ import { useToast } from '@/hooks/use-toast';
 import { RealtimeChat } from '@/utils/RealtimeAudio';
 import { PhoneCall, PhoneOff } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import aprilImage from '@/assets/april-headshot.jpeg';
 
 const VoiceConversation = () => {
   const { toast } = useToast();
@@ -82,18 +83,18 @@ const VoiceConversation = () => {
       <Card className="border-secondary/30 shadow-lg">
         <CardContent className="p-6">
           <div className="flex flex-col items-center gap-4">
-            <div className={`w-24 h-24 rounded-full flex items-center justify-center transition-all duration-300 ${
+            <div className={`w-32 h-32 rounded-full overflow-hidden border-4 transition-all duration-300 ${
               isSpeaking 
-                ? 'bg-gradient-to-r from-secondary to-accent shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-110' 
+                ? 'border-secondary shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-110 animate-pulse' 
                 : isConnected 
-                  ? 'bg-secondary/20 shadow-lg' 
-                  : 'bg-muted'
+                  ? 'border-secondary shadow-lg' 
+                  : 'border-muted'
             }`}>
-              {isConnected ? (
-                <PhoneCall className={`h-10 w-10 ${isSpeaking ? 'text-white animate-pulse' : 'text-secondary'}`} />
-              ) : (
-                <PhoneOff className="h-10 w-10 text-muted-foreground" />
-              )}
+              <img 
+                src={aprilImage} 
+                alt="April Sabral"
+                className="w-full h-full object-cover"
+              />
             </div>
 
             <div className="text-center">

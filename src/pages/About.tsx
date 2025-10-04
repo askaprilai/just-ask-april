@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
 
 const About = () => {
   const navigate = useNavigate();
@@ -61,6 +62,11 @@ const About = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Impact Language Method Diagram */}
+        <div className="mt-16">
+          <ImpactMethodDiagram />
+        </div>
 
         <div className="text-center mt-12">
           <Button 

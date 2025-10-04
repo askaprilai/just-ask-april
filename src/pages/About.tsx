@@ -30,7 +30,7 @@ const About = () => {
         </div>
 
         {/* April's Photo Section */}
-        <Card className="shadow-xl border-secondary/20 mb-12 overflow-hidden">
+        <Card className="shadow-xl border-secondary/20 mb-16 overflow-hidden">
           <CardContent className="pt-8 pb-8">
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 max-w-md mx-auto">

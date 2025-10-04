@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
+import VoiceConversation from "@/components/VoiceConversation";
 import aprilImage from "@/assets/april-headshot.jpeg";
 
 interface Rewrite {
@@ -265,6 +266,13 @@ const Index = () => {
             </Button>
           </div>
         </div>
+
+        {/* Voice Practice Section - Show when no results */}
+        {!result && (
+          <div className="mb-8">
+            <VoiceConversation />
+          </div>
+        )}
 
         {/* Examples Section - Show when no results */}
         {!result && <ExamplesSection />}

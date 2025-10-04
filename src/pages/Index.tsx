@@ -280,18 +280,6 @@ const Index = () => {
         {/* Input Section */}
         <Card className="mb-8 shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
           <CardContent className="pt-6">
-            {/* April's Image */}
-            <div className="flex justify-center mb-6">
-              <div className={`w-32 h-32 rounded-full overflow-hidden border-4 border-secondary transition-all duration-300 ${
-                loading ? 'shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-105 animate-pulse' : 'shadow-lg'
-              }`}>
-                <img 
-                  src={aprilImage} 
-                  alt="April Sabral"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
             <div className="relative">
               <Textarea
                 placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."

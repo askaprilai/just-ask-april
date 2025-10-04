@@ -428,7 +428,7 @@ const Index = () => {
         {/* Footer */}
         <footer className="text-center mt-16 py-8 border-t border-secondary/20">
           <p className="text-lg font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-            Say it better. Get better results.
+            When in doubt, just ask April
           </p>
           <div className="mt-4">
             <a 

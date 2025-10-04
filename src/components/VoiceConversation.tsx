@@ -85,10 +85,10 @@ const VoiceConversation = () => {
           <div className="flex flex-col items-center gap-4">
             <div className={`w-32 h-32 rounded-full overflow-hidden border-4 transition-all duration-300 ${
               isSpeaking 
-                ? 'border-secondary shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-110 animate-pulse' 
+                ? 'border-secondary shadow-[0_0_60px_20px_hsl(var(--secondary)/0.8),0_0_100px_30px_hsl(var(--accent)/0.4)] scale-110 animate-pulse' 
                 : isConnected 
-                  ? 'border-secondary shadow-lg' 
-                  : 'border-muted'
+                  ? 'border-secondary shadow-[0_0_30px_10px_hsl(var(--secondary)/0.5)]' 
+                  : 'border-muted shadow-lg'
             }`}>
               <img 
                 src={aprilImage} 

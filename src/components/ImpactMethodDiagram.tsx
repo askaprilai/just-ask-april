@@ -45,7 +45,7 @@ const ImpactMethodDiagram = () => {
   ];
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto py-16 px-4">
+    <div className="relative w-full max-w-3xl mx-auto pt-32 pb-16 px-4">
       {/* Central Circle */}
       <div className="relative mx-auto w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full border-4 border-[#FDB900] bg-background shadow-2xl flex flex-col items-center justify-center z-10 animate-scale-in">
         <h3 className="text-2xl md:text-3xl font-bold text-center mb-2">

@@ -30,7 +30,7 @@ export const ExamplesSection = () => {
           How Do I Say It?
         </h2>
         <p className="text-muted-foreground text-lg">
-          April empowers people to communicate consciously—transforming words into outcomes that inspire trust, collaboration and growth.
+          Grammarly fixes your grammar. April fixes your impact.
         </p>
       </div>
 

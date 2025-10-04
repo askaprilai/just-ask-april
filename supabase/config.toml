@@ -1,0 +1,10 @@
+project_id = "sjtgecslgpldlsycaazt"
+
+[functions.rewrite]
+verify_jwt = false
+
+[functions.feedback]
+verify_jwt = false
+
+[functions.impact-index]
+verify_jwt = false

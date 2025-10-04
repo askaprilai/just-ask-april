@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3 } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
+import aprilImage from "@/assets/april-sabral.png";
 
 interface Rewrite {
   text: string;
@@ -51,6 +52,7 @@ const Index = () => {
   const [result, setResult] = useState<RewriteResponse | null>(null);
   const [feedbackGiven, setFeedbackGiven] = useState<Record<number, boolean>>({});
   const [playingAudio, setPlayingAudio] = useState<number | null>(null);
+  const [isListening, setIsListening] = useState(false);
 
   const handleRewrite = async () => {
     if (!userText.trim()) {
@@ -178,6 +180,49 @@ const Index = () => {
     }
   };
 
+  const handleVoiceInput = () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      toast({
+        title: "Not supported",
+        description: "Speech recognition is not supported in this browser",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setUserText(prev => prev ? `${prev} ${transcript}` : transcript);
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      setIsListening(false);
+      toast({
+        title: "Error",
+        description: "Could not capture voice input",
+        variant: "destructive",
+      });
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
+  };
+
   const pillarColors = {
     intent: "bg-[#0A3D62] text-white",
     message: "bg-[#00B3A4] text-white",
@@ -195,6 +240,17 @@ const Index = () => {
       <div className="container max-w-5xl mx-auto px-4 py-12 relative">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
+          {/* April's Image */}
+          <div className="flex justify-center mb-6">
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gradient-to-r from-secondary to-accent shadow-lg">
+              <img 
+                src={aprilImage} 
+                alt="April Sabral"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          
           <div className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-sm font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               The AI for Human Connection
@@ -227,16 +283,34 @@ const Index = () => {
         {/* Input Section */}
         <Card className="mb-8 shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
           <CardContent className="pt-6">
-            <Textarea
-              placeholder="What do you need to say? Paste your draft or describe the situation..."
-              value={userText}
-              onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-              className="min-h-[120px] mb-2 text-base"
-            />
+            <div className="relative">
+              <Textarea
+                placeholder="What do you need to say? Paste your draft or describe the situation..."
+                value={userText}
+                onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
+                className="min-h-[120px] mb-2 text-base pr-14"
+              />
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                onClick={handleVoiceInput}
+                disabled={isListening}
+                className="absolute right-2 top-2 hover:bg-secondary/20"
+                title="Voice input"
+              >
+                <Mic className={`h-5 w-5 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
+              </Button>
+            </div>
             <div className="flex justify-between items-center mb-4">
               <span className="text-sm text-muted-foreground">
                 {userText.length}/1500 characters
               </span>
+              {isListening && (
+                <span className="text-sm text-destructive animate-pulse">
+                  Listening...
+                </span>
+              )}
             </div>
 
             {/* Label Chips */}

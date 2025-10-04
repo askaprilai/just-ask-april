@@ -281,7 +281,7 @@ const Index = () => {
           <TabsList className="grid w-full grid-cols-2 mb-6 md:mb-8 h-12 md:h-11">
             <TabsTrigger value="text" className="text-sm md:text-base h-full">
               <MessageSquare className="mr-2 h-4 w-4" />
-              Write Better
+              Say it better
             </TabsTrigger>
             <TabsTrigger value="voice" className="text-sm md:text-base h-full">
               <Phone className="mr-2 h-4 w-4" />

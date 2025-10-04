@@ -30,7 +30,7 @@ export const ExamplesSection = () => {
           See the April Difference
         </h2>
         <p className="text-muted-foreground text-lg">
-          Transform tension into connection—like <em>How to Win Friends and Influence People</em> for the AI age
+          Grammarly fixes your grammar. April fixes your impact—<em>How to Say It Better, Get Better Results</em>
         </p>
       </div>
 

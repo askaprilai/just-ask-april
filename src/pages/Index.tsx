@@ -247,11 +247,32 @@ const Index = () => {
           </CardContent>
         </Card>
 
-        {/* Intent Summary */}
-        {result?.diagnostics?.intent_summary && (
-          <div className="mb-8 p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm animate-fade-in">
-            <p className="text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">April's Analysis</p>
-            <p className="text-foreground text-lg leading-relaxed">{result.diagnostics.intent_summary}</p>
+        {/* Original Text Display */}
+        {result && (
+          <div className="mb-8 space-y-4 animate-fade-in">
+            <div className="p-6 bg-muted/30 rounded-2xl border border-border/50">
+              <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wide flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-muted-foreground"></span>
+                What You Said
+              </p>
+              <p className="text-foreground leading-relaxed italic">&ldquo;{userText}&rdquo;</p>
+            </div>
+
+            {/* Intent Summary */}
+            {result.diagnostics?.intent_summary && (
+              <div className="p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm">
+                <p className="text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">April&apos;s Analysis</p>
+                <p className="text-foreground text-lg leading-relaxed">{result.diagnostics.intent_summary}</p>
+              </div>
+            )}
+
+            <div className="text-center py-2">
+              <p className="text-sm font-semibold text-secondary uppercase tracking-wide flex items-center justify-center gap-2">
+                <span className="inline-block w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
+                April&apos;s Rewrites
+                <span className="inline-block w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
+              </p>
+            </div>
           </div>
         )}
 

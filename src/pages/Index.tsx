@@ -248,7 +248,7 @@ const Index = () => {
           <h1 className="text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
             Just Ask April
           </h1>
-          <p className="text-2xl text-muted-foreground mb-6 font-light">Say it better. Get better results.</p>
+          <p className="text-2xl text-muted-foreground mb-6 font-light">Audit how you communicate. Say it better.</p>
           <div className="flex gap-3 justify-center">
             <Button variant="outline" size="sm" onClick={() => navigate('/about')} className="hover:scale-105 transition-transform">
               About April
@@ -286,7 +286,7 @@ const Index = () => {
             </div>
             <div className="relative">
               <Textarea
-                placeholder="What do you need to say? Paste your draft or describe the situation..."
+                placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
                 value={userText}
                 onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
                 className="min-h-[120px] mb-2 text-base pr-14"
@@ -371,7 +371,7 @@ const Index = () => {
               className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105"
               size="lg"
             >
-              {loading ? "April is thinking..." : "Get 3 Rewrites"}
+              {loading ? "April is auditing..." : "Audit My Communication"}
             </Button>
           </CardContent>
         </Card>

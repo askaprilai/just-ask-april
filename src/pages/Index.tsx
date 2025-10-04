@@ -205,6 +205,9 @@ const Index = () => {
           </h1>
           <p className="text-2xl text-muted-foreground mb-6 font-light">Communicate consciously. Transform words into outcomes.</p>
           <div className="flex gap-3 justify-center">
+            <Button variant="outline" size="sm" onClick={() => navigate('/pricing')} className="hover:scale-105 transition-transform">
+              Pricing
+            </Button>
             <Button variant="outline" size="sm" onClick={() => navigate('/stats')} className="hover:scale-105 transition-transform">
               <BarChart3 className="mr-2 h-4 w-4" />
               Impact Index

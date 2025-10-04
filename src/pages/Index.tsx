@@ -243,7 +243,7 @@ const Index = () => {
           {/* April's Image */}
           <div className="flex justify-center mb-6">
             <div className={`w-32 h-32 rounded-full overflow-hidden border-4 border-secondary transition-all duration-300 ${
-              isListening ? 'shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-105' : 'shadow-lg'
+              loading ? 'shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-105 animate-pulse' : 'shadow-lg'
             }`}>
               <img 
                 src={aprilImage} 

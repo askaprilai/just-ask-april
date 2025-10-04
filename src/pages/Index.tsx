@@ -203,7 +203,7 @@ const Index = () => {
           <h1 className="text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
             Just Ask April
           </h1>
-          <p className="text-2xl text-muted-foreground mb-6 font-light">Communicate consciously. Transform words into outcomes.</p>
+          <p className="text-2xl text-muted-foreground mb-6 font-light">Say it better. Get better results.</p>
           <div className="flex gap-3 justify-center">
             <Button variant="outline" size="sm" onClick={() => navigate('/about')} className="hover:scale-105 transition-transform">
               About April

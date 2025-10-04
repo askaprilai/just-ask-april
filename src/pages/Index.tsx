@@ -142,14 +142,25 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container max-w-5xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Background Gradient Orbs */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
+      
+      <div className="container max-w-5xl mx-auto px-4 py-12 relative">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold text-primary mb-2">Just Ask April</h1>
-          <p className="text-xl text-muted-foreground mb-4">When in doubt, Just Ask April.</p>
-          <div className="flex gap-4 justify-center">
-            <Button variant="outline" size="sm" onClick={() => navigate('/stats')}>
+        <div className="text-center mb-12 animate-fade-in">
+          <div className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
+            <p className="text-sm font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+              The AI for Human Connection
+            </p>
+          </div>
+          <h1 className="text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
+            Just Ask April
+          </h1>
+          <p className="text-2xl text-muted-foreground mb-6 font-light">When in doubt, Just Ask April.</p>
+          <div className="flex gap-3 justify-center">
+            <Button variant="outline" size="sm" onClick={() => navigate('/stats')} className="hover:scale-105 transition-transform">
               <BarChart3 className="mr-2 h-4 w-4" />
               Impact Index
             </Button>
@@ -160,7 +171,7 @@ const Index = () => {
         </div>
 
         {/* Input Section */}
-        <Card className="mb-6">
+        <Card className="mb-8 shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
           <CardContent className="pt-6">
             <Textarea
               placeholder="What do you need to say? Paste your draft or describe the situation..."
@@ -228,7 +239,7 @@ const Index = () => {
             <Button 
               onClick={handleRewrite} 
               disabled={loading || !userText.trim()}
-              className="w-full"
+              className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105"
               size="lg"
             >
               {loading ? "April is thinking..." : "Get 3 Rewrites"}
@@ -238,9 +249,9 @@ const Index = () => {
 
         {/* Intent Summary */}
         {result?.diagnostics?.intent_summary && (
-          <div className="mb-6 p-4 bg-secondary/10 rounded-lg border border-secondary/20">
-            <p className="text-sm font-medium text-secondary mb-1">April's Analysis:</p>
-            <p className="text-foreground">{result.diagnostics.intent_summary}</p>
+          <div className="mb-8 p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm animate-fade-in">
+            <p className="text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">April's Analysis</p>
+            <p className="text-foreground text-lg leading-relaxed">{result.diagnostics.intent_summary}</p>
           </div>
         )}
 
@@ -248,7 +259,7 @@ const Index = () => {
         {result?.rewrites && (
           <div className="space-y-6">
             {result.rewrites.map((rewrite, index) => (
-              <Card key={index} className="overflow-hidden">
+              <Card key={index} className="overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.1)] hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.2)] transition-all duration-300 hover:scale-[1.02] border-secondary/20 backdrop-blur-sm animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
                 <CardContent className="p-6">
                   {/* Tone Label */}
                   <div className="flex items-center justify-between mb-4">
@@ -339,8 +350,10 @@ const Index = () => {
         )}
 
         {/* Footer */}
-        <footer className="text-center mt-12 py-6 border-t">
-          <p className="text-muted-foreground">Say it better. Get better results.</p>
+        <footer className="text-center mt-16 py-8 border-t border-secondary/20">
+          <p className="text-lg font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+            Say it better. Get better results.
+          </p>
         </footer>
       </div>
     </div>

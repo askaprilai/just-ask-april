@@ -58,65 +58,65 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-12 md:mb-16 animate-fade-in">
           <Button 
             variant="ghost" 
             onClick={() => navigate('/')}
-            className="mb-8"
+            className="mb-6 md:mb-8 h-10 md:h-9"
           >
             ← Back to Home
           </Button>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent px-2">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Transform your communication with April. Start free, upgrade as you grow.
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <Card 
               key={plan.name}
               className={`relative animate-fade-in ${
                 plan.highlighted 
-                  ? 'border-primary shadow-xl shadow-primary/20 scale-105' 
+                  ? 'border-primary shadow-xl shadow-primary/20 md:scale-105' 
                   : 'border-border'
               }`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {plan.highlighted && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-secondary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute -top-3 md:-top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-secondary text-primary-foreground px-3 md:px-4 py-0.5 md:py-1 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap">
                   Most Popular
                 </div>
               )}
               
-              <CardHeader>
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  {plan.period && <span className="text-muted-foreground">{plan.period}</span>}
+              <CardHeader className="px-4 md:px-6 pt-6 md:pt-6">
+                <CardTitle className="text-xl md:text-2xl">{plan.name}</CardTitle>
+                <CardDescription className="text-sm md:text-base">{plan.description}</CardDescription>
+                <div className="mt-3 md:mt-4">
+                  <span className="text-3xl md:text-4xl font-bold">{plan.price}</span>
+                  {plan.period && <span className="text-sm md:text-base text-muted-foreground">{plan.period}</span>}
                 </div>
               </CardHeader>
 
-              <CardContent>
-                <ul className="space-y-3">
+              <CardContent className="px-4 md:px-6">
+                <ul className="space-y-2 md:space-y-3">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
-                      <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
+                      <Check className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-xs md:text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
 
-              <CardFooter>
+              <CardFooter className="px-4 md:px-6 pb-4 md:pb-6">
                 <Button 
-                  className="w-full"
+                  className="w-full h-11 md:h-10 text-sm md:text-base"
                   variant={plan.highlighted ? "default" : "outline"}
                   size="lg"
                   onClick={() => navigate('/')}
@@ -129,20 +129,20 @@ const Pricing = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-24 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div className="border border-border rounded-lg p-6">
-              <h3 className="font-semibold text-lg mb-2">Can I switch plans anytime?</h3>
-              <p className="text-muted-foreground">Yes! You can upgrade, downgrade, or cancel your subscription at any time.</p>
+        <div className="mt-16 md:mt-24 max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Frequently Asked Questions</h2>
+          <div className="space-y-4 md:space-y-6">
+            <div className="border border-border rounded-lg p-4 md:p-6">
+              <h3 className="font-semibold text-base md:text-lg mb-2">Can I switch plans anytime?</h3>
+              <p className="text-sm md:text-base text-muted-foreground">Yes! You can upgrade, downgrade, or cancel your subscription at any time.</p>
             </div>
-            <div className="border border-border rounded-lg p-6">
-              <h3 className="font-semibold text-lg mb-2">What payment methods do you accept?</h3>
-              <p className="text-muted-foreground">We accept all major credit cards and PayPal.</p>
+            <div className="border border-border rounded-lg p-4 md:p-6">
+              <h3 className="font-semibold text-base md:text-lg mb-2">What payment methods do you accept?</h3>
+              <p className="text-sm md:text-base text-muted-foreground">We accept all major credit cards and PayPal.</p>
             </div>
-            <div className="border border-border rounded-lg p-6">
-              <h3 className="font-semibold text-lg mb-2">Is there a free trial for Pro?</h3>
-              <p className="text-muted-foreground">Yes! Get 14 days free when you sign up for Pro. No credit card required.</p>
+            <div className="border border-border rounded-lg p-4 md:p-6">
+              <h3 className="font-semibold text-base md:text-lg mb-2">Is there a free trial for Pro?</h3>
+              <p className="text-sm md:text-base text-muted-foreground">Yes! Get 14 days free when you sign up for Pro. No credit card required.</p>
             </div>
           </div>
         </div>

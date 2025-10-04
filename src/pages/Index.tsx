@@ -430,6 +430,16 @@ const Index = () => {
           <p className="text-lg font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
             Say it better. Get better results.
           </p>
+          <div className="mt-4">
+            <a 
+              href="https://aprilsabral.newzenler.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors underline"
+            >
+              Access April's Learning Hub - Online Courses
+            </a>
+          </div>
         </footer>
       </div>
     </div>

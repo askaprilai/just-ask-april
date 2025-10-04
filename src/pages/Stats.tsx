@@ -48,8 +48,8 @@ const Stats = () => {
         </Button>
 
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-primary mb-2">Impact Index</h1>
-          <p className="text-muted-foreground">Tracking how April helps people communicate better</p>
+          <h1 className="text-4xl font-bold text-primary mb-2">My Impact Index</h1>
+          <p className="text-muted-foreground">Track how April helps you communicate better</p>
         </div>
 
         {loading ? (

@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
+import aprilImage from "@/assets/april-sabral.png";
 
 const About = () => {
   const navigate = useNavigate();
@@ -27,6 +28,30 @@ const About = () => {
             When in doubt, just ask April
           </p>
         </div>
+
+        {/* April's Photo Section */}
+        <Card className="shadow-xl border-secondary/20 mb-12 overflow-hidden">
+          <CardContent className="pt-8 pb-8">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-1 max-w-md mx-auto">
+                <img 
+                  src={aprilImage} 
+                  alt="April Sabral - 30+ years experience"
+                  className="w-full h-auto animate-fade-in"
+                />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                  It's like having April Sabral in your pocket
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  30+ years of communication expertise, available whenever you need it. 
+                  Get instant guidance on what to say and how to say it—right from your device.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card className="shadow-xl border-secondary/20">
           <CardContent className="pt-8 pb-8 space-y-6">

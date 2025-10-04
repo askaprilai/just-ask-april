@@ -240,19 +240,6 @@ const Index = () => {
       <div className="container max-w-5xl mx-auto px-4 py-12 relative">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
-          {/* April's Image */}
-          <div className="flex justify-center mb-6">
-            <div className={`w-32 h-32 rounded-full overflow-hidden border-4 border-secondary transition-all duration-300 ${
-              loading ? 'shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-105 animate-pulse' : 'shadow-lg'
-            }`}>
-              <img 
-                src={aprilImage} 
-                alt="April Sabral"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-          
           <div className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-sm font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               The AI for Human Connection
@@ -285,6 +272,18 @@ const Index = () => {
         {/* Input Section */}
         <Card className="mb-8 shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
           <CardContent className="pt-6">
+            {/* April's Image */}
+            <div className="flex justify-center mb-6">
+              <div className={`w-32 h-32 rounded-full overflow-hidden border-4 border-secondary transition-all duration-300 ${
+                loading ? 'shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-105 animate-pulse' : 'shadow-lg'
+              }`}>
+                <img 
+                  src={aprilImage} 
+                  alt="April Sabral"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
             <div className="relative">
               <Textarea
                 placeholder="What do you need to say? Paste your draft or describe the situation..."

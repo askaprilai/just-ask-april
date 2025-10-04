@@ -27,10 +27,10 @@ export const ExamplesSection = () => {
     <div className="mb-16 animate-fade-in">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-          See the April Difference
+          How Do I Say It?
         </h2>
         <p className="text-muted-foreground text-lg">
-          Grammarly fixes your grammar. April fixes your impact—<em>How to Say It Better, Get Better Results</em>
+          April empowers people to communicate consciously—transforming words into outcomes that inspire trust, collaboration and growth.
         </p>
       </div>
 

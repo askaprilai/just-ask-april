@@ -4,8 +4,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -275,110 +276,125 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Voice Practice Section - Show when no results */}
-        {!result && (
-          <div className="mb-6 md:mb-8">
+        {/* Tabbed Interface */}
+        <Tabs defaultValue="text" className="mb-6 md:mb-8">
+          <TabsList className="grid w-full grid-cols-2 mb-6 md:mb-8 h-12 md:h-11">
+            <TabsTrigger value="text" className="text-sm md:text-base h-full">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Write Better
+            </TabsTrigger>
+            <TabsTrigger value="voice" className="text-sm md:text-base h-full">
+              <Phone className="mr-2 h-4 w-4" />
+              Practice Live
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Text Rewrite Tab */}
+          <TabsContent value="text" className="space-y-6 md:space-y-8">
+            {/* Examples Section */}
+            {!result && <ExamplesSection />}
+
+            {/* Input Section */}
+            <Card className="shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
+              <CardContent className="pt-4 md:pt-6 px-4 md:px-6">
+                <div className="relative">
+                  <Textarea
+                    placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
+                    value={userText}
+                    onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
+                    className="min-h-[100px] md:min-h-[120px] mb-2 text-sm md:text-base pr-12 md:pr-14"
+                  />
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    onClick={handleVoiceInput}
+                    disabled={isListening}
+                    className="absolute right-2 top-2 hover:bg-secondary/20 h-10 w-10 md:h-11 md:w-11"
+                    title="Voice input"
+                  >
+                    <Mic className={`h-4 w-4 md:h-5 md:w-5 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
+                  </Button>
+                </div>
+                <div className="flex justify-between items-center mb-3 md:mb-4">
+                  <span className="text-xs md:text-sm text-muted-foreground">
+                    {userText.length}/1500 characters
+                  </span>
+                  {isListening && (
+                    <span className="text-xs md:text-sm text-destructive animate-pulse">
+                      Listening...
+                    </span>
+                  )}
+                </div>
+
+                {/* Label Chips */}
+                <div className="space-y-3 mb-4">
+                  <div>
+                    <p className="text-xs md:text-sm font-medium mb-2">Environment:</p>
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      {ENVIRONMENTS.map(env => (
+                        <Badge
+                          key={env}
+                          variant={environment === env ? "default" : "outline"}
+                          className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
+                          onClick={() => setEnvironment(environment === env ? null : env)}
+                        >
+                          {env}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-xs md:text-sm font-medium mb-2">Outcome:</p>
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      {OUTCOMES.map(out => (
+                        <Badge
+                          key={out}
+                          variant={outcome === out ? "default" : "outline"}
+                          className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
+                          onClick={() => setOutcome(outcome === out ? null : out)}
+                        >
+                          {out}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-xs md:text-sm font-medium mb-2">Desired Emotion:</p>
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      {EMOTIONS.map(emo => (
+                        <Badge
+                          key={emo}
+                          variant={emotion === emo ? "default" : "outline"}
+                          className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
+                          onClick={() => setEmotion(emotion === emo ? null : emo)}
+                        >
+                          {emo}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <Button 
+                  onClick={handleRewrite} 
+                  disabled={loading || !userText.trim()}
+                  className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105 h-12 md:h-14 text-sm md:text-base"
+                  size="lg"
+                >
+                  {loading ? "April is thinking..." : "How do I say it better?"}
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Voice Practice Tab */}
+          <TabsContent value="voice">
             <VoiceConversation />
-          </div>
-        )}
-
-        {/* Examples Section - Show when no results */}
-        {!result && <ExamplesSection />}
-
-        {/* Input Section */}
-        <Card className="mb-6 md:mb-8 shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
-          <CardContent className="pt-4 md:pt-6 px-4 md:px-6">
-            <div className="relative">
-              <Textarea
-                placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
-                value={userText}
-                onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-                className="min-h-[100px] md:min-h-[120px] mb-2 text-sm md:text-base pr-12 md:pr-14"
-              />
-              <Button
-                type="button"
-                size="icon"
-                variant="ghost"
-                onClick={handleVoiceInput}
-                disabled={isListening}
-                className="absolute right-2 top-2 hover:bg-secondary/20 h-10 w-10 md:h-11 md:w-11"
-                title="Voice input"
-              >
-                <Mic className={`h-4 w-4 md:h-5 md:w-5 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
-              </Button>
-            </div>
-            <div className="flex justify-between items-center mb-3 md:mb-4">
-              <span className="text-xs md:text-sm text-muted-foreground">
-                {userText.length}/1500 characters
-              </span>
-              {isListening && (
-                <span className="text-xs md:text-sm text-destructive animate-pulse">
-                  Listening...
-                </span>
-              )}
-            </div>
-
-            {/* Label Chips */}
-            <div className="space-y-3 mb-4">
-              <div>
-                <p className="text-xs md:text-sm font-medium mb-2">Environment:</p>
-                <div className="flex flex-wrap gap-1.5 md:gap-2">
-                  {ENVIRONMENTS.map(env => (
-                    <Badge
-                      key={env}
-                      variant={environment === env ? "default" : "outline"}
-                      className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
-                      onClick={() => setEnvironment(environment === env ? null : env)}
-                    >
-                      {env}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <p className="text-xs md:text-sm font-medium mb-2">Outcome:</p>
-                <div className="flex flex-wrap gap-1.5 md:gap-2">
-                  {OUTCOMES.map(out => (
-                    <Badge
-                      key={out}
-                      variant={outcome === out ? "default" : "outline"}
-                      className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
-                      onClick={() => setOutcome(outcome === out ? null : out)}
-                    >
-                      {out}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <p className="text-xs md:text-sm font-medium mb-2">Desired Emotion:</p>
-                <div className="flex flex-wrap gap-1.5 md:gap-2">
-                  {EMOTIONS.map(emo => (
-                    <Badge
-                      key={emo}
-                      variant={emotion === emo ? "default" : "outline"}
-                      className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
-                      onClick={() => setEmotion(emotion === emo ? null : emo)}
-                    >
-                      {emo}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <Button 
-              onClick={handleRewrite} 
-              disabled={loading || !userText.trim()}
-              className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105 h-12 md:h-14 text-sm md:text-base"
-              size="lg"
-            >
-              {loading ? "April is thinking..." : "How do I say it better?"}
-            </Button>
-          </CardContent>
-        </Card>
+          </TabsContent>
+        </Tabs>
 
         {/* Original Text Display */}
         {result && (

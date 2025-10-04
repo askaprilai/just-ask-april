@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { ExamplesSection } from "@/components/ExamplesSection";
 
 interface Rewrite {
   text: string;
@@ -49,6 +50,7 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<RewriteResponse | null>(null);
   const [feedbackGiven, setFeedbackGiven] = useState<Record<number, boolean>>({});
+  const [playingAudio, setPlayingAudio] = useState<number | null>(null);
 
   const handleRewrite = async () => {
     if (!userText.trim()) {
@@ -133,6 +135,49 @@ const Index = () => {
     }
   };
 
+  const handlePlayAudio = async (text: string, index: number) => {
+    if (playingAudio === index) {
+      setPlayingAudio(null);
+      return;
+    }
+
+    setPlayingAudio(index);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('text-to-speech', {
+        body: { text }
+      });
+
+      if (error) throw error;
+
+      const audioData = atob(data.audioContent);
+      const arrayBuffer = new ArrayBuffer(audioData.length);
+      const view = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < audioData.length; i++) {
+        view[i] = audioData.charCodeAt(i);
+      }
+
+      const blob = new Blob([arrayBuffer], { type: 'audio/mpeg' });
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      
+      audio.onended = () => {
+        setPlayingAudio(null);
+        URL.revokeObjectURL(url);
+      };
+      
+      await audio.play();
+    } catch (error: any) {
+      console.error('Audio playback error:', error);
+      setPlayingAudio(null);
+      toast({
+        title: "Audio unavailable",
+        description: error.message || "Could not play audio",
+        variant: "destructive",
+      });
+    }
+  };
+
   const pillarColors = {
     intent: "bg-[#0A3D62] text-white",
     message: "bg-[#00B3A4] text-white",
@@ -169,6 +214,9 @@ const Index = () => {
             </Button>
           </div>
         </div>
+
+        {/* Examples Section - Show when no results */}
+        {!result && <ExamplesSection />}
 
         {/* Input Section */}
         <Card className="mb-8 shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
@@ -333,10 +381,11 @@ const Index = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      disabled
+                      onClick={() => handlePlayAudio(rewrite.text, index)}
+                      disabled={playingAudio !== null && playingAudio !== index}
                     >
-                      <Volume2 className="mr-2 h-4 w-4" />
-                      Hear it
+                      <Volume2 className={`mr-2 h-4 w-4 ${playingAudio === index ? 'animate-pulse' : ''}`} />
+                      {playingAudio === index ? 'Playing...' : 'Hear it'}
                     </Button>
                     {!feedbackGiven[index] && (
                       <>

@@ -89,7 +89,7 @@ const About = () => {
         </Card>
 
         {/* Impact Language Method Diagram */}
-        <div className="mt-24">
+        <div className="mt-16">
           <ImpactMethodDiagram />
         </div>
 

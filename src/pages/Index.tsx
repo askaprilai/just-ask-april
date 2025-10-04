@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
-import aprilImage from "@/assets/april-sabral.png";
+import aprilImage from "@/assets/april-headshot.jpeg";
 
 interface Rewrite {
   text: string;
@@ -242,7 +242,9 @@ const Index = () => {
         <div className="text-center mb-12 animate-fade-in">
           {/* April's Image */}
           <div className="flex justify-center mb-6">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gradient-to-r from-secondary to-accent shadow-lg">
+            <div className={`w-32 h-32 rounded-full overflow-hidden border-4 border-secondary transition-all duration-300 ${
+              isListening ? 'shadow-[0_0_30px_10px_hsl(var(--secondary)/0.6)] scale-105' : 'shadow-lg'
+            }`}>
               <img 
                 src={aprilImage} 
                 alt="April Sabral"

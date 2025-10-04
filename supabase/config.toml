@@ -1,10 +1,10 @@
 project_id = "sjtgecslgpldlsycaazt"
 
 [functions.rewrite]
-verify_jwt = false
+verify_jwt = true
 
 [functions.feedback]
-verify_jwt = false
+verify_jwt = true
 
 [functions.impact-index]
 verify_jwt = false

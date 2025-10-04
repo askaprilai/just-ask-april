@@ -12,6 +12,29 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate user
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: "Authentication required" }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
+      return new Response(JSON.stringify({ error: "Invalid authentication" }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const { user_text, environment, outcome, desired_emotion, allow_infer = true } = await req.json();
     
     if (!user_text || user_text.trim().length === 0) {
@@ -137,6 +160,7 @@ ${!environment || !outcome || !desired_emotion ? 'Please infer missing labels.' 
     const { data: rewriteRecord, error: dbError } = await supabase
       .from('rewrites')
       .insert({
+        user_id: user.id,
         raw_text: user_text,
         environment: environment || null,
         outcome: outcome || null,

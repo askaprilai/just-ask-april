@@ -44,9 +44,8 @@ Be warm, encouraging, and insightful. Help them feel confident and prepared for 
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('OpenAI API error:', errorText);
-      throw new Error(`OpenAI API error: ${response.status} ${errorText}`);
+      console.error('OpenAI API error (status code only):', response.status);
+      throw new Error(`Failed to create realtime session`);
     }
 
     const data = await response.json();

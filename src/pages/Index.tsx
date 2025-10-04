@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { User } from "@supabase/supabase-js";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -47,15 +48,51 @@ const EMOTIONS = ["Heard", "Motivated", "Respected", "Accountable", "Reassured",
 const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [user, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [userText, setUserText] = useState("");
   const [environment, setEnvironment] = useState<string | null>(null);
   const [outcome, setOutcome] = useState<string | null>(null);
   const [emotion, setEmotion] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [rewriteLoading, setRewriteLoading] = useState(false);
   const [result, setResult] = useState<RewriteResponse | null>(null);
   const [feedbackGiven, setFeedbackGiven] = useState<Record<number, boolean>>({});
   const [playingAudio, setPlayingAudio] = useState<number | null>(null);
   const [isListening, setIsListening] = useState(false);
+
+  useEffect(() => {
+    // Check authentication
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate('/auth');
+        return;
+      }
+      setUser(session.user);
+      setAuthLoading(false);
+    };
+
+    checkAuth();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        navigate('/auth');
+      } else {
+        setUser(session.user);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: "Signed out",
+      description: "You've been signed out successfully",
+    });
+  };
 
   const handleRewrite = async () => {
     if (!userText.trim()) {
@@ -66,7 +103,7 @@ const Index = () => {
       return;
     }
 
-    setLoading(true);
+    setRewriteLoading(true);
     setResult(null);
     setFeedbackGiven({});
 
@@ -104,7 +141,7 @@ const Index = () => {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setRewriteLoading(false);
     }
   };
 
@@ -234,6 +271,17 @@ const Index = () => {
     calibration: "bg-[#5A67D8] text-white",
   };
 
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-secondary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background Gradient Orbs */}
@@ -254,7 +302,7 @@ const Index = () => {
           <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-4 md:mb-6 font-light px-2">Say it better. Get better results.</p>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-3 justify-center flex-wrap">
+          <div className="hidden md:flex gap-3 justify-center flex-wrap items-center">
             <Button variant="outline" size="sm" onClick={() => navigate('/about')} className="hover:scale-105 transition-transform">
               About April
             </Button>
@@ -267,6 +315,9 @@ const Index = () => {
             </Button>
             <Button variant="ghost" size="sm" onClick={() => navigate('/privacy')}>
               Privacy
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleSignOut} className="hover:scale-105 transition-transform">
+              Sign Out
             </Button>
           </div>
           
@@ -380,11 +431,11 @@ const Index = () => {
 
                 <Button 
                   onClick={handleRewrite} 
-                  disabled={loading || !userText.trim()}
+                  disabled={rewriteLoading || !userText.trim()}
                   className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105 h-12 md:h-14 text-sm md:text-base"
                   size="lg"
                 >
-                  {loading ? "April is thinking..." : "How do I say it better?"}
+                  {rewriteLoading ? "April is thinking..." : "How do I say it better?"}
                 </Button>
               </CardContent>
             </Card>

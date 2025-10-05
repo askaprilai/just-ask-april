@@ -2,9 +2,81 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useSubscription } from "@/contexts/SubscriptionContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 const Pricing = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const { subscribed, productId, loading, checkSubscription } = useSubscription();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
+  
+  const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
+  const isPro = subscribed && productId === PRO_PRODUCT_ID;
+
+  const handleCheckout = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to subscribe to Pro",
+        variant: "destructive",
+      });
+      navigate('/auth');
+      return;
+    }
+
+    setCheckoutLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-checkout');
+      
+      if (error) throw error;
+      
+      if (data?.url) {
+        window.open(data.url, '_blank');
+        
+        // Check subscription after a delay
+        setTimeout(() => {
+          checkSubscription();
+        }, 3000);
+      }
+    } catch (error: any) {
+      console.error('Checkout error:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create checkout session",
+        variant: "destructive",
+      });
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
+
+  const handleManageSubscription = async () => {
+    setPortalLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('customer-portal');
+      
+      if (error) throw error;
+      
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (error: any) {
+      console.error('Portal error:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to open customer portal",
+        variant: "destructive",
+      });
+    } finally {
+      setPortalLoading(false);
+    }
+  };
 
   const plans = [
     {
@@ -115,14 +187,47 @@ const Pricing = () => {
               </CardContent>
 
               <CardFooter className="px-4 md:px-6 pb-4 md:pb-6">
-                <Button 
-                  className="w-full h-11 md:h-10 text-sm md:text-base"
-                  variant={plan.highlighted ? "default" : "outline"}
-                  size="lg"
-                  onClick={() => navigate('/')}
-                >
-                  {plan.cta}
-                </Button>
+                {plan.name === "Pro" && isPro ? (
+                  <div className="w-full space-y-2">
+                    <div className="w-full h-11 md:h-10 flex items-center justify-center bg-gradient-to-r from-secondary/20 to-accent/20 rounded-md border border-secondary/30">
+                      <span className="text-sm md:text-base font-semibold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                        ✨ Your Current Plan
+                      </span>
+                    </div>
+                    <Button 
+                      className="w-full h-11 md:h-10 text-sm md:text-base"
+                      variant="outline"
+                      onClick={handleManageSubscription}
+                      disabled={portalLoading}
+                    >
+                      {portalLoading ? 'Loading...' : 'Manage Subscription'}
+                    </Button>
+                  </div>
+                ) : plan.name === "Pro" ? (
+                  <Button 
+                    className="w-full h-11 md:h-10 text-sm md:text-base bg-gradient-to-r from-secondary to-accent hover:opacity-90"
+                    onClick={handleCheckout}
+                    disabled={checkoutLoading}
+                  >
+                    {checkoutLoading ? 'Loading...' : plan.cta}
+                  </Button>
+                ) : plan.name === "Free" ? (
+                  <Button 
+                    className="w-full h-11 md:h-10 text-sm md:text-base"
+                    variant="outline"
+                    onClick={() => navigate('/')}
+                  >
+                    {plan.cta}
+                  </Button>
+                ) : (
+                  <Button 
+                    className="w-full h-11 md:h-10 text-sm md:text-base"
+                    variant="outline"
+                    onClick={() => window.open('mailto:support@justaskapril.com', '_blank')}
+                  >
+                    {plan.cta}
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}

@@ -14,6 +14,7 @@ import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
 import aprilImage from "@/assets/april-headshot.jpeg";
 import { MobileNav } from "@/components/MobileNav";
+import { useSubscription } from "@/contexts/SubscriptionContext";
 
 interface Rewrite {
   text: string;
@@ -49,6 +50,7 @@ const EMOTIONS = ["Heard", "Motivated", "Respected", "Accountable", "Reassured",
 const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { subscribed, dailyUsage, incrementUsage, canUseFeature, productId } = useSubscription();
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [userText, setUserText] = useState("");
@@ -60,11 +62,11 @@ const Index = () => {
   const [feedbackGiven, setFeedbackGiven] = useState<Record<number, boolean>>({});
   const [playingAudio, setPlayingAudio] = useState<number | null>(null);
   const [isListening, setIsListening] = useState(false);
-  const [usageCount, setUsageCount] = useState(0);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [showTryItNow, setShowTryItNow] = useState(false);
-  const FREE_USAGE_LIMIT = 5;
+  const FREE_USAGE_LIMIT = 10;
+  const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
 
   useEffect(() => {
     // Check authentication
@@ -80,12 +82,6 @@ const Index = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user || null);
     });
-
-    // Load usage count from localStorage for anonymous users
-    const savedCount = localStorage.getItem('anonymousUsageCount');
-    if (savedCount) {
-      setUsageCount(parseInt(savedCount, 10));
-    }
 
     return () => subscription.unsubscribe();
   }, [navigate]);
@@ -121,12 +117,10 @@ const Index = () => {
     // Hide the try it now badge when submitting
     setShowTryItNow(false);
 
-    // Check usage limit for anonymous users
-    if (!user) {
-      if (usageCount >= FREE_USAGE_LIMIT) {
-        setShowUpgradeDialog(true);
-        return;
-      }
+    // Check usage limit
+    if (!canUseFeature) {
+      setShowUpgradeDialog(true);
+      return;
     }
 
     setRewriteLoading(true);
@@ -159,12 +153,8 @@ const Index = () => {
         setEmotion(data.inferred.desired_emotion);
       }
 
-      // Increment usage count for anonymous users
-      if (!user) {
-        const newCount = usageCount + 1;
-        setUsageCount(newCount);
-        localStorage.setItem('anonymousUsageCount', newCount.toString());
-      }
+      // Increment usage count
+      incrementUsage();
 
     } catch (error: any) {
       console.error("Rewrite error:", error);
@@ -363,18 +353,32 @@ const Index = () => {
                 Sign Out
               </Button>
             )}
-            {!user && (
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">
-                  {usageCount}/{FREE_USAGE_LIMIT} free uses
-                </span>
-              </div>
-            )}
+            {user ? (
+              subscribed && productId === PRO_PRODUCT_ID ? (
+                <Badge className="bg-gradient-to-r from-secondary to-accent text-white">
+                  Pro Plan ✨
+                </Badge>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">
+                    {dailyUsage}/{FREE_USAGE_LIMIT} today
+                  </span>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => navigate('/pricing')}
+                    className="hover:scale-105 transition-transform"
+                  >
+                    Upgrade to Pro
+                  </Button>
+                </div>
+              )
+            ) : null}
           </div>
           
           {/* Mobile Navigation */}
           <div className="md:hidden flex justify-center">
-            <MobileNav user={user} usageCount={usageCount} freeLimit={FREE_USAGE_LIMIT} />
+            <MobileNav user={user} usageCount={dailyUsage} freeLimit={FREE_USAGE_LIMIT} />
           </div>
         </div>
 
@@ -698,14 +702,29 @@ const Index = () => {
       <Dialog open={showUpgradeDialog} onOpenChange={setShowUpgradeDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>You've used all 5 free fine-tunes! 🎉</DialogTitle>
+            <DialogTitle>
+              {!user ? "You've used all 10 free fine-tunes! 🎉" : "Daily Limit Reached 🎉"}
+            </DialogTitle>
             <DialogDescription className="space-y-3 pt-4">
-              <p>
-                Ready to keep improving your communication? Sign in to continue using Just Ask April.
-              </p>
-              <p className="text-sm">
-                Get unlimited fine-tunes, save your history, and unlock advanced features.
-              </p>
+              {!user ? (
+                <>
+                  <p>
+                    Ready to keep improving your communication? Sign in to get 10 fine-tunes per day.
+                  </p>
+                  <p className="text-sm">
+                    Or upgrade to Pro for unlimited fine-tunes, save your history, and unlock advanced features.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    You've reached your daily limit of {FREE_USAGE_LIMIT} fine-tunes.
+                  </p>
+                  <p className="text-sm">
+                    Upgrade to Pro for unlimited fine-tunes, advanced tone control, custom environments, and more!
+                  </p>
+                </>
+              )}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex-col sm:flex-row gap-2">
@@ -716,12 +735,21 @@ const Index = () => {
             >
               Maybe later
             </Button>
-            <Button
-              onClick={() => navigate('/auth')}
-              className="w-full sm:w-auto bg-gradient-to-r from-secondary to-accent"
-            >
-              Sign in to continue
-            </Button>
+            {!user ? (
+              <Button
+                onClick={() => navigate('/auth')}
+                className="w-full sm:w-auto bg-gradient-to-r from-secondary to-accent"
+              >
+                Sign in to continue
+              </Button>
+            ) : (
+              <Button
+                onClick={() => navigate('/pricing')}
+                className="w-full sm:w-auto bg-gradient-to-r from-secondary to-accent"
+              >
+                Upgrade to Pro
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

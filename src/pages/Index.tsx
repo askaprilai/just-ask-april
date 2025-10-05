@@ -103,7 +103,7 @@ const Index = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.05, rootMargin: '50px' }
     );
 
     if (tilesRef.current) {
@@ -512,7 +512,7 @@ const Index = () => {
             Ask April before you speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'} [animation-delay:0ms]`}>
+            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all duration-500 ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '0ms' }}>
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
                   <Building2 className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
@@ -529,7 +529,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'} [animation-delay:150ms]`}>
+            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all duration-500 ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '150ms' }}>
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
                   <Target className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
@@ -546,7 +546,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'} [animation-delay:300ms]`}>
+            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all duration-500 ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '300ms' }}>
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
                   <Smile className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />

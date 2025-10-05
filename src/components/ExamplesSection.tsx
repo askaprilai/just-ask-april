@@ -350,7 +350,7 @@ export const ExamplesSection = () => {
         </p>
         {!subscribed && (
           <p className="text-xs md:text-sm text-accent font-semibold">
-            ✨ Unlock all categories + practice with April in Pro
+            ✨ Upgrade to access unlimited Power Scripts + practice with April
           </p>
         )}
       </div>
@@ -451,7 +451,7 @@ export const ExamplesSection = () => {
               </div>
               <div className="space-y-1">
                 <p className="text-sm font-bold text-foreground">Upgrade to Pro</p>
-                <p className="text-xs text-muted-foreground">Access 35+ Impact Statements</p>
+                <p className="text-xs text-muted-foreground">Access Unlimited Power Scripts</p>
               </div>
             </div>
             <CardContent className="p-5 md:p-6 space-y-3 md:space-y-4 opacity-30">

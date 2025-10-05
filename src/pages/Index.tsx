@@ -384,8 +384,8 @@ const Index = () => {
       <div className="container max-w-5xl mx-auto px-4 py-6 md:py-12 relative">
         {/* Hero Section */}
         <div className="text-center mb-6 md:mb-12 animate-fade-in">
-          <div className="inline-block mb-2 md:mb-4 px-3 md:px-4 py-1 md:py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
-            <p className="text-[10px] md:text-sm font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+          <div className="inline-block mb-3 md:mb-6 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
+            <p className="text-base md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               The AI for Human Connection
             </p>
           </div>
@@ -393,8 +393,11 @@ const Index = () => {
             Just Ask April
           </h1>
           <p className="text-base sm:text-lg md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
-          <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4 px-4">
+          <p className="text-sm md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
             Grammarly fixes your grammar. April fixes your impact.
+          </p>
+          <p className="text-xs md:text-sm italic text-gray-600 mb-3 md:mb-4 px-4 font-medium">
+            If in doubt, just ask April
           </p>
           
           {/* Quick Benefits */}

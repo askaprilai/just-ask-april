@@ -7,8 +7,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon, AlertCircle, RefreshCw } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon, AlertCircle, RefreshCw, Shield, Users, Award, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -675,6 +676,75 @@ const Index = () => {
                     <p className="text-sm md:text-base text-muted-foreground">Rehearse difficult conversations with AI feedback before the real thing.</p>
                   </div>
                 </div>
+              </section>
+            )}
+
+            {/* FAQ Section */}
+            {!result && !rewriteLoading && (
+              <section className="mt-12 md:mt-16 space-y-6">
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Frequently Asked Questions</h3>
+                <Accordion type="single" collapsible className="w-full space-y-4">
+                  <AccordionItem value="item-1" className="border border-border rounded-lg px-6">
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      <span className="font-semibold">How does April help me communicate better?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      April uses the proven Impact Language Method™ to transform your messages into clear, confident communication. Simply type what you want to say, and April provides 3 professionally crafted alternatives tailored to your situation, tone, and desired outcome.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-2" className="border border-border rounded-lg px-6">
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      <span className="font-semibold">Is my information private and secure?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      Absolutely. Your messages are processed securely and never shared with third parties. We use enterprise-grade encryption to protect your data, and you can delete your history at any time.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-3" className="border border-border rounded-lg px-6">
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      <span className="font-semibold">What's included in the free version?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      The free version includes 10 Impact Statement rewrites per month across all categories. It's perfect for trying out April and handling occasional communication needs.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-4" className="border border-border rounded-lg px-6">
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      <span className="font-semibold">Can I cancel my Pro subscription anytime?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      Yes! Pro subscriptions are $20/month with no long-term commitment. Cancel anytime from your account settings, and you'll retain access until the end of your billing period.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-5" className="border border-border rounded-lg px-6">
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      <span className="font-semibold">What makes April different from other AI writing tools?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      April is specifically designed for communication, not general content writing. It's built on 20+ years of professional communication expertise and the Impact Language Method™, focusing on real-world conversations, emails, and messages that need to land just right.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+
+                {/* Final CTA */}
+                <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-secondary/20 mt-8">
+                  <CardContent className="p-6 md:p-8 text-center">
+                    <h4 className="text-xl md:text-2xl font-bold mb-3">Ready to communicate with confidence?</h4>
+                    <p className="text-muted-foreground mb-6">Join thousands who've transformed their communication with April</p>
+                    <Button 
+                      size="lg" 
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white gap-2"
+                    >
+                      Get Started Free
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
               </section>
             )}
           </TabsContent>

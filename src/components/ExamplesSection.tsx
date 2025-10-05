@@ -27,7 +27,7 @@ export const ExamplesSection = () => {
     <div className="mb-8 md:mb-16 animate-fade-in">
       <div className="text-center mb-6 md:mb-8 px-4">
         <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-          How Do I Say It?
+          When in doubt, just ask April
         </h2>
         <p className="text-muted-foreground text-sm md:text-lg leading-relaxed">
           Grammarly fixes your grammar. April fixes your impact.

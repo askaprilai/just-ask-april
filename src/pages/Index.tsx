@@ -412,7 +412,7 @@ const Index = () => {
               <div className="relative animate-scale-in">
                 <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl">
                   <Textarea
-                    placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
+                    placeholder="What do you want to say? Let April audit your communication and show you how it could land better."
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
                     className="min-h-[140px] md:min-h-[120px] text-sm md:text-base leading-relaxed border-0 rounded-2xl pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"

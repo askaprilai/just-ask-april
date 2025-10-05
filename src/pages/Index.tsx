@@ -385,7 +385,7 @@ const Index = () => {
         {/* Hero Section */}
         <div className="text-center mb-6 md:mb-12 animate-fade-in">
           <div className="inline-block mb-3 md:mb-6 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
-            <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-teal-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               The AI for Human Connection
             </p>
           </div>

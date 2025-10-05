@@ -114,22 +114,39 @@ const Index = () => {
       return;
     }
 
-    // Check if user is authenticated
+    // Handle free tries for non-authenticated users
     if (!user) {
-      toast({
-        title: "Sign up to continue",
-        description: "Create a free account to use April's rewriting features",
-        variant: "destructive",
-      });
-      navigate('/auth');
-      return;
+      const freeTriesKey = 'april_free_tries';
+      const triesUsed = parseInt(localStorage.getItem(freeTriesKey) || '0');
+      
+      if (triesUsed >= 3) {
+        toast({
+          title: "Free tries used up",
+          description: "Create a free account to continue using April's rewriting features",
+          variant: "destructive",
+        });
+        navigate('/auth');
+        return;
+      }
+      
+      // Increment free tries counter
+      localStorage.setItem(freeTriesKey, String(triesUsed + 1));
+      
+      // Show remaining tries
+      const remaining = 2 - triesUsed;
+      if (remaining > 0) {
+        toast({
+          title: `${remaining} free ${remaining === 1 ? 'try' : 'tries'} remaining`,
+          description: "Sign up for unlimited access",
+        });
+      }
     }
 
     // Hide the try it now badge when submitting
     setShowTryItNow(false);
 
-    // Check usage limit
-    if (!canUseFeature) {
+    // Check usage limit for authenticated users
+    if (user && !canUseFeature) {
       setShowUpgradeDialog(true);
       return;
     }

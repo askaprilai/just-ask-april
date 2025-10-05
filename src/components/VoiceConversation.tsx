@@ -10,7 +10,7 @@ import { useConversation } from '@11labs/react';
 import { supabase } from '@/integrations/supabase/client';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-const ELEVENLABS_VOICE_ID = 'R1M2aBZZBJ0AxyyGW8R2';
+const ELEVENLABS_AGENT_ID = '1KtMKr5khbNAxBQoRs3X';
 
 const VoiceConversation = () => {
   const { toast } = useToast();
@@ -64,7 +64,7 @@ const VoiceConversation = () => {
       
       // Get signed URL from our edge function
       const { data, error } = await supabase.functions.invoke('elevenlabs-signed-url', {
-        body: { agentId: ELEVENLABS_VOICE_ID }
+        body: { agentId: ELEVENLABS_AGENT_ID }
       });
 
       if (error) throw error;

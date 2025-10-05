@@ -341,7 +341,7 @@ const Index = () => {
       <div className="absolute bottom-0 left-0 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
       
       <div className="container max-w-5xl mx-auto px-4 py-6 md:py-12 relative">
-        {/* Header */}
+        {/* Hero Section */}
         <div className="text-center mb-6 md:mb-12 animate-fade-in">
           <div className="inline-block mb-2 md:mb-4 px-3 md:px-4 py-1 md:py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-[10px] md:text-sm font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
@@ -352,9 +352,25 @@ const Index = () => {
             Just Ask April
           </h1>
           <p className="text-base sm:text-lg md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
-          <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 px-4">
+          <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4 px-4">
             Grammarly fixes your grammar. April fixes your impact.
           </p>
+          
+          {/* Quick Benefits */}
+          <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-4 md:mb-6 px-4">
+            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+              <div className="w-2 h-2 bg-secondary rounded-full" />
+              <span>3 free tries - no signup</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+              <div className="w-2 h-2 bg-secondary rounded-full" />
+              <span>10 free daily rewrites</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+              <div className="w-2 h-2 bg-accent rounded-full" />
+              <span>Unlimited with Pro</span>
+            </div>
+          </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-3 justify-center flex-wrap items-center">
@@ -579,6 +595,75 @@ const Index = () => {
 
             {/* Examples Section - Now below the input */}
             {!result && <ExamplesSection />}
+
+            {/* Social Proof Section */}
+            {!result && (
+              <section className="mt-12 md:mt-16 space-y-6">
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Why People Love April</h3>
+                <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
+                    <div className="flex gap-1 mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className="text-secondary text-sm">★</span>
+                      ))}
+                    </div>
+                    <p className="text-sm md:text-base text-muted-foreground mb-3">"This changed how I communicate at work. My messages are clearer and get better responses."</p>
+                    <p className="text-xs md:text-sm font-medium text-foreground">— Sarah M., Product Manager</p>
+                  </div>
+                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
+                    <div className="flex gap-1 mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className="text-secondary text-sm">★</span>
+                      ))}
+                    </div>
+                    <p className="text-sm md:text-base text-muted-foreground mb-3">"Finally, a tool that actually helps me say what I mean without sounding harsh or unclear."</p>
+                    <p className="text-xs md:text-sm font-medium text-foreground">— James L., Team Lead</p>
+                  </div>
+                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
+                    <div className="flex gap-1 mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className="text-secondary text-sm">★</span>
+                      ))}
+                    </div>
+                    <p className="text-sm md:text-base text-muted-foreground mb-3">"The voice practice feature helped me prepare for difficult conversations. Game changer!"</p>
+                    <p className="text-xs md:text-sm font-medium text-foreground">— Maria K., Sales Director</p>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Benefits Section */}
+            {!result && (
+              <section className="mt-12 md:mt-16 space-y-6">
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h3>
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
+                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
+                      <span className="text-xl">🎯</span> Impact Language Method™
+                    </h4>
+                    <p className="text-sm md:text-base text-muted-foreground">Based on 5 core communication pillars that drive real results in professional and personal settings.</p>
+                  </div>
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
+                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
+                      <span className="text-xl">💡</span> Context-Aware Suggestions
+                    </h4>
+                    <p className="text-sm md:text-base text-muted-foreground">Get rewrites tailored to your specific situation, desired outcome, and emotional tone.</p>
+                  </div>
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
+                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
+                      <span className="text-xl">⚡</span> Instant Results
+                    </h4>
+                    <p className="text-sm md:text-base text-muted-foreground">No more staring at blank screens. Get 3 professional alternatives in seconds.</p>
+                  </div>
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
+                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
+                      <span className="text-xl">🎤</span> Practice Mode
+                    </h4>
+                    <p className="text-sm md:text-base text-muted-foreground">Rehearse difficult conversations with AI feedback before the real thing.</p>
+                  </div>
+                </div>
+              </section>
+            )}
           </TabsContent>
 
           {/* Voice Practice Tab */}
@@ -716,19 +801,52 @@ const Index = () => {
         )}
 
         {/* Footer */}
-        <footer className="text-center mt-12 md:mt-16 py-6 md:py-8 border-t border-secondary/20">
-          <p className="text-base md:text-lg font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent px-4">
-            When in doubt, just ask April
-          </p>
-          <div className="mt-3 md:mt-4">
-            <a 
-              href="https://aprilsabral.newzenler.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs md:text-sm text-muted-foreground hover:text-primary transition-colors underline"
-            >
-              Access April's Learning Hub - Online Courses
-            </a>
+        <footer className="mt-12 md:mt-20 py-8 md:py-12 border-t border-border/40 bg-muted/20">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="text-center mb-6 md:mb-8">
+              <p className="text-lg md:text-xl font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent mb-2">
+                When in doubt, just ask April
+              </p>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Professional communication coaching powered by AI
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
+              <div>
+                <h4 className="font-semibold text-sm mb-3">Product</h4>
+                <div className="space-y-2">
+                  <button onClick={() => navigate('/about')} className="block text-sm text-muted-foreground hover:text-foreground transition-colors">About April</button>
+                  <button onClick={() => navigate('/pricing')} className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</button>
+                  <button onClick={() => navigate('/stats')} className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Impact Index</button>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-sm mb-3">Legal</h4>
+                <div className="space-y-2">
+                  <button onClick={() => navigate('/privacy')} className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</button>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-sm mb-3">Learn More</h4>
+                <div className="space-y-2">
+                  <a 
+                    href="https://aprilsabral.newzenler.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Online Courses
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div className="text-center pt-6 border-t border-border/40">
+              <p className="text-xs text-muted-foreground">
+                © 2025 Just Ask April. All rights reserved.
+              </p>
+            </div>
           </div>
         </footer>
       </div>

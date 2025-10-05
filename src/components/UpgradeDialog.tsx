@@ -28,7 +28,7 @@ export const UpgradeDialog = ({ open, onOpenChange, feature = "unlimited Impact 
         description: "Please sign in to upgrade to Pro",
         variant: "destructive",
       });
-      navigate('/auth');
+      navigate('/auth?redirect=checkout');
       onOpenChange(false);
       return;
     }

@@ -368,9 +368,6 @@ const Index = () => {
 
           {/* Text Rewrite Tab */}
           <TabsContent value="text" className="space-y-4 md:space-y-8">
-            {/* Examples Section */}
-            {!result && <ExamplesSection />}
-
             {/* Input Section with Heading */}
             <div className="space-y-3">
               <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
@@ -390,42 +387,42 @@ const Index = () => {
                       }
                     }}
                   />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground">
-                    {userText.length}/1500
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      type="button"
-                      size="icon"
-                      variant="ghost"
-                      onClick={handleVoiceInput}
-                      disabled={isListening}
-                      className="h-9 w-9 hover:bg-muted"
-                      title="Voice input"
-                    >
-                      <Mic className={`h-4 w-4 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
-                    </Button>
-                    <Button 
-                      onClick={handleRewrite} 
-                      disabled={rewriteLoading || !userText.trim()}
-                      size="icon"
-                      className="h-9 w-9 bg-foreground hover:bg-foreground/90 text-background rounded-lg"
-                      title="Send (⌘/Ctrl + Enter)"
-                    >
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                {isListening && (
-                  <div className="absolute top-3 right-3">
-                    <span className="text-xs text-destructive animate-pulse font-medium">
-                      Listening...
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      {userText.length}/1500
                     </span>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        onClick={handleVoiceInput}
+                        disabled={isListening}
+                        className="h-9 w-9 hover:bg-muted"
+                        title="Voice input"
+                      >
+                        <Mic className={`h-4 w-4 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
+                      </Button>
+                      <Button 
+                        onClick={handleRewrite} 
+                        disabled={rewriteLoading || !userText.trim()}
+                        size="icon"
+                        className="h-9 w-9 bg-foreground hover:bg-foreground/90 text-background rounded-lg"
+                        title="Send (⌘/Ctrl + Enter)"
+                      >
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
-                )}
+                  {isListening && (
+                    <div className="absolute top-3 right-3">
+                      <span className="text-xs text-destructive animate-pulse font-medium">
+                        Listening...
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
               {/* Label Chips */}
               <Card className="mt-4 shadow-sm">
@@ -482,6 +479,9 @@ const Index = () => {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Examples Section - Now below the input */}
+            {!result && <ExamplesSection />}
           </TabsContent>
 
           {/* Voice Practice Tab */}

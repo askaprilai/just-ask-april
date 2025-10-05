@@ -20,39 +20,6 @@ const About = () => {
           Back to Home
         </Button>
 
-        <div className="text-center mb-8 md:mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent px-2">
-            Meet April Sabral
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-light italic px-2">
-            When in doubt, just ask April
-          </p>
-        </div>
-
-        {/* April's Photo Section */}
-        <Card className="shadow-xl border-secondary/20 mb-16 md:mb-24 overflow-hidden">
-          <CardContent className="pt-6 md:pt-8 pb-6 md:pb-8 px-4 md:px-6">
-            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-              <div className="flex-1 max-w-md mx-auto w-full">
-                <img 
-                  src={aprilImage} 
-                  alt="April Sabral - 30+ years experience in communication and leadership"
-                  className="w-full h-auto animate-fade-in rounded-lg"
-                />
-              </div>
-              <div className="flex-1 text-center md:text-left">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                  It's like having April Sabral in your pocket
-                </h2>
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  30+ years of communication expertise, available whenever you need it. 
-                  Get instant guidance on what to say and how to say it—right from your device.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Impact Language Method Section */}
         <div className="mb-16 md:mb-24">
           <div className="text-center mb-8 md:mb-12">
@@ -98,6 +65,30 @@ const About = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* April's Photo Section */}
+        <Card className="shadow-xl border-secondary/20 overflow-hidden">
+          <CardContent className="pt-6 md:pt-8 pb-6 md:pb-8 px-4 md:px-6">
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+              <div className="flex-1 max-w-md mx-auto w-full">
+                <img 
+                  src={aprilImage} 
+                  alt="April Sabral - 30+ years experience in communication and leadership"
+                className="w-full h-auto animate-fade-in rounded-lg"
+                />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                  It's like having April Sabral in your pocket
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  30+ years of communication expertise, available whenever you need it. 
+                  Get instant guidance on what to say and how to say it—right from your device.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

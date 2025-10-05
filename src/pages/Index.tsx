@@ -386,15 +386,15 @@ const Index = () => {
         <div className="text-center mb-6 md:mb-12 animate-fade-in">
           <div className="inline-block mb-3 md:mb-6 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-              The AI for Human Connection
+              When You Don't Know What to Say
             </p>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             Just Ask April: Your AI Communication Playbook & Role-Play
           </h1>
-          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
+          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Master the art of conversation with AI-powered playbooks and role-play practice</p>
           <p className="text-base md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
-            Grammarly fixes your grammar. April fixes your impact.
+            Get instant rewrites for difficult conversations. Practice before they happen.
           </p>
           
           {/* Quick Benefits */}

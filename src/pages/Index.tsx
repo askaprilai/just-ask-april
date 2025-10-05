@@ -392,9 +392,9 @@ const Index = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             Just Ask April: Your AI Communication Playbook & Role-Play
           </h1>
-          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Master the art of conversation with AI-powered playbooks and role-play practice</p>
+          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Drive positive outcomes with your words</p>
           <p className="text-base md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
-            Get instant rewrites for difficult conversations. Practice before they happen.
+            Grammarly fixes your grammar. April fixes your impact.
           </p>
           
           {/* Quick Benefits */}

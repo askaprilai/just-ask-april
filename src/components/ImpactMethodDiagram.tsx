@@ -45,23 +45,23 @@ const ImpactMethodDiagram = () => {
   ];
 
   return (
-    <div className="relative w-full mx-auto px-4 overflow-x-hidden">
-      <div className="relative w-full max-w-4xl mx-auto flex items-center justify-center min-h-[550px] sm:min-h-[650px] md:min-h-[700px] py-8">
+    <div className="relative w-full mx-auto px-2 sm:px-4 overflow-hidden">
+      <div className="relative w-full max-w-4xl mx-auto flex items-center justify-center min-h-[500px] sm:min-h-[600px] md:min-h-[700px] py-8">
         {/* Central Circle */}
-        <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px] rounded-full border-4 border-[#FDB900] bg-background shadow-2xl flex flex-col items-center justify-center z-10 animate-scale-in">
-          <h3 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-center mb-1 md:mb-2 px-2">
+        <div className="relative w-[140px] h-[140px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px] rounded-full border-4 border-[#FDB900] bg-background shadow-2xl flex flex-col items-center justify-center z-10 animate-scale-in">
+          <h3 className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold text-center mb-1 md:mb-2 px-2">
             THE IMPACT<br />
             LANGUAGE<br />
             METHOD™
           </h3>
-          <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-center text-muted-foreground font-medium px-2">
+          <p className="text-[8px] sm:text-xs md:text-sm lg:text-base text-center text-muted-foreground font-medium px-2">
             Say it Better.<br />
             Get Better Results.
           </p>
         </div>
 
         {/* Circular Container for Pillars */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] sm:w-[550px] sm:h-[550px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[550px] sm:h-[550px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] pointer-events-none">
           {/* Circle Path (visual guide) */}
           <svg className="absolute inset-0 w-full h-full -z-10" viewBox="0 0 700 700">
             <circle
@@ -94,14 +94,14 @@ const ImpactMethodDiagram = () => {
                   animationDelay: `${index * 150}ms`
                 }}
               >
-                <div className="flex flex-col items-center text-center max-w-[90px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[140px]">
+                <div className="flex flex-col items-center text-center max-w-[70px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[140px]">
                   {/* Icon Circle */}
-                  <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full ${pillar.color} flex items-center justify-center mb-2 md:mb-3 shadow-lg hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white" strokeWidth={2} />
+                  <div className={`w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full ${pillar.color} flex items-center justify-center mb-1 sm:mb-2 md:mb-3 shadow-lg hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="w-5 h-5 sm:w-7 sm:h-7 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white" strokeWidth={2} />
                   </div>
                   
                   {/* Title */}
-                  <h4 className={`text-xs sm:text-sm md:text-base lg:text-lg font-bold mb-1 ${
+                  <h4 className={`text-[10px] sm:text-sm md:text-base lg:text-lg font-bold mb-0.5 sm:mb-1 ${
                     pillar.id === 'intent' ? 'text-[#0A3D62]' :
                     pillar.id === 'message' ? 'text-[#00B3A4]' :
                     pillar.id === 'position' ? 'text-[#E77F00]' :
@@ -112,7 +112,7 @@ const ImpactMethodDiagram = () => {
                   </h4>
                   
                   {/* Subtitle */}
-                  <p className="text-[9px] sm:text-[10px] md:text-xs lg:text-sm text-muted-foreground leading-tight">
+                  <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm text-muted-foreground leading-tight">
                     {pillar.subtitle}
                   </p>
                 </div>

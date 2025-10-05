@@ -63,6 +63,7 @@ const Index = () => {
   const [usageCount, setUsageCount] = useState(0);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+  const [showTryItNow, setShowTryItNow] = useState(false);
   const FREE_USAGE_LIMIT = 5;
 
   useEffect(() => {
@@ -99,11 +100,12 @@ const Index = () => {
 
   const handleExampleClick = (text: string) => {
     setUserText(text);
+    setShowTryItNow(true);
     // Scroll to input field smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
     toast({
       title: "Example loaded",
-      description: "Try it now to see April's suggestions",
+      description: "Click the arrow to see April's suggestions",
     });
   };
 
@@ -115,6 +117,9 @@ const Index = () => {
       });
       return;
     }
+
+    // Hide the try it now badge when submitting
+    setShowTryItNow(false);
 
     // Check usage limit for anonymous users
     if (!user) {
@@ -412,6 +417,11 @@ const Index = () => {
                       {userText.length}/1500
                     </span>
                     <div className="flex items-center gap-2">
+                      {showTryItNow && (
+                        <Badge className="bg-secondary text-white animate-fade-in animate-pulse shadow-lg">
+                          Try it now →
+                        </Badge>
+                      )}
                       <Button
                         type="button"
                         size="icon"
@@ -427,7 +437,7 @@ const Index = () => {
                         onClick={handleRewrite} 
                         disabled={rewriteLoading || !userText.trim()}
                         size="icon"
-                        className="h-9 w-9 bg-foreground hover:bg-foreground/90 text-background rounded-lg"
+                        className={`h-9 w-9 bg-foreground hover:bg-foreground/90 text-background rounded-lg ${showTryItNow ? 'ring-2 ring-secondary ring-offset-2' : ''}`}
                         title="Send (⌘/Ctrl + Enter)"
                       >
                         <ArrowRight className="h-4 w-4" />

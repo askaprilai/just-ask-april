@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import Stripe from "https://esm.sh/stripe@18.5.0";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -33,6 +34,55 @@ serve(async (req) => {
         status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
+    }
+
+    // Check subscription status and enforce limits
+    const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", { 
+      apiVersion: "2025-08-27.basil" 
+    });
+    
+    const customers = await stripe.customers.list({ email: user.email!, limit: 1 });
+    let isPro = false;
+    
+    if (customers.data.length > 0) {
+      const subscriptions = await stripe.subscriptions.list({
+        customer: customers.data[0].id,
+        status: "active",
+        limit: 1,
+      });
+      isPro = subscriptions.data.length > 0;
+    }
+
+    // Check daily usage for free users
+    if (!isPro) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const { count, error: countError } = await supabaseClient
+        .from("rewrites")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .gte("created_at", today.toISOString());
+
+      if (countError) {
+        console.error("Error checking daily usage:", countError);
+      }
+
+      const dailyLimit = 5;
+      if (count !== null && count >= dailyLimit) {
+        return new Response(
+          JSON.stringify({ 
+            error: "daily_limit_reached",
+            message: `You've reached your daily limit of ${dailyLimit} rewrites. Upgrade to Pro for unlimited rewrites!`,
+            limit: dailyLimit,
+            used: count
+          }),
+          {
+            status: 429,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          }
+        );
+      }
     }
 
     const { user_text, environment, outcome, desired_emotion, allow_infer = true } = await req.json();

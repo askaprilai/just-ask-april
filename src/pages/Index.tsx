@@ -201,12 +201,28 @@ const Index = () => {
     } catch (error: any) {
       console.error("Rewrite error:", error);
       const errorMessage = error.message || "Failed to generate rewrites";
-      setErrorState(errorMessage);
-      toast({
-        title: "Something went wrong",
-        description: "We couldn't process your request. Please try again.",
-        variant: "destructive",
-      });
+      
+      // Check if it's a daily limit error
+      if (errorMessage.includes('daily_limit_reached') || errorMessage.includes('daily limit')) {
+        setErrorState("Daily limit reached");
+        toast({
+          title: "Daily Limit Reached",
+          description: "You've used all 5 free rewrites today. Upgrade to Pro for unlimited rewrites!",
+          variant: "destructive",
+          action: (
+            <Button onClick={() => navigate('/pricing')} variant="outline" size="sm">
+              Upgrade Now
+            </Button>
+          ),
+        });
+      } else {
+        setErrorState(errorMessage);
+        toast({
+          title: "Something went wrong",
+          description: "We couldn't process your request. Please try again.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setRewriteLoading(false);
     }

@@ -100,8 +100,8 @@ export const ExamplesSection = () => {
               </div>
 
               <div className="space-y-3">
-                <div className="p-3 bg-destructive/10 border-2 border-destructive/30 rounded-lg transform transition-all duration-200">
-                  <p className="text-[10px] md:text-xs font-bold text-destructive mb-1.5 uppercase tracking-wide">Before</p>
+                <div className="p-3 bg-muted/50 border-2 border-border rounded-lg transform transition-all duration-200">
+                  <p className="text-[10px] md:text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wide">Before</p>
                   <p className="text-xs md:text-sm text-foreground/80 italic leading-relaxed font-medium">&ldquo;{example.before}&rdquo;</p>
                 </div>
 

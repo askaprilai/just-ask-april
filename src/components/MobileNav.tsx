@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, BarChart3 } from "lucide-react";
+import { Menu, BarChart3, History } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
@@ -74,6 +74,16 @@ export const MobileNav = ({ user, usageCount = 0, freeLimit = 5 }: MobileNavProp
             <BarChart3 className="mr-2 h-5 w-5" />
             Impact Index
           </Button>
+          {user && (
+            <Button 
+              variant="ghost" 
+              className="w-full justify-start text-lg h-12"
+              onClick={() => handleNavigate('/history')}
+            >
+              <History className="mr-2 h-5 w-5" />
+              History
+            </Button>
+          )}
           <Button 
             variant="ghost" 
             className="w-full justify-start text-lg h-12"

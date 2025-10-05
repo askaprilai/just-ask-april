@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -331,6 +331,12 @@ const Index = () => {
               <BarChart3 className="mr-2 h-4 w-4" />
               Impact Index
             </Button>
+            {user && (
+              <Button variant="outline" size="sm" onClick={() => navigate('/history')} className="hover:scale-105 transition-transform">
+                <HistoryIcon className="mr-2 h-4 w-4" />
+                History
+              </Button>
+            )}
             <Button variant="ghost" size="sm" onClick={() => navigate('/privacy')}>
               Privacy
             </Button>

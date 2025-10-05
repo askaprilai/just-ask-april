@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MousePointerClick } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const EXAMPLES = [
   {
@@ -22,22 +23,38 @@ const EXAMPLES = [
   },
 ];
 
-export const ExamplesSection = () => {
+interface ExamplesSectionProps {
+  onExampleClick?: (text: string) => void;
+}
+
+export const ExamplesSection = ({ onExampleClick }: ExamplesSectionProps) => {
   return (
     <div className="mb-8 md:mb-16 animate-fade-in">
       <div className="text-center mb-6 md:mb-8 px-4">
         <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
           When in doubt, just ask April
         </h2>
+        <p className="text-xs md:text-sm text-muted-foreground">
+          Click any example to try it yourself
+        </p>
       </div>
 
       <div className="grid gap-4 md:gap-6 md:grid-cols-3">
         {EXAMPLES.map((example, index) => (
           <Card 
             key={index} 
-            className="overflow-hidden border-secondary/20 hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.3)] transition-all duration-300 md:hover:scale-105 animate-fade-in hover:border-secondary/40"
+            onClick={() => onExampleClick?.(example.before)}
+            className="group relative overflow-hidden border-secondary/20 hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.3)] transition-all duration-300 md:hover:scale-105 animate-fade-in hover:border-secondary/40 cursor-pointer active:scale-[0.98]"
             style={{ animationDelay: `${index * 150}ms` }}
           >
+            {/* Try This Badge - appears on hover */}
+            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+              <Badge className="bg-secondary text-white shadow-lg">
+                <MousePointerClick className="h-3 w-3 mr-1" />
+                Try this
+              </Badge>
+            </div>
+            
             <CardContent className="p-5 md:p-6 space-y-3 md:space-y-4">
               <div className="inline-block px-2.5 md:px-3 py-1 bg-secondary/20 rounded-full border border-secondary/30">
                 <p className="text-[10px] md:text-xs font-bold text-secondary uppercase tracking-wide">

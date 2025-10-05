@@ -97,6 +97,16 @@ const Index = () => {
     });
   };
 
+  const handleExampleClick = (text: string) => {
+    setUserText(text);
+    // Scroll to input field smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast({
+      title: "Example loaded",
+      description: "Try it now to see April's suggestions",
+    });
+  };
+
   const handleRewrite = async () => {
     if (!userText.trim()) {
       toast({
@@ -519,7 +529,7 @@ const Index = () => {
             </div>
 
             {/* Examples Section - Now below the input */}
-            {!result && <ExamplesSection />}
+            {!result && <ExamplesSection onExampleClick={handleExampleClick} />}
           </TabsContent>
 
           {/* Voice Practice Tab */}

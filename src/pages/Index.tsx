@@ -652,7 +652,7 @@ const Index = () => {
           {/* Text Rewrite Tab */}
           <TabsContent value="text" className="space-y-4 md:space-y-8">
             {/* Input Section with Heading */}
-            <div className="space-y-3">
+            <div className="space-y-3 mt-8 md:mt-12">
               <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
                 How do I say it better?
               </h2>

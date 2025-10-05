@@ -29,9 +29,6 @@ export const ExamplesSection = () => {
         <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
           When in doubt, just ask April
         </h2>
-        <p className="text-muted-foreground text-sm md:text-lg leading-relaxed">
-          Grammarly fixes your grammar. April fixes your impact.
-        </p>
       </div>
 
       <div className="grid gap-4 md:gap-6 md:grid-cols-3">

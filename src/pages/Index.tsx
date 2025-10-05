@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { Textarea } from "@/components/ui/textarea";
@@ -71,6 +71,8 @@ const Index = () => {
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [showTryItNow, setShowTryItNow] = useState(false);
   const [errorState, setErrorState] = useState<string | null>(null);
+  const [tilesVisible, setTilesVisible] = useState(false);
+  const tilesRef = useRef<HTMLDivElement>(null);
   const FREE_USAGE_LIMIT = 10;
   const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
 
@@ -91,6 +93,29 @@ const Index = () => {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTilesVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (tilesRef.current) {
+      observer.observe(tilesRef.current);
+    }
+
+    return () => {
+      if (tilesRef.current) {
+        observer.unobserve(tilesRef.current);
+      }
+    };
+  }, []);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -482,12 +507,12 @@ const Index = () => {
         </div>
 
         {/* Before You Speak - Problem Statement */}
-        <div className="mb-8 md:mb-12 animate-fade-in">
+        <div ref={tilesRef} className="mb-8 md:mb-12 animate-fade-in">
           <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
             Ask April before you speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
+            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'} [animation-delay:0ms]`}>
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
                   <Building2 className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
@@ -504,7 +529,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
+            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'} [animation-delay:150ms]`}>
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
                   <Target className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
@@ -521,7 +546,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
+            <Card className={`border-teal-700/20 hover:border-teal-700/40 transition-all ${tilesVisible ? 'animate-slide-up opacity-100' : 'opacity-0 translate-y-8'} [animation-delay:300ms]`}>
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
                   <Smile className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />

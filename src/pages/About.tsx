@@ -38,7 +38,7 @@ const About = () => {
                   Every message we send creates an outcome. The Impact Language Method™ brings structure and science to how you communicate — helping you move from reaction to intentional, positive influence.
                 </p>
                 <p className="text-base md:text-lg leading-relaxed">
-                  Built on behavioral psychology and communication science, this method helps leaders, teams, managers, executives and humans express themselves clearly, confidently, and with purpose.
+                  Built on behavioral psychology and communication science, this method helps leaders, teams, managers, executives and humans express themselves clearly, confidently, and with purpose. Because we all have a role to play and that role requires connected communication that influences outcomes positively—most issues can always be tracked back to a lack of communication.
                 </p>
               </div>
             </CardContent>

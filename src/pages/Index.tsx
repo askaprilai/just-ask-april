@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -372,40 +372,59 @@ const Index = () => {
             {!result && <ExamplesSection />}
 
             {/* Input Section */}
-            <Card className="shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
-              <CardContent className="pt-5 md:pt-6 px-3 md:px-6">
-                <div className="relative">
-                  <Textarea
-                    placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
-                    value={userText}
-                    onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-                    className="min-h-[120px] md:min-h-[120px] mb-2 text-sm md:text-base pr-12 md:pr-14 leading-relaxed"
-                  />
-                  <Button
-                    type="button"
-                    size="icon"
-                    variant="ghost"
-                    onClick={handleVoiceInput}
-                    disabled={isListening}
-                    className="absolute right-2 top-2 hover:bg-secondary/20 h-10 w-10 md:h-11 md:w-11"
-                    title="Voice input"
-                  >
-                    <Mic className={`h-4 w-4 md:h-5 md:w-5 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
-                  </Button>
-                </div>
-                <div className="flex justify-between items-center mb-3 md:mb-4">
-                  <span className="text-xs md:text-sm text-muted-foreground">
-                    {userText.length}/1500 characters
+            <div className="relative animate-scale-in">
+              <div className="relative rounded-2xl border border-border bg-background shadow-lg">
+                <Textarea
+                  placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
+                  value={userText}
+                  onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
+                  className="min-h-[140px] md:min-h-[120px] text-sm md:text-base leading-relaxed border-0 rounded-2xl pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && userText.trim()) {
+                      handleRewrite();
+                    }
+                  }}
+                />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">
+                    {userText.length}/1500
                   </span>
-                  {isListening && (
-                    <span className="text-xs md:text-sm text-destructive animate-pulse">
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      size="icon"
+                      variant="ghost"
+                      onClick={handleVoiceInput}
+                      disabled={isListening}
+                      className="h-9 w-9 hover:bg-muted"
+                      title="Voice input"
+                    >
+                      <Mic className={`h-4 w-4 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
+                    </Button>
+                    <Button 
+                      onClick={handleRewrite} 
+                      disabled={rewriteLoading || !userText.trim()}
+                      size="icon"
+                      className="h-9 w-9 bg-foreground hover:bg-foreground/90 text-background rounded-lg"
+                      title="Send (⌘/Ctrl + Enter)"
+                    >
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                {isListening && (
+                  <div className="absolute top-3 right-3">
+                    <span className="text-xs text-destructive animate-pulse font-medium">
                       Listening...
                     </span>
-                  )}
-                </div>
+                  </div>
+                )}
+              </div>
 
-                {/* Label Chips */}
-                <div className="space-y-3 md:space-y-4 mb-4">
+              {/* Label Chips */}
+              <Card className="mt-4 shadow-sm">
+                <CardContent className="pt-5 md:pt-6 px-3 md:px-6">
+                <div className="space-y-3 md:space-y-4">
                   <div>
                     <p className="text-xs md:text-sm font-semibold mb-2 text-foreground">Environment:</p>
                     <div className="flex flex-wrap gap-2 md:gap-2">
@@ -454,17 +473,9 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-
-                <Button 
-                  onClick={handleRewrite} 
-                  disabled={rewriteLoading || !userText.trim()}
-                  className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105 h-14 md:h-14 text-base md:text-base font-medium touch-manipulation"
-                  size="lg"
-                >
-                  {rewriteLoading ? "April is thinking..." : "How do I say it better?"}
-                </Button>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           {/* Voice Practice Tab */}

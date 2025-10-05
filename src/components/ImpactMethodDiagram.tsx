@@ -45,29 +45,29 @@ const ImpactMethodDiagram = () => {
   ];
 
   return (
-    <div className="relative w-full mx-auto px-2 sm:px-4 overflow-hidden">
-      <div className="relative w-full max-w-4xl mx-auto flex items-center justify-center min-h-[500px] sm:min-h-[600px] md:min-h-[700px] py-8">
+    <div className="relative w-full mx-auto px-4 sm:px-8 overflow-visible">
+      <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center min-h-[600px] sm:min-h-[700px] md:min-h-[800px] py-12 sm:py-16">
         {/* Central Circle */}
-        <div className="relative w-[140px] h-[140px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px] rounded-full border-4 border-[#FDB900] bg-background shadow-2xl flex flex-col items-center justify-center z-10 animate-scale-in">
-          <h3 className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold text-center mb-1 md:mb-2 px-2">
+        <div className="relative w-[160px] h-[160px] sm:w-[240px] sm:h-[240px] md:w-[300px] md:h-[300px] lg:w-[340px] lg:h-[340px] rounded-full border-4 border-[#FDB900] bg-background shadow-2xl flex flex-col items-center justify-center z-10 animate-scale-in">
+          <h3 className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-bold text-center mb-1 md:mb-2 px-2">
             THE IMPACT<br />
             LANGUAGE<br />
             METHOD™
           </h3>
-          <p className="text-[8px] sm:text-xs md:text-sm lg:text-base text-center text-muted-foreground font-medium px-2">
+          <p className="text-[9px] sm:text-xs md:text-sm lg:text-base text-center text-muted-foreground font-medium px-2">
             Say it Better.<br />
             Get Better Results.
           </p>
         </div>
 
         {/* Circular Container for Pillars */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[550px] sm:h-[550px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[380px] max-h-[380px] sm:max-w-[600px] sm:max-h-[600px] md:max-w-[700px] md:max-h-[700px] lg:max-w-[800px] lg:max-h-[800px]">
           {/* Circle Path (visual guide) */}
-          <svg className="absolute inset-0 w-full h-full -z-10 animate-spin-slow" viewBox="0 0 700 700">
+          <svg className="absolute inset-0 w-full h-full -z-10 animate-spin-slow" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet">
             <circle
-              cx="350"
-              cy="350"
-              r="240"
+              cx="400"
+              cy="400"
+              r="280"
               fill="none"
               stroke="hsl(var(--muted-foreground) / 0.2)"
               strokeWidth="2"
@@ -78,30 +78,30 @@ const ImpactMethodDiagram = () => {
           {/* Pillars */}
           {pillars.map((pillar, index) => {
             const Icon = pillar.icon;
-            const angle = (index * 72 - 90) * (Math.PI / 180); // 72 degrees apart, starting at top
-            const radius = 240;
-            const x = 350 + radius * Math.cos(angle);
-            const y = 350 + radius * Math.sin(angle);
+            const angle = (index * 72 - 90) * (Math.PI / 180);
+            const radius = 35; // percentage
+            const x = 50 + radius * Math.cos(angle);
+            const y = 50 + radius * Math.sin(angle);
 
             return (
               <div
                 key={pillar.id}
                 className="absolute pointer-events-auto animate-fade-in"
                 style={{
-                  left: `${x}px`,
-                  top: `${y}px`,
+                  left: `${x}%`,
+                  top: `${y}%`,
                   transform: 'translate(-50%, -50%)',
                   animationDelay: `${index * 150}ms`
                 }}
               >
-                <div className="flex flex-col items-center text-center max-w-[70px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[140px]">
+                <div className="flex flex-col items-center text-center w-[80px] sm:w-[120px] md:w-[140px] lg:w-[160px]">
                   {/* Icon Circle */}
-                  <div className={`w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full ${pillar.color} flex items-center justify-center mb-1 sm:mb-2 md:mb-3 shadow-lg hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-5 h-5 sm:w-7 sm:h-7 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white" strokeWidth={2} />
+                  <div className={`w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full ${pillar.color} flex items-center justify-center mb-2 sm:mb-3 shadow-lg hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white" strokeWidth={2} />
                   </div>
                   
                   {/* Title */}
-                  <h4 className={`text-[10px] sm:text-sm md:text-base lg:text-lg font-bold mb-0.5 sm:mb-1 ${
+                  <h4 className={`text-xs sm:text-sm md:text-base lg:text-lg font-bold mb-1 sm:mb-1.5 whitespace-nowrap ${
                     pillar.id === 'intent' ? 'text-[#0A3D62]' :
                     pillar.id === 'message' ? 'text-[#00B3A4]' :
                     pillar.id === 'position' ? 'text-[#E77F00]' :
@@ -112,7 +112,7 @@ const ImpactMethodDiagram = () => {
                   </h4>
                   
                   {/* Subtitle */}
-                  <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm text-muted-foreground leading-tight">
+                  <p className="text-[9px] sm:text-xs md:text-sm lg:text-base text-muted-foreground leading-tight">
                     {pillar.subtitle}
                   </p>
                 </div>

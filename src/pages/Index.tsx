@@ -17,6 +17,7 @@ import aprilImage from "@/assets/april-headshot.jpeg";
 import { MobileNav } from "@/components/MobileNav";
 import { useSubscription } from "@/contexts/SubscriptionContext";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 interface Rewrite {
   text: string;
@@ -53,6 +54,7 @@ const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { subscribed, dailyUsage, incrementUsage, canUseFeature, productId } = useSubscription();
+  const { trackEvent } = useAnalytics();
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [userText, setUserText] = useState("");
@@ -116,6 +118,14 @@ const Index = () => {
       });
       return;
     }
+
+    trackEvent('rewrite_submitted', {
+      text_length: userText.length,
+      has_environment: !!environment,
+      has_outcome: !!outcome,
+      has_emotion: !!emotion,
+      is_authenticated: !!user,
+    });
 
     // Handle free tries for non-authenticated users
     if (!user) {
@@ -203,6 +213,7 @@ const Index = () => {
   };
 
   const handleCopy = async (text: string) => {
+    trackEvent('rewrite_copied', { text_length: text.length });
     try {
       await navigator.clipboard.writeText(text);
       toast({
@@ -391,7 +402,10 @@ const Index = () => {
             <Button variant="outline" size="sm" onClick={() => navigate('/about')} className="hover:scale-105 transition-transform">
               About April
             </Button>
-            <Button variant="outline" size="sm" onClick={() => navigate('/pricing')} className="hover:scale-105 transition-transform">
+            <Button variant="outline" size="sm" onClick={() => {
+              trackEvent('pricing_clicked', { source: 'header' });
+              navigate('/pricing');
+            }} className="hover:scale-105 transition-transform">
               Pricing
             </Button>
             <Button variant="outline" size="sm" onClick={() => navigate('/stats')} className="hover:scale-105 transition-transform">
@@ -431,7 +445,10 @@ const Index = () => {
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    onClick={() => navigate('/pricing')}
+                    onClick={() => {
+                      trackEvent('upgrade_clicked', { source: 'header', daily_usage: dailyUsage });
+                      navigate('/pricing');
+                    }}
                     className="hover:scale-105 transition-transform"
                   >
                     Upgrade to Pro

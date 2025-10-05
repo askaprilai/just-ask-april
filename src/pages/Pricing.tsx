@@ -6,11 +6,13 @@ import { useSubscription } from "@/contexts/SubscriptionContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const Pricing = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { subscribed, productId, loading, checkSubscription } = useSubscription();
+  const { trackEvent } = useAnalytics();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
   
@@ -18,6 +20,7 @@ const Pricing = () => {
   const isPro = subscribed && productId === PRO_PRODUCT_ID;
 
   const handleCheckout = async () => {
+    trackEvent('checkout_initiated', { plan: 'Pro' });
     setCheckoutLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('create-checkout');
@@ -25,6 +28,7 @@ const Pricing = () => {
       if (error) throw error;
       
       if (data?.url) {
+        trackEvent('checkout_url_opened', { plan: 'Pro' });
         window.open(data.url, '_blank');
         
         // Check subscription after a delay
@@ -45,6 +49,7 @@ const Pricing = () => {
   };
 
   const handleManageSubscription = async () => {
+    trackEvent('manage_subscription_clicked');
     setPortalLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('customer-portal');
@@ -52,6 +57,7 @@ const Pricing = () => {
       if (error) throw error;
       
       if (data?.url) {
+        trackEvent('customer_portal_opened');
         window.open(data.url, '_blank');
       }
     } catch (error: any) {

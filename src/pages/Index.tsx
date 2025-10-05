@@ -481,8 +481,8 @@ const Index = () => {
 
         {/* Before You Speak - Problem Statement */}
         <div className="mb-8 md:mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
-            Think Before You Speak
+          <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700">
+            Ask April before you speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">

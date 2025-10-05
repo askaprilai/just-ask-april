@@ -404,10 +404,6 @@ const Index = () => {
           <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-4 md:mb-6 px-4">
             <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-secondary rounded-full" />
-              <span>3 free tries - no signup</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
-              <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>10 free daily rewrites</span>
             </div>
             <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">

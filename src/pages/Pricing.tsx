@@ -12,7 +12,7 @@ const Pricing = () => {
       price: "$0",
       description: "Perfect for getting started",
       features: [
-        "10 rewrites per day",
+        "10 fine-tunes per day",
         "Basic tone adjustments",
         "Email support",
         "Standard response time"
@@ -26,7 +26,7 @@ const Pricing = () => {
       period: "/month",
       description: "For professionals who communicate daily",
       features: [
-        "Unlimited rewrites",
+        "Unlimited fine-tunes",
         "Advanced tone control",
         "Custom environments",
         "Priority support",

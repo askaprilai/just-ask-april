@@ -440,7 +440,7 @@ const Index = () => {
                 >
                   <span className="flex items-center gap-2">
                     <Target className="h-4 w-4" />
-                    Optional: Fine-tune your rewrite
+                    Optional: Fine-tune your message
                   </span>
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showAdvancedOptions ? 'rotate-180' : ''}`} />
                 </Button>
@@ -547,7 +547,7 @@ const Index = () => {
             <div className="text-center py-2 md:py-3">
               <p className="text-[10px] md:text-sm font-semibold text-secondary uppercase tracking-wide flex items-center justify-center gap-2">
                 <span className="inline-block w-6 md:w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
-                April&apos;s Rewrites
+                April&apos;s Suggestions
                 <span className="inline-block w-6 md:w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
               </p>
             </div>
@@ -675,13 +675,13 @@ const Index = () => {
       <Dialog open={showUpgradeDialog} onOpenChange={setShowUpgradeDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>You've used all 5 free rewrites! 🎉</DialogTitle>
+            <DialogTitle>You've used all 5 free fine-tunes! 🎉</DialogTitle>
             <DialogDescription className="space-y-3 pt-4">
               <p>
                 Ready to keep improving your communication? Sign in to continue using Just Ask April.
               </p>
               <p className="text-sm">
-                Get unlimited rewrites, save your history, and unlock advanced features.
+                Get unlimited fine-tunes, save your history, and unlock advanced features.
               </p>
             </DialogDescription>
           </DialogHeader>

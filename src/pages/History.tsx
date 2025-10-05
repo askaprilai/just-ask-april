@@ -93,13 +93,13 @@ const History = () => {
       setRewrites(rewrites.filter(r => r.id !== id));
       toast({
         title: "Deleted",
-        description: "Rewrite removed from history",
+        description: "Fine-tuned message removed from history",
       });
     } catch (error: any) {
       console.error('Error deleting rewrite:', error);
       toast({
         title: "Error",
-        description: "Could not delete rewrite",
+        description: "Could not delete fine-tuned message",
         variant: "destructive",
       });
     }
@@ -143,7 +143,7 @@ const History = () => {
               Your History
             </h1>
             <p className="text-muted-foreground mt-1">
-              {rewrites.length} {rewrites.length === 1 ? 'rewrite' : 'rewrites'} saved
+              {rewrites.length} {rewrites.length === 1 ? 'fine-tuned message' : 'fine-tuned messages'} saved
             </p>
           </div>
         </div>
@@ -152,9 +152,9 @@ const History = () => {
         {rewrites.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground mb-4">No rewrites yet</p>
+              <p className="text-muted-foreground mb-4">No fine-tuned messages yet</p>
               <Button onClick={() => navigate('/')}>
-                Create your first rewrite
+                Create your first fine-tuned message
               </Button>
             </CardContent>
           </Card>

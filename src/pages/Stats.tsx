@@ -73,7 +73,7 @@ const Stats = () => {
                       {environment} · {outcome}
                     </CardTitle>
                     <CardDescription className="text-xs md:text-sm">
-                      {data.total} rewrite{data.total !== 1 ? 's' : ''} used
+                      {data.total} fine-tune{data.total !== 1 ? 's' : ''} used
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="px-4 md:px-6">

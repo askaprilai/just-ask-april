@@ -396,9 +396,6 @@ const Index = () => {
           <p className="text-base md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
             Grammarly fixes your grammar. April fixes your impact.
           </p>
-          <p className="text-sm md:text-sm italic text-gray-600 mb-3 md:mb-4 px-4 font-medium">
-            If in doubt, just ask April
-          </p>
           
           {/* Quick Benefits */}
           <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-4 md:mb-6 px-4">
@@ -1035,97 +1032,16 @@ const Index = () => {
           <div className="space-y-4 md:space-y-6">
             {result.rewrites.map((rewrite, index) => (
               <Card key={index} className="overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.1)] hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.2)] transition-all duration-300 md:hover:scale-[1.02] border-secondary/20 backdrop-blur-sm animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                <CardContent className="p-4 md:p-6">
-                  {/* Tone Label */}
-                  <div className="flex items-center justify-between mb-4 md:mb-4">
-                    <Badge variant="secondary" className="text-xs md:text-base px-3 md:px-3 py-1 md:py-1">
-                      {rewrite.tone_label}
-                    </Badge>
-                  </div>
-
-                  {/* Rewrite Text */}
-                  <p className="text-base md:text-lg mb-4 md:mb-4 leading-relaxed">{rewrite.text}</p>
-
-                  {/* Pillars */}
-                  <div className="space-y-2.5 md:space-y-2 mb-4 md:mb-4">
-                    {Object.entries(rewrite.pillars).map(([key, value]) => (
-                      <div key={key} className="flex items-start gap-2.5 md:gap-2">
-                        <Badge 
-                          className={`${pillarColors[key as keyof typeof pillarColors]} shrink-0 uppercase text-[10px] md:text-xs`}
-                        >
-                          {key}
-                        </Badge>
-                        <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{value}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Rationale */}
-                  <div className="mb-4 md:mb-4 p-3 md:p-3 bg-muted/50 rounded-lg md:rounded-md">
-                    <p className="text-xs md:text-sm font-semibold text-secondary mb-1.5 md:mb-1">Why it works:</p>
-                    <p className="text-xs md:text-sm leading-relaxed">{rewrite.rationale}</p>
-                  </div>
-
-                  {/* Cautions */}
-                  {rewrite.cautions && (
-                    <div className="mb-4 md:mb-4 p-3 md:p-3 bg-accent/10 rounded-lg md:rounded-md border border-accent/20">
-                      <p className="text-xs md:text-sm font-semibold text-accent-foreground mb-1.5 md:mb-1">⚠️ Cautions:</p>
-                      <p className="text-xs md:text-sm leading-relaxed">{rewrite.cautions}</p>
-                    </div>
-                  )}
-
-                  {/* Actions */}
-                  <div className="flex flex-col sm:flex-row gap-2.5 md:gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleCopy(rewrite.text)}
-                      className="w-full sm:w-auto h-11 md:h-9 touch-manipulation text-sm"
-                    >
-                      <Copy className="mr-2 h-4 w-4" />
-                      Copy
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handlePlayAudio(rewrite.text, index)}
-                      disabled={playingAudio !== null && playingAudio !== index}
-                      className="w-full sm:w-auto h-11 md:h-9 touch-manipulation text-sm"
-                    >
-                      <Volume2 className={`mr-2 h-4 w-4 ${playingAudio === index ? 'animate-pulse' : ''}`} />
-                      {playingAudio === index ? 'Playing...' : 'Hear it'}
-                    </Button>
-                    {!feedbackGiven[index] && (
-                      <>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleFeedback(true, index)}
-                          className="w-full sm:w-auto h-11 md:h-9 touch-manipulation text-sm"
-                        >
-                          <ThumbsUp className="mr-2 h-4 w-4" />
-                          Helpful
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleFeedback(false, index)}
-                          className="w-full sm:w-auto h-10 md:h-9"
-                        >
-                          <ThumbsDown className="mr-2 h-4 w-4" />
-                          Not Helpful
-                        </Button>
-                      </>
-                    )}
-                    {feedbackGiven[index] && (
-                      <Badge variant="secondary" className="w-full sm:w-auto sm:ml-auto text-center">
-                        Thanks for feedback!
-                      </Badge>
-                    )}
-                  </div>
-                </CardContent>
+...
               </Card>
             ))}
+            
+            {/* Closing message after rewrites */}
+            <div className="text-center py-6 animate-fade-in">
+              <p className="text-lg md:text-xl italic text-muted-foreground font-medium">
+                If in doubt, just ask April
+              </p>
+            </div>
           </div>
         )}
 

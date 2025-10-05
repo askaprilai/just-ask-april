@@ -483,6 +483,156 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Before You Hit Send - Problem Statement */}
+        <div className="mb-8 md:mb-12 animate-fade-in">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
+            Before You Hit Send...
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="border-destructive/20 hover:border-destructive/40 transition-all">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3 mb-3">
+                  <Building2 className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold mb-2">At Work</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      "We need this done ASAP" → Team feels pressured and defensive
+                    </p>
+                    <p className="text-xs text-secondary font-medium">
+                      April helps you motivate without pushing away
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-destructive/20 hover:border-destructive/40 transition-all">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3 mb-3">
+                  <Target className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold mb-2">With Clients</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      "That won't work for us" → Client feels dismissed and unheard
+                    </p>
+                    <p className="text-xs text-secondary font-medium">
+                      April helps you set boundaries while building trust
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-destructive/20 hover:border-destructive/40 transition-all">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3 mb-3">
+                  <Smile className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold mb-2">In Relationships</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      "You always..." → Partner feels attacked and shuts down
+                    </p>
+                    <p className="text-xs text-secondary font-medium">
+                      April helps you be heard without blame
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* How It Works */}
+        <div className="mb-8 md:mb-12 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-6 md:p-8 border border-secondary/10">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+            How It Works
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <MessageSquare className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-semibold mb-2">1. Type What You Want to Say</h3>
+              <p className="text-sm text-muted-foreground">
+                Share your message exactly as it comes to mind
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <img src={aprilImage} alt="April" className="w-10 h-10 rounded-full object-cover" />
+              </div>
+              <h3 className="font-semibold mb-2">2. April Suggests Better Ways</h3>
+              <p className="text-sm text-muted-foreground">
+                Get 3 rewritten versions designed for your outcome
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <ArrowRight className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-semibold mb-2">3. Choose & Send With Confidence</h3>
+              <p className="text-sm text-muted-foreground">
+                Copy the version that feels right and get better results
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Social Proof */}
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
+            Real People, Better Outcomes
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="bg-gradient-to-br from-background to-secondary/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <Users className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm mb-3 italic">
+                      "I used to dread difficult conversations with my team. April helps me say what I need without sounding harsh."
+                    </p>
+                    <p className="text-xs font-semibold">Sarah M.</p>
+                    <p className="text-xs text-muted-foreground">Corporate Manager</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-gradient-to-br from-background to-accent/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <Award className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm mb-3 italic">
+                      "Client emails used to take me forever. Now I confidently respond in minutes and keep relationships strong."
+                    </p>
+                    <p className="text-xs font-semibold">James K.</p>
+                    <p className="text-xs text-muted-foreground">Small Business Owner</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-gradient-to-br from-background to-primary/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <Shield className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm mb-3 italic">
+                      "Finally, a way to express my needs without starting arguments. My partner actually hears me now."
+                    </p>
+                    <p className="text-xs font-semibold">Alex T.</p>
+                    <p className="text-xs text-muted-foreground">Partner & Parent</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         {/* Tabbed Interface */}
         <Tabs defaultValue="text" className="mb-4 md:mb-8">
           <TabsList className="grid w-full grid-cols-2 mb-4 md:mb-8 h-14 md:h-11">

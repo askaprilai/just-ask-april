@@ -98,15 +98,13 @@ const Pricing = () => {
       period: "/month",
       description: "For professionals who communicate daily",
       features: [
-        "Unlimited fine-tunes",
-        "Advanced tone control",
-        "Custom environments",
-        "Priority support",
-        "Analytics dashboard",
-        "Team collaboration (up to 5)",
-        "API access"
+        "The Impact Playbook",
+        "Unlimited impact statements",
+        "Practice with April",
+        "Unlimited chat",
+        "Personalize your impact statements"
       ],
-      cta: "Start Free Trial",
+      cta: "Subscribe Now",
       highlighted: true
     },
     {
@@ -246,8 +244,8 @@ const Pricing = () => {
               <p className="text-sm md:text-base text-muted-foreground">We accept all major credit cards and PayPal.</p>
             </div>
             <div className="border border-border rounded-lg p-4 md:p-6">
-              <h3 className="font-semibold text-base md:text-lg mb-2">Is there a free trial for Pro?</h3>
-              <p className="text-sm md:text-base text-muted-foreground">Yes! Get 14 days free when you sign up for Pro. No credit card required.</p>
+              <h3 className="font-semibold text-base md:text-lg mb-2">How does billing work?</h3>
+              <p className="text-sm md:text-base text-muted-foreground">You'll be billed monthly at $20/month. Cancel anytime with no long-term commitment.</p>
             </div>
           </div>
         </div>

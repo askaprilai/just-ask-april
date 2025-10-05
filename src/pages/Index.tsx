@@ -489,10 +489,10 @@ const Index = () => {
             Before You Speak...
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="border-destructive/20 hover:border-destructive/40 transition-all">
+            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
-                  <Building2 className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                  <Building2 className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold mb-2">Team Meetings</h3>
                     <p className="text-sm text-muted-foreground mb-3">
@@ -506,10 +506,10 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-destructive/20 hover:border-destructive/40 transition-all">
+            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
-                  <Target className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                  <Target className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold mb-2">Client Calls</h3>
                     <p className="text-sm text-muted-foreground mb-3">
@@ -523,10 +523,10 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-destructive/20 hover:border-destructive/40 transition-all">
+            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3 mb-3">
-                  <Smile className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                  <Smile className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold mb-2">Tough Conversations</h3>
                     <p className="text-sm text-muted-foreground mb-3">

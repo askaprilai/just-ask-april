@@ -6,6 +6,7 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Lock, TrendingUp, MessageSquare, Target, Calendar, ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 const Analytics = () => {
   const navigate = useNavigate();
@@ -16,6 +17,17 @@ const Analytics = () => {
     thisMonth: 0,
     topEnvironment: '',
     topOutcome: '',
+  });
+  const [chartData, setChartData] = useState<{
+    environmentData: Array<{ name: string; count: number }>;
+    outcomeData: Array<{ name: string; count: number }>;
+    emotionData: Array<{ name: string; count: number }>;
+    dailyData: Array<{ date: string; count: number }>;
+  }>({
+    environmentData: [],
+    outcomeData: [],
+    emotionData: [],
+    dailyData: [],
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -64,12 +76,53 @@ const Analytics = () => {
         });
         const topOutcome = Object.entries(outcomeCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A';
 
+        // Calculate emotion counts
+        const emotionCounts: Record<string, number> = {};
+        rewrites?.forEach(r => {
+          const emotion = r.desired_emotion || r.inferred_emotion || 'Unknown';
+          emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
+        });
+
+        // Prepare chart data
+        const environmentData = Object.entries(envCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 5)
+          .map(([name, count]) => ({ name, count }));
+
+        const outcomeData = Object.entries(outcomeCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6)
+          .map(([name, count]) => ({ name, count }));
+
+        const emotionData = Object.entries(emotionCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6)
+          .map(([name, count]) => ({ name, count }));
+
+        // Daily activity for last 14 days
+        const dailyActivity: Record<string, number> = {};
+        const last14Days = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+        rewrites?.filter(r => new Date(r.created_at) > last14Days).forEach(r => {
+          const date = new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          dailyActivity[date] = (dailyActivity[date] || 0) + 1;
+        });
+
+        const dailyData = Object.entries(dailyActivity)
+          .map(([date, count]) => ({ date, count }));
+
         setStats({
           totalRewrites: rewrites?.length || 0,
           thisWeek: thisWeekCount,
           thisMonth: thisMonthCount,
           topEnvironment: topEnv,
           topOutcome: topOutcome,
+        });
+
+        setChartData({
+          environmentData,
+          outcomeData,
+          emotionData,
+          dailyData,
         });
       } catch (error) {
         console.error('Error fetching analytics:', error);
@@ -236,6 +289,156 @@ const Analytics = () => {
               </p>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Daily Activity Chart */}
+        {chartData.dailyData.length > 0 && (
+          <Card className="mt-6 border-secondary/20">
+            <CardHeader>
+              <CardTitle>Daily Activity</CardTitle>
+              <CardDescription>Your rewrites over the last 14 days</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={250}>
+                <LineChart data={chartData.dailyData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis 
+                    dataKey="date" 
+                    stroke="hsl(var(--muted-foreground))"
+                    style={{ fontSize: '12px' }}
+                  />
+                  <YAxis 
+                    stroke="hsl(var(--muted-foreground))"
+                    style={{ fontSize: '12px' }}
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                    }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="count" 
+                    stroke="hsl(var(--secondary))" 
+                    strokeWidth={2}
+                    dot={{ fill: 'hsl(var(--secondary))', r: 4 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Environment Breakdown */}
+        {chartData.environmentData.length > 0 && (
+          <Card className="mt-6 border-secondary/20">
+            <CardHeader>
+              <CardTitle>Communication Contexts</CardTitle>
+              <CardDescription>Where you communicate most</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={chartData.environmentData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis 
+                    dataKey="name" 
+                    stroke="hsl(var(--muted-foreground))"
+                    style={{ fontSize: '12px' }}
+                  />
+                  <YAxis 
+                    stroke="hsl(var(--muted-foreground))"
+                    style={{ fontSize: '12px' }}
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                    }}
+                  />
+                  <Bar dataKey="count" fill="hsl(var(--secondary))" radius={[8, 8, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+          {/* Outcomes Breakdown */}
+          {chartData.outcomeData.length > 0 && (
+            <Card className="border-secondary/20">
+              <CardHeader>
+                <CardTitle>Communication Goals</CardTitle>
+                <CardDescription>What you're trying to achieve</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={chartData.outcomeData} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis 
+                      type="number" 
+                      stroke="hsl(var(--muted-foreground))"
+                      style={{ fontSize: '12px' }}
+                    />
+                    <YAxis 
+                      type="category" 
+                      dataKey="name" 
+                      stroke="hsl(var(--muted-foreground))"
+                      style={{ fontSize: '11px' }}
+                      width={80}
+                    />
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                      }}
+                    />
+                    <Bar dataKey="count" fill="hsl(var(--accent))" radius={[0, 8, 8, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Emotions Breakdown */}
+          {chartData.emotionData.length > 0 && (
+            <Card className="border-secondary/20">
+              <CardHeader>
+                <CardTitle>Desired Emotions</CardTitle>
+                <CardDescription>How you want others to feel</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={chartData.emotionData} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis 
+                      type="number" 
+                      stroke="hsl(var(--muted-foreground))"
+                      style={{ fontSize: '12px' }}
+                    />
+                    <YAxis 
+                      type="category" 
+                      dataKey="name" 
+                      stroke="hsl(var(--muted-foreground))"
+                      style={{ fontSize: '11px' }}
+                      width={80}
+                    />
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                      }}
+                    />
+                    <Bar dataKey="count" fill="hsl(var(--primary))" radius={[0, 8, 8, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <Card className="mt-6 border-secondary/20">

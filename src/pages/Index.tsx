@@ -443,6 +443,9 @@ const Index = () => {
             <Button variant="ghost" size="sm" onClick={() => navigate('/privacy')}>
               Privacy
             </Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/terms')}>
+              Terms
+            </Button>
             {user && (
               <Button variant="outline" size="sm" onClick={handleSignOut} className="hover:scale-105 transition-transform">
                 Sign Out

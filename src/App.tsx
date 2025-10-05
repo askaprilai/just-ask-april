@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Stats from "./pages/Stats";
 import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import Pricing from "./pages/Pricing";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/stats" element={<Stats />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth />} />

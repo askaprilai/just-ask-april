@@ -57,6 +57,24 @@ const EXAMPLES = [
     situation: "Mistake Response",
     outcome: "From judgment to growth"
   },
+  {
+    before: "Yeah, I think maybe we could probably try that if you want.",
+    after: "I recommend we pursue this approach. Here's the strategic value I see.",
+    situation: "Executive Presence",
+    outcome: "From tentative to decisive"
+  },
+  {
+    before: "Just wanted to circle back and see if you had any thoughts on this.",
+    after: "I'd like your perspective on this initiative. What considerations should we prioritize?",
+    situation: "Executive Presence",
+    outcome: "From casual to intentional"
+  },
+  {
+    before: "Sorry to bother you, but do you think maybe we could discuss this?",
+    after: "I'd value your input on this matter. When can we connect to align on next steps?",
+    situation: "Executive Presence",
+    outcome: "From apologetic to confident"
+  },
 ];
 
 export { EXAMPLES };

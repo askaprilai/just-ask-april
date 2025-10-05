@@ -63,7 +63,7 @@ const ImpactMethodDiagram = () => {
         {/* Circular Container for Pillars */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[550px] sm:h-[550px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] pointer-events-none">
           {/* Circle Path (visual guide) */}
-          <svg className="absolute inset-0 w-full h-full -z-10" viewBox="0 0 700 700">
+          <svg className="absolute inset-0 w-full h-full -z-10 animate-spin-slow" viewBox="0 0 700 700">
             <circle
               cx="350"
               cy="350"

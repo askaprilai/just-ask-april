@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
+import React from "react";
 
 const EXAMPLES = [
   {
@@ -24,11 +25,13 @@ const EXAMPLES = [
 
 export { EXAMPLES };
 
-interface ExamplesSectionProps {
-  onExampleClick?: (before: string, after: string) => void;
-}
+export const ExamplesSection = () => {
+  const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
 
-export const ExamplesSection = ({ onExampleClick }: ExamplesSectionProps) => {
+  const handleClick = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
   return (
     <div className="mb-8 md:mb-16 animate-fade-in">
       <div className="text-center mb-6 md:mb-8 px-4">
@@ -36,7 +39,7 @@ export const ExamplesSection = ({ onExampleClick }: ExamplesSectionProps) => {
           When in doubt, just ask April
         </h2>
         <p className="text-xs md:text-sm text-muted-foreground">
-          Click any example to try it yourself
+          Click any example to see the transformation
         </p>
       </div>
 
@@ -44,7 +47,7 @@ export const ExamplesSection = ({ onExampleClick }: ExamplesSectionProps) => {
         {EXAMPLES.map((example, index) => (
           <Card 
             key={index} 
-            onClick={() => onExampleClick?.(example.before, example.after)}
+            onClick={() => handleClick(index)}
             className="group relative overflow-hidden border-secondary/20 hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.3)] transition-all duration-300 md:hover:scale-105 animate-fade-in hover:border-secondary/40 cursor-pointer active:scale-[0.98]"
             style={{ animationDelay: `${index * 150}ms` }}
           >
@@ -56,19 +59,23 @@ export const ExamplesSection = ({ onExampleClick }: ExamplesSectionProps) => {
               </div>
 
               <div className="space-y-3">
-                <div className="p-3 bg-destructive/10 border-2 border-destructive/30 rounded-lg transform transition-all duration-200 hover:scale-[1.02]">
+                <div className="p-3 bg-destructive/10 border-2 border-destructive/30 rounded-lg transform transition-all duration-200">
                   <p className="text-[10px] md:text-xs font-bold text-destructive mb-1.5 uppercase tracking-wide">Before</p>
                   <p className="text-xs md:text-sm text-foreground/80 italic leading-relaxed font-medium">&ldquo;{example.before}&rdquo;</p>
                 </div>
 
-                <div className="flex justify-center py-1">
-                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5 text-secondary animate-pulse" />
-                </div>
+                {expandedIndex === index && (
+                  <>
+                    <div className="flex justify-center py-1 animate-fade-in">
+                      <ArrowRight className="h-4 w-4 md:h-5 md:w-5 text-secondary animate-pulse" />
+                    </div>
 
-                <div className="p-3 bg-secondary/15 border-2 border-secondary/40 rounded-lg transform transition-all duration-200 hover:scale-[1.02]">
-                  <p className="text-[10px] md:text-xs font-bold text-secondary mb-1.5 uppercase tracking-wide">After</p>
-                  <p className="text-xs md:text-sm font-semibold leading-relaxed text-foreground">&ldquo;{example.after}&rdquo;</p>
-                </div>
+                    <div className="p-3 bg-secondary/15 border-2 border-secondary/40 rounded-lg animate-fade-in">
+                      <p className="text-[10px] md:text-xs font-bold text-secondary mb-1.5 uppercase tracking-wide">After</p>
+                      <p className="text-xs md:text-sm font-semibold leading-relaxed text-foreground">&ldquo;{example.after}&rdquo;</p>
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="pt-2 border-t border-border/50">

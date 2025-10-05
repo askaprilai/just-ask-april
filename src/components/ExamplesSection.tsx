@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useSubscription } from "@/contexts/SubscriptionContext";
 import { ProFeatureBadge } from "./ProFeatureBadge";
 import { Badge } from "@/components/ui/badge";
+import { UpgradeDialog } from "./UpgradeDialog";
 
 const CATEGORIES = [
   "All",
@@ -314,11 +315,16 @@ export { EXAMPLES };
 export const ExamplesSection = () => {
   const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = React.useState("All");
+  const [showUpgradeDialog, setShowUpgradeDialog] = React.useState(false);
   const { subscribed } = useSubscription();
   const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
 
   const handleClick = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  const handleLockedClick = () => {
+    setShowUpgradeDialog(true);
   };
 
   const filteredExamples = selectedCategory === "All" 
@@ -364,7 +370,7 @@ export const ExamplesSection = () => {
         </p>
         {!subscribed && (
           <p className="text-xs md:text-sm text-accent font-semibold">
-            ✨ Upgrade to access unlimited Power Scripts + practice with April
+            ✨ Upgrade to unlock unlimited Impact Statements + practice with April
           </p>
         )}
       </div>
@@ -456,17 +462,21 @@ export const ExamplesSection = () => {
         {lockedExamples.map((example, index) => (
           <Card 
             key={`locked-${index}`}
-            className="group relative overflow-hidden border-accent/30 animate-fade-in"
+            onClick={handleLockedClick}
+            className="group relative overflow-hidden border-accent/30 animate-fade-in cursor-pointer hover:border-accent/50 transition-all"
             style={{ animationDelay: `${(displayExamples.length + index) * 50}ms` }}
           >
-            <div className="absolute inset-0 backdrop-blur-sm bg-background/80 z-10 flex flex-col items-center justify-center p-6 text-center space-y-3">
-              <div className="bg-accent/20 border-2 border-accent/40 rounded-full p-4">
+            <div className="absolute inset-0 backdrop-blur-sm bg-background/80 z-10 flex flex-col items-center justify-center p-6 text-center space-y-3 hover:bg-background/90 transition-all">
+              <div className="bg-accent/20 border-2 border-accent/40 rounded-full p-4 group-hover:scale-110 transition-transform">
                 <Sparkles className="h-8 w-8 text-accent animate-pulse" />
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-bold text-foreground">Upgrade to Pro</p>
-                <p className="text-xs text-muted-foreground">Access Unlimited Power Scripts</p>
+                <p className="text-sm font-bold text-foreground">Unlock Unlimited</p>
+                <p className="text-xs text-muted-foreground">Impact Statements</p>
               </div>
+              <Button size="sm" variant="outline" className="border-accent/40 text-accent hover:bg-accent/10">
+                Upgrade to Pro
+              </Button>
             </div>
             <CardContent className="p-5 md:p-6 space-y-3 md:space-y-4 opacity-30">
               <Badge variant="secondary" className="text-[10px] md:text-xs font-bold uppercase tracking-wide">
@@ -493,6 +503,12 @@ export const ExamplesSection = () => {
           <p className="text-muted-foreground">No examples found in this category.</p>
         </div>
       )}
+
+      <UpgradeDialog 
+        open={showUpgradeDialog} 
+        onOpenChange={setShowUpgradeDialog}
+        feature="unlimited Impact Statements"
+      />
     </div>
   );
 };

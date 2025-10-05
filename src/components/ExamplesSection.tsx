@@ -21,6 +21,42 @@ const EXAMPLES = [
     situation: "Team Disagreement",
     outcome: "From resistance to openness"
   },
+  {
+    before: "You're not meeting expectations and need to improve immediately.",
+    after: "I've noticed some gaps in outcomes. What support do you need to get back on track?",
+    situation: "Performance Review",
+    outcome: "From criticism to coaching"
+  },
+  {
+    before: "Why didn't you tell me about this earlier?",
+    after: "Help me understand the timeline. What can we learn for next time?",
+    situation: "Communication Gap",
+    outcome: "From blame to learning"
+  },
+  {
+    before: "This won't work. We tried something similar before and it failed.",
+    after: "I'm curious—how is this different from what we tried before? What's changed?",
+    situation: "Change Resistance",
+    outcome: "From dismissal to curiosity"
+  },
+  {
+    before: "I don't have time for this right now.",
+    after: "I want to give this proper attention. Can we schedule time when I can focus fully?",
+    situation: "Time Management",
+    outcome: "From rejection to respect"
+  },
+  {
+    before: "That's a terrible idea and won't solve anything.",
+    after: "I see it differently. Can you walk me through your thinking so I understand your approach?",
+    situation: "Idea Disagreement",
+    outcome: "From shutdown to dialogue"
+  },
+  {
+    before: "You should have known better than to do it that way.",
+    after: "Let's talk through what happened. What would you do differently next time?",
+    situation: "Mistake Response",
+    outcome: "From judgment to growth"
+  },
 ];
 
 export { EXAMPLES };

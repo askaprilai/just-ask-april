@@ -562,8 +562,11 @@ const Index = () => {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-accent/50 animate-pulse">
-                <img src={aprilImage} alt="April" className="w-10 h-10 rounded-full object-cover" />
+              <div className="relative w-16 h-16 mx-auto mb-4">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent to-accent/70 animate-pulse blur-md opacity-75"></div>
+                <div className="relative w-16 h-16 rounded-full ring-2 ring-accent bg-background flex items-center justify-center">
+                  <img src={aprilImage} alt="April" className="w-14 h-14 rounded-full object-cover" />
+                </div>
               </div>
               <h3 className="font-semibold mb-2">2. April Shows You How to Say It Better</h3>
               <p className="text-sm text-muted-foreground">

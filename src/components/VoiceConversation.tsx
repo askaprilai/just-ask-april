@@ -1,47 +1,52 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { RealtimeChat } from '@/utils/RealtimeAudio';
-import { PhoneCall, PhoneOff, Lock } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import aprilImage from '@/assets/april-headshot.jpeg';
+import { Mic, MicOff, Lock } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
-import { useNavigate } from 'react-router-dom';
+import { ProFeatureBadge } from '@/components/ProFeatureBadge';
+import aprilImage from '@/assets/april-headshot.jpeg';
+import { useConversation } from '@11labs/react';
+import { supabase } from '@/integrations/supabase/client';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
+const ELEVENLABS_VOICE_ID = 'R1M2aBZZBJ0AxyyGW8R2';
 
 const VoiceConversation = () => {
   const { toast } = useToast();
-  const navigate = useNavigate();
   const { subscribed, productId } = useSubscription();
-  const [isConnected, setIsConnected] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [transcript, setTranscript] = useState<string[]>([]);
-  const chatRef = useRef<RealtimeChat | null>(null);
+  const isPro = subscribed && productId === 'prod_TB6tW8iBKEha8e';
+  const [transcript, setTranscript] = useState<Array<{ role: string; content: string }>>([]);
   
-  const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
-  const isPro = subscribed && productId === PRO_PRODUCT_ID;
-
-  const handleMessage = (event: any) => {
-    console.log('Message type:', event.type);
-    
-    if (event.type === 'response.audio_transcript.delta') {
-      setTranscript(prev => {
-        const newTranscript = [...prev];
-        if (newTranscript.length > 0 && newTranscript[newTranscript.length - 1].startsWith('April: ')) {
-          newTranscript[newTranscript.length - 1] += event.delta;
-        } else {
-          newTranscript.push('April: ' + event.delta);
-        }
-        return newTranscript;
+  const conversation = useConversation({
+    onConnect: () => {
+      console.log('Connected to ElevenLabs');
+      toast({
+        title: "Connected",
+        description: "Voice conversation started with April",
       });
-    } else if (event.type === 'conversation.item.input_audio_transcription.completed') {
-      setTranscript(prev => [...prev, 'You: ' + event.transcript]);
-    } else if (event.type === 'response.audio.delta') {
-      setIsSpeaking(true);
-    } else if (event.type === 'response.audio.done') {
-      setIsSpeaking(false);
-    }
-  };
+    },
+    onDisconnect: () => {
+      console.log('Disconnected from ElevenLabs');
+    },
+    onMessage: (message) => {
+      console.log('Received message:', message);
+      
+      if (message.type === 'user_transcript') {
+        setTranscript(prev => [...prev, { role: 'user', content: message.transcript }]);
+      } else if (message.type === 'agent_response') {
+        setTranscript(prev => [...prev, { role: 'assistant', content: message.text }]);
+      }
+    },
+    onError: (error) => {
+      console.error('ElevenLabs error:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to connect to voice service",
+        variant: "destructive",
+      });
+    },
+  });
 
   const startConversation = async () => {
     if (!isPro) {
@@ -54,19 +59,20 @@ const VoiceConversation = () => {
     }
 
     try {
-      toast({
-        title: "Starting conversation...",
-        description: "Connecting to April",
+      // Request microphone permission
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      // Get signed URL from our edge function
+      const { data, error } = await supabase.functions.invoke('elevenlabs-signed-url', {
+        body: { agentId: ELEVENLABS_VOICE_ID }
       });
 
-      chatRef.current = new RealtimeChat(handleMessage);
-      await chatRef.current.init();
-      setIsConnected(true);
-      
-      toast({
-        title: "Connected",
-        description: "You can now speak with April",
-      });
+      if (error) throw error;
+      if (!data?.signed_url) throw new Error('No signed URL received');
+
+      // Start the conversation with ElevenLabs
+      await conversation.startSession({ url: data.signed_url });
+      setTranscript([]);
     } catch (error) {
       console.error('Error starting conversation:', error);
       toast({
@@ -77,140 +83,118 @@ const VoiceConversation = () => {
     }
   };
 
-  const endConversation = () => {
-    chatRef.current?.disconnect();
-    setIsConnected(false);
-    setIsSpeaking(false);
-    setTranscript([]);
-    
-    toast({
-      title: "Conversation ended",
-      description: "Thanks for talking with April",
-    });
+  const endConversation = async () => {
+    await conversation.endSession();
   };
 
   useEffect(() => {
     return () => {
-      chatRef.current?.disconnect();
+      conversation.endSession();
     };
   }, []);
 
+  if (!isPro) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
+        <Lock className="w-12 h-12 text-muted-foreground" />
+        <div>
+          <h3 className="text-xl font-semibold mb-2">Pro Feature</h3>
+          <p className="text-muted-foreground mb-4">
+            Voice practice with April is available for Pro subscribers only.
+          </p>
+          <ProFeatureBadge feature="Voice Practice" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full space-y-4">
-      {!isPro && (
-        <Card className="border-accent/30 bg-accent/5">
-          <CardContent className="p-4 flex items-start gap-3">
-            <Lock className="h-5 w-5 text-accent mt-0.5" />
-            <div className="flex-1">
-              <p className="text-sm font-medium">Pro Feature</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Voice practice with April is available for Pro subscribers. Upgrade to unlock this feature.
-              </p>
-              <Button 
-                size="sm" 
-                className="mt-2 bg-gradient-to-r from-secondary to-accent"
-                onClick={() => navigate('/pricing')}
-              >
-                Upgrade to Pro
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-      
-      <Card className="border-secondary/30 shadow-lg">
-        <CardContent className="p-6">
-          {isPro && (
-            <Badge className="mb-4 bg-gradient-to-r from-secondary to-accent text-white">
-              Pro Feature ✨
-            </Badge>
-          )}
-          <div className="flex flex-col items-center gap-4">
-            <div className={`relative w-32 h-32 rounded-full overflow-hidden transition-all duration-500 ${
-              isSpeaking 
-                ? 'scale-110 animate-[pulse_1s_ease-in-out_infinite]' 
-                : isConnected 
-                  ? 'scale-105' 
-                  : 'scale-100'
-            }`}>
-              {/* Glowing rings */}
-              {isSpeaking && (
-                <>
-                  <div className="absolute inset-0 rounded-full bg-secondary/30 blur-xl animate-ping" style={{ animationDuration: '2s' }} />
-                  <div className="absolute inset-0 rounded-full bg-accent/20 blur-2xl animate-pulse" style={{ animationDuration: '1.5s' }} />
-                </>
+    <div className="flex flex-col items-center justify-center min-h-[600px] space-y-8 p-8">
+      <Card className="w-full max-w-2xl p-8">
+        <div className="flex flex-col items-center space-y-6">
+          <div
+            className={`relative transition-all duration-300 ${
+              conversation.isSpeaking ? 'scale-110' : 'scale-100'
+            } ${conversation.status === 'connected' ? 'ring-4 ring-primary ring-offset-4' : ''}`}
+          >
+            <div className="relative w-32 h-32 rounded-full overflow-hidden">
+              {conversation.status === 'connected' && (
+                <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse" />
               )}
-              {isConnected && !isSpeaking && (
-                <div className="absolute inset-0 rounded-full bg-secondary/20 blur-lg animate-pulse" style={{ animationDuration: '3s' }} />
-              )}
-              
-              {/* Avatar with border */}
-              <div className={`relative w-full h-full rounded-full border-4 transition-all duration-300 ${
-                isSpeaking 
-                  ? 'border-secondary shadow-[0_0_40px_15px_hsl(var(--secondary)/0.6),0_0_80px_25px_hsl(var(--accent)/0.3)]' 
-                  : isConnected 
-                    ? 'border-secondary/70 shadow-[0_0_20px_5px_hsl(var(--secondary)/0.4)]' 
-                    : 'border-muted shadow-lg'
-              }`}>
-                <img 
-                  src={aprilImage} 
-                  alt="April Sabral"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
+              <img
+                src={aprilImage}
+                alt="April Sabral"
+                className="w-full h-full object-cover"
+              />
             </div>
+          </div>
 
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-2">
-                {isConnected ? (isSpeaking ? 'April is speaking...' : 'Listening...') : 'Practice with April'}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {isConnected 
-                  ? 'Have a conversation with April to practice your communication'
-                  : 'Start a voice conversation to roleplay and practice'}
-              </p>
-            </div>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2">Practice with April</h2>
+          </div>
 
-            {!isConnected ? (
-              <Button 
+          <p className="text-muted-foreground mb-8">
+            {conversation.status === 'connected'
+              ? conversation.isSpeaking
+                ? "April is speaking..."
+                : "Listening..."
+              : "Click the button below to start your practice conversation"}
+          </p>
+
+          <div className="flex gap-4 justify-center">
+            {conversation.status !== 'connected' ? (
+              <Button
                 onClick={startConversation}
                 size="lg"
-                disabled={!isPro}
-                className="bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="gap-2"
               >
-                {isPro ? <PhoneCall className="mr-2 h-5 w-5" /> : <Lock className="mr-2 h-5 w-5" />}
-                {isPro ? 'Start Voice Practice' : 'Pro Feature - Upgrade to Unlock'}
+                <Mic className="w-5 h-5" />
+                Start Voice Practice
               </Button>
             ) : (
-              <Button 
+              <Button
                 onClick={endConversation}
-                variant="destructive"
                 size="lg"
+                variant="destructive"
+                className="gap-2"
               >
-                <PhoneOff className="mr-2 h-5 w-5" />
+                <MicOff className="w-5 h-5" />
                 End Conversation
               </Button>
             )}
           </div>
 
-          {transcript.length > 0 && (
-            <div className="mt-6 space-y-2 max-h-60 overflow-y-auto">
-              <p className="text-xs font-semibold text-muted-foreground uppercase">Conversation</p>
-              {transcript.map((line, index) => (
-                <p 
-                  key={index} 
-                  className={`text-sm ${
-                    line.startsWith('You:') 
-                      ? 'text-foreground' 
-                      : 'text-secondary font-medium'
-                  }`}
-                >
-                  {line}
-                </p>
-              ))}
+          {conversation.status === 'connected' && transcript.length > 0 && (
+            <div className="w-full mt-8">
+              <h3 className="text-lg font-semibold mb-4">Conversation Transcript</h3>
+              <ScrollArea className="h-[300px] w-full rounded-md border p-4">
+                <div className="space-y-4">
+                  {transcript.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`flex ${
+                        message.role === 'user' ? 'justify-end' : 'justify-start'
+                      }`}
+                    >
+                      <div
+                        className={`max-w-[80%] rounded-lg p-3 ${
+                          message.role === 'user'
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-muted'
+                        }`}
+                      >
+                        <p className="text-sm font-medium mb-1">
+                          {message.role === 'user' ? 'You' : 'April'}
+                        </p>
+                        <p className="text-sm">{message.content}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
             </div>
           )}
-        </CardContent>
+        </div>
       </Card>
     </div>
   );

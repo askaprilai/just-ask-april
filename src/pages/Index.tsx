@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -62,6 +62,7 @@ const Index = () => {
   const [isListening, setIsListening] = useState(false);
   const [usageCount, setUsageCount] = useState(0);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const FREE_USAGE_LIMIT = 5;
 
   useEffect(() => {
@@ -424,60 +425,88 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Label Chips */}
-              <Card className="mt-4 shadow-sm">
-                <CardContent className="pt-5 md:pt-6 px-3 md:px-6">
-                <div className="space-y-3 md:space-y-4">
-                  <div>
-                    <p className="text-xs md:text-sm font-semibold mb-2 text-foreground">Environment:</p>
-                    <div className="flex flex-wrap gap-2 md:gap-2">
-                      {ENVIRONMENTS.map(env => (
-                        <Badge
-                          key={env}
-                          variant={environment === env ? "default" : "outline"}
-                          className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 md:px-3 touch-manipulation"
-                          onClick={() => setEnvironment(environment === env ? null : env)}
-                        >
-                          {env}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+              {/* Optional Settings - Collapsible */}
+              <div className="mt-4">
+                <Button
+                  variant="ghost"
+                  onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
+                  className="w-full justify-between text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Target className="h-4 w-4" />
+                    Optional: Fine-tune your rewrite
+                  </span>
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showAdvancedOptions ? 'rotate-180' : ''}`} />
+                </Button>
+                
+                <div className={`overflow-hidden transition-all duration-300 ${showAdvancedOptions ? 'max-h-[800px] opacity-100 mt-3' : 'max-h-0 opacity-0'}`}>
+                  <Card className="shadow-sm border-secondary/20">
+                    <CardContent className="pt-5 md:pt-6 px-3 md:px-6">
+                      <div className="space-y-4 md:space-y-5">
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <Building2 className="h-4 w-4 text-secondary" />
+                            <p className="text-xs md:text-sm font-semibold text-foreground">Environment</p>
+                          </div>
+                          <p className="text-xs text-muted-foreground mb-2">Where will this be said?</p>
+                          <div className="flex flex-wrap gap-2">
+                            {ENVIRONMENTS.map(env => (
+                              <Badge
+                                key={env}
+                                variant={environment === env ? "default" : "outline"}
+                                className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 touch-manipulation hover:scale-105 transition-transform"
+                                onClick={() => setEnvironment(environment === env ? null : env)}
+                              >
+                                {env}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
 
-                  <div>
-                    <p className="text-xs md:text-sm font-semibold mb-2 text-foreground">Outcome:</p>
-                    <div className="flex flex-wrap gap-2 md:gap-2">
-                      {OUTCOMES.map(out => (
-                        <Badge
-                          key={out}
-                          variant={outcome === out ? "default" : "outline"}
-                          className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 md:px-3 touch-manipulation"
-                          onClick={() => setOutcome(outcome === out ? null : out)}
-                        >
-                          {out}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+                        <div className="pt-3 border-t border-border/50">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Target className="h-4 w-4 text-secondary" />
+                            <p className="text-xs md:text-sm font-semibold text-foreground">Outcome</p>
+                          </div>
+                          <p className="text-xs text-muted-foreground mb-2">What do you want to achieve?</p>
+                          <div className="flex flex-wrap gap-2">
+                            {OUTCOMES.map(out => (
+                              <Badge
+                                key={out}
+                                variant={outcome === out ? "default" : "outline"}
+                                className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 touch-manipulation hover:scale-105 transition-transform"
+                                onClick={() => setOutcome(outcome === out ? null : out)}
+                              >
+                                {out}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
 
-                  <div>
-                    <p className="text-xs md:text-sm font-semibold mb-2 text-foreground">Desired Emotion:</p>
-                    <div className="flex flex-wrap gap-2 md:gap-2">
-                      {EMOTIONS.map(emo => (
-                        <Badge
-                          key={emo}
-                          variant={emotion === emo ? "default" : "outline"}
-                          className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 md:px-3 touch-manipulation"
-                          onClick={() => setEmotion(emotion === emo ? null : emo)}
-                        >
-                          {emo}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+                        <div className="pt-3 border-t border-border/50">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Smile className="h-4 w-4 text-secondary" />
+                            <p className="text-xs md:text-sm font-semibold text-foreground">Desired Emotion</p>
+                          </div>
+                          <p className="text-xs text-muted-foreground mb-2">How do you want them to feel?</p>
+                          <div className="flex flex-wrap gap-2">
+                            {EMOTIONS.map(emo => (
+                              <Badge
+                                key={emo}
+                                variant={emotion === emo ? "default" : "outline"}
+                                className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 touch-manipulation hover:scale-105 transition-transform"
+                                onClick={() => setEmotion(emotion === emo ? null : emo)}
+                              >
+                                {emo}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
-                </CardContent>
-              </Card>
+              </div>
             </div>
 
             {/* Examples Section - Now below the input */}

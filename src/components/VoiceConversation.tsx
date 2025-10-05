@@ -2,16 +2,24 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { RealtimeChat } from '@/utils/RealtimeAudio';
-import { PhoneCall, PhoneOff } from 'lucide-react';
+import { PhoneCall, PhoneOff, Lock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import aprilImage from '@/assets/april-headshot.jpeg';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useNavigate } from 'react-router-dom';
 
 const VoiceConversation = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { subscribed, productId } = useSubscription();
   const [isConnected, setIsConnected] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState<string[]>([]);
   const chatRef = useRef<RealtimeChat | null>(null);
+  
+  const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
+  const isPro = subscribed && productId === PRO_PRODUCT_ID;
 
   const handleMessage = (event: any) => {
     console.log('Message type:', event.type);
@@ -36,6 +44,15 @@ const VoiceConversation = () => {
   };
 
   const startConversation = async () => {
+    if (!isPro) {
+      toast({
+        title: "Pro Feature",
+        description: "Voice practice requires a Pro subscription",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       toast({
         title: "Starting conversation...",
@@ -80,8 +97,34 @@ const VoiceConversation = () => {
 
   return (
     <div className="w-full space-y-4">
+      {!isPro && (
+        <Card className="border-accent/30 bg-accent/5">
+          <CardContent className="p-4 flex items-start gap-3">
+            <Lock className="h-5 w-5 text-accent mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-medium">Pro Feature</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Voice practice with April is available for Pro subscribers. Upgrade to unlock this feature.
+              </p>
+              <Button 
+                size="sm" 
+                className="mt-2 bg-gradient-to-r from-secondary to-accent"
+                onClick={() => navigate('/pricing')}
+              >
+                Upgrade to Pro
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      
       <Card className="border-secondary/30 shadow-lg">
         <CardContent className="p-6">
+          {isPro && (
+            <Badge className="mb-4 bg-gradient-to-r from-secondary to-accent text-white">
+              Pro Feature ✨
+            </Badge>
+          )}
           <div className="flex flex-col items-center gap-4">
             <div className={`relative w-32 h-32 rounded-full overflow-hidden transition-all duration-500 ${
               isSpeaking 
@@ -132,10 +175,11 @@ const VoiceConversation = () => {
               <Button 
                 onClick={startConversation}
                 size="lg"
-                className="bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300"
+                disabled={!isPro}
+                className="bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <PhoneCall className="mr-2 h-5 w-5" />
-                Start Voice Practice
+                {isPro ? <PhoneCall className="mr-2 h-5 w-5" /> : <Lock className="mr-2 h-5 w-5" />}
+                {isPro ? 'Start Voice Practice' : 'Pro Feature - Upgrade to Unlock'}
               </Button>
             ) : (
               <Button 

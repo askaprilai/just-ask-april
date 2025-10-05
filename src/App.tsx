@@ -12,6 +12,7 @@ import Pricing from "./pages/Pricing";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
 import History from "./pages/History";
+import Analytics from "./pages/Analytics";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/history" element={<History />} />
+            <Route path="/analytics" element={<Analytics />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -345,6 +345,12 @@ const Index = () => {
                 History
               </Button>
             )}
+            {user && subscribed && productId === PRO_PRODUCT_ID && (
+              <Button variant="outline" size="sm" onClick={() => navigate('/analytics')} className="hover:scale-105 transition-transform border-secondary/30">
+                <BarChart3 className="mr-2 h-4 w-4" />
+                Analytics
+              </Button>
+            )}
             <Button variant="ghost" size="sm" onClick={() => navigate('/privacy')}>
               Privacy
             </Button>
@@ -378,7 +384,7 @@ const Index = () => {
           
           {/* Mobile Navigation */}
           <div className="md:hidden flex justify-center">
-            <MobileNav user={user} usageCount={dailyUsage} freeLimit={FREE_USAGE_LIMIT} />
+            <MobileNav user={user} />
           </div>
         </div>
 
@@ -467,7 +473,7 @@ const Index = () => {
                 >
                   <span className="flex items-center gap-2">
                     <Target className="h-4 w-4" />
-                    Optional: Fine-tune your message
+                    {subscribed && productId === PRO_PRODUCT_ID ? 'Pro Options' : 'Optional: Fine-tune your message'}
                   </span>
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showAdvancedOptions ? 'rotate-180' : ''}`} />
                 </Button>

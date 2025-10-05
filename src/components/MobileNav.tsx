@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, BarChart3, History } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Menu, BarChart3, History, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useSubscription } from "@/contexts/SubscriptionContext";
 
 interface MobileNavProps {
   user: User | null;
@@ -13,10 +15,15 @@ interface MobileNavProps {
   freeLimit?: number;
 }
 
-export const MobileNav = ({ user, usageCount = 0, freeLimit = 5 }: MobileNavProps) => {
+export const MobileNav = ({ user }: MobileNavProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { subscribed, productId, dailyUsage } = useSubscription();
   const [open, setOpen] = useState(false);
+  
+  const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
+  const isPro = subscribed && productId === PRO_PRODUCT_ID;
+  const FREE_USAGE_LIMIT = 10;
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -45,13 +52,29 @@ export const MobileNav = ({ user, usageCount = 0, freeLimit = 5 }: MobileNavProp
       </SheetTrigger>
       <SheetContent side="right" className="w-[280px] sm:w-[350px]">
         <nav className="flex flex-col gap-4 mt-8">
-          {!user && (
-            <div className="px-4 py-2 bg-muted/50 rounded-lg">
-              <p className="text-sm text-muted-foreground text-center">
-                {usageCount}/{freeLimit} free uses
-              </p>
-            </div>
-          )}
+          {user ? (
+            isPro ? (
+              <div className="px-4 py-2 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg border border-secondary/20">
+                <Badge className="w-full bg-gradient-to-r from-secondary to-accent text-white justify-center">
+                  Pro Plan ✨
+                </Badge>
+              </div>
+            ) : (
+              <div className="px-4 py-2 bg-muted/50 rounded-lg space-y-2">
+                <p className="text-sm text-muted-foreground text-center">
+                  {dailyUsage}/{FREE_USAGE_LIMIT} today
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="w-full"
+                  onClick={() => handleNavigate('/pricing')}
+                >
+                  Upgrade to Pro
+                </Button>
+              </div>
+            )
+          ) : null}
           <Button 
             variant="ghost" 
             className="w-full justify-start text-lg h-12"
@@ -82,6 +105,16 @@ export const MobileNav = ({ user, usageCount = 0, freeLimit = 5 }: MobileNavProp
             >
               <History className="mr-2 h-5 w-5" />
               History
+            </Button>
+          )}
+          {user && isPro && (
+            <Button 
+              variant="ghost" 
+              className="w-full justify-start text-lg h-12"
+              onClick={() => handleNavigate('/analytics')}
+            >
+              <TrendingUp className="mr-2 h-5 w-5" />
+              Analytics
             </Button>
           )}
           <Button 

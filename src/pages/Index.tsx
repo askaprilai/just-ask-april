@@ -305,6 +305,48 @@ const Index = () => {
     );
   }
 
+  // Require authentication for all users (free and pro)
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center px-4">
+        <Card className="max-w-md w-full shadow-2xl">
+          <CardContent className="pt-8 pb-6 text-center space-y-6">
+            <div className="space-y-2">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                Just Ask April
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                Say it better. Get better results.
+              </p>
+            </div>
+            
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Sign up to start using April's communication tools. Free users get 10 fine-tunes per day.
+              </p>
+              
+              <Button 
+                onClick={() => navigate('/auth')}
+                className="w-full h-12 text-base bg-gradient-to-r from-secondary to-accent hover:opacity-90"
+              >
+                Sign Up / Sign In
+              </Button>
+              
+              <div className="pt-4 space-y-2 text-left border-t">
+                <h3 className="font-semibold text-sm">Free Plan Includes:</h3>
+                <ul className="text-xs text-muted-foreground space-y-1">
+                  <li>• 10 fine-tunes per day</li>
+                  <li>• Basic tone adjustments</li>
+                  <li>• Email support</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background Gradient Orbs */}

@@ -213,7 +213,7 @@ const Pricing = () => {
                   <Button 
                     className="w-full h-11 md:h-10 text-sm md:text-base"
                     variant="outline"
-                    onClick={() => navigate('/')}
+                    onClick={() => navigate('/auth')}
                   >
                     {plan.cta}
                   </Button>

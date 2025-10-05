@@ -79,12 +79,25 @@ const About = () => {
               </div>
               <div className="flex-1 text-center md:text-left">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                  It's like having April Sabral in your pocket
+                  It's like having April Sabral in your pocket.
                 </h2>
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  30+ years of communication expertise, available whenever you need it. 
-                  Get instant guidance on what to say and how to say it—right from your device.
-                </p>
+                <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
+                  <p>
+                    With over 30 years of experience leading and coaching teams across global retail brands, April Sabral has seen firsthand how communication can ignite or deflate a team.
+                  </p>
+                  <p>
+                    As the author of three leadership books — <em>The Positive Effect</em>, <em>Incurable Positivity</em>, and <em>Positive Accountability</em> — and the founder of April Sabral Leadership and RetailU, April has dedicated her career to helping leaders and teams reach their potential through intentional communication.
+                  </p>
+                  <p>
+                    After decades of hearing the same question — "April, how do I say this?" — she created Just Ask April, an AI-powered communication intelligence tool that brings her proven frameworks right to your device.
+                  </p>
+                  <p>
+                    Built on the Impact Language Method™, a science-backed model for effective communication, Just Ask April helps you get instant guidance on what to say and how to say it — transforming difficult conversations into positive outcomes.
+                  </p>
+                  <p>
+                    Whether you're leading a team, managing a client, or navigating relationships, you can now access April's leadership expertise anytime, anywhere.
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>

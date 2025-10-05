@@ -95,15 +95,31 @@ const VoiceConversation = () => {
 
   if (!isPro) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
-        <Lock className="w-12 h-12 text-muted-foreground" />
-        <div>
-          <h3 className="text-xl font-semibold mb-2">Pro Feature</h3>
-          <p className="text-muted-foreground mb-4">
-            Voice practice with April is available for Pro subscribers only.
-          </p>
-          <ProFeatureBadge feature="Voice Practice" />
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-[600px] space-y-8 p-8">
+        <Card className="w-full max-w-2xl p-8">
+          <div className="flex flex-col items-center space-y-6">
+            <div className="relative">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-muted">
+                <img
+                  src={aprilImage}
+                  alt="April Sabral"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground rounded-full p-2">
+                <Lock className="w-5 h-5" />
+              </div>
+            </div>
+
+            <div className="text-center">
+              <h2 className="text-2xl font-bold mb-2">Practice with April</h2>
+              <p className="text-muted-foreground mb-6">
+                Voice practice is available for Pro subscribers
+              </p>
+              <ProFeatureBadge feature="Voice Practice" />
+            </div>
+          </div>
+        </Card>
       </div>
     );
   }

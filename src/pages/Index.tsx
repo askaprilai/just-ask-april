@@ -390,7 +390,7 @@ const Index = () => {
             </p>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
-            Just Ask April: AI Communication Coach
+            Just Ask April: Your AI Communication Playbook & Role-Play
           </h1>
           <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
           <p className="text-base md:text-base text-muted-foreground mb-1 md:mb-2 px-4">

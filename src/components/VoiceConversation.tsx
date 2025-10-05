@@ -32,17 +32,17 @@ const VoiceConversation = () => {
     onMessage: (message) => {
       console.log('Received message:', message);
       
-      if (message.type === 'user_transcript') {
-        setTranscript(prev => [...prev, { role: 'user', content: message.transcript }]);
-      } else if (message.type === 'agent_response') {
-        setTranscript(prev => [...prev, { role: 'assistant', content: message.text }]);
+      if (message.source === 'user') {
+        setTranscript(prev => [...prev, { role: 'user', content: message.message }]);
+      } else if (message.source === 'ai') {
+        setTranscript(prev => [...prev, { role: 'assistant', content: message.message }]);
       }
     },
     onError: (error) => {
       console.error('ElevenLabs error:', error);
       toast({
         title: "Error",
-        description: error.message || "Failed to connect to voice service",
+        description: typeof error === 'string' ? error : "Failed to connect to voice service",
         variant: "destructive",
       });
     },
@@ -70,8 +70,8 @@ const VoiceConversation = () => {
       if (error) throw error;
       if (!data?.signed_url) throw new Error('No signed URL received');
 
-      // Start the conversation with ElevenLabs
-      await conversation.startSession({ url: data.signed_url });
+      // Start the conversation with ElevenLabs using signed URL
+      await conversation.startSession({ signedUrl: data.signed_url });
       setTranscript([]);
     } catch (error) {
       console.error('Error starting conversation:', error);

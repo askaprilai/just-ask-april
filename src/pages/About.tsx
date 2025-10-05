@@ -30,13 +30,13 @@ const About = () => {
         </div>
 
         {/* April's Photo Section */}
-        <Card className="shadow-xl border-secondary/20 mb-12 md:mb-16 overflow-hidden">
+        <Card className="shadow-xl border-secondary/20 mb-16 md:mb-24 overflow-hidden">
           <CardContent className="pt-6 md:pt-8 pb-6 md:pb-8 px-4 md:px-6">
             <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
               <div className="flex-1 max-w-md mx-auto w-full">
                 <img 
                   src={aprilImage} 
-                  alt="April Sabral - 30+ years experience"
+                  alt="April Sabral - 30+ years experience in communication and leadership"
                   className="w-full h-auto animate-fade-in rounded-lg"
                 />
               </div>
@@ -53,54 +53,50 @@ const About = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-xl border-secondary/20">
-          <CardContent className="pt-6 md:pt-8 pb-6 md:pb-8 px-4 md:px-6 space-y-4 md:space-y-6">
-            <div className="prose prose-lg max-w-none">
-              <p className="text-base md:text-lg leading-relaxed">
-                The world of work—how you communicate—either ignites people or deflates them. 
-                I've seen firsthand the power of words and how one slight shift in language can get a better outcome.
-              </p>
+        {/* Impact Language Method Section */}
+        <div className="mb-16 md:mb-24">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent px-2">
+              The Impact Language Method™ — Backed by Science.
+            </h2>
+            <p className="text-xl sm:text-2xl md:text-3xl font-light mb-6 md:mb-8 px-2">
+              Say it Better. Get Better Results.
+            </p>
+          </div>
 
-              <p className="text-base md:text-lg leading-relaxed">
-                After leading retail teams that delivered growth for over 20 years, whether that was 
-                one store or 300 stores, I learned that the right words at the right time can transform everything.
-              </p>
-
-              <div className="bg-gradient-to-r from-secondary/10 to-accent/10 p-4 md:p-6 rounded-lg border border-secondary/20 my-6 md:my-8">
-                <p className="text-lg md:text-xl font-medium text-center italic">
-                  "How do I say it?"
+          <Card className="shadow-xl border-secondary/20 mb-12 md:mb-16">
+            <CardContent className="pt-6 md:pt-8 pb-6 md:pb-8 px-4 md:px-6">
+              <div className="prose prose-lg max-w-none">
+                <p className="text-base md:text-lg leading-relaxed mb-4">
+                  Every message we send creates an outcome. The Impact Language Method™ brings structure and science to how you communicate — helping you move from reaction to intentional, positive influence.
                 </p>
-                <p className="text-sm md:text-base text-muted-foreground text-center mt-2 md:mt-3">
-                  This is the question people always ask me.
+                <p className="text-base md:text-lg leading-relaxed">
+                  Built on behavioral psychology and communication science, this method helps leaders, teams, and creators express themselves clearly, confidently, and with purpose.
                 </p>
               </div>
+            </CardContent>
+          </Card>
 
-              <p className="text-base md:text-lg leading-relaxed">
-                That's why Just Ask April exists. To help you find the right words when it matters most. 
-                To transform difficult conversations into opportunities. To help you communicate with intention 
-                and get the outcomes you're looking for.
+          {/* Impact Method Diagram */}
+          <div className="mb-12 md:mb-16">
+            <ImpactMethodDiagram />
+          </div>
+
+          {/* CTA Section */}
+          <Card className="shadow-xl border-secondary/20 bg-gradient-to-r from-secondary/5 to-accent/5">
+            <CardContent className="pt-8 md:pt-10 pb-8 md:pb-10 px-4 md:px-6 text-center">
+              <p className="text-lg md:text-xl text-muted-foreground mb-6 md:mb-8">
+                Learn how to apply the Impact Language Method™ in your everyday communication.
               </p>
-
-              <p className="text-base md:text-lg leading-relaxed font-medium text-secondary">
-                Because when in doubt, you can always just ask April.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Impact Language Method Diagram */}
-        <div className="mt-20 md:mt-32">
-          <ImpactMethodDiagram />
-        </div>
-
-        <div className="text-center mt-8 md:mt-12">
-          <Button 
-            onClick={() => navigate('/')}
-            size="lg"
-            className="bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 w-full sm:w-auto h-12 md:h-11"
-          >
-            Try Just Ask April
-          </Button>
+              <Button 
+                onClick={() => navigate('/')}
+                size="lg"
+                className="bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 w-full sm:w-auto h-12 md:h-11"
+              >
+                Try Just Ask April
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

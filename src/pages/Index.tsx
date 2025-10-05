@@ -385,32 +385,32 @@ const Index = () => {
         {/* Hero Section */}
         <div className="text-center mb-6 md:mb-12 animate-fade-in">
           <div className="inline-block mb-3 md:mb-6 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
-            <p className="text-base md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+            <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               The AI for Human Connection
             </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             Just Ask April
           </h1>
-          <p className="text-base sm:text-lg md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
-          <p className="text-sm md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
+          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
+          <p className="text-base md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
             Grammarly fixes your grammar. April fixes your impact.
           </p>
-          <p className="text-xs md:text-sm italic text-gray-600 mb-3 md:mb-4 px-4 font-medium">
+          <p className="text-sm md:text-sm italic text-gray-600 mb-3 md:mb-4 px-4 font-medium">
             If in doubt, just ask April
           </p>
           
           {/* Quick Benefits */}
           <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-4 md:mb-6 px-4">
-            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>3 free tries - no signup</span>
             </div>
-            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>10 free daily rewrites</span>
             </div>
-            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-accent rounded-full" />
               <span>Unlimited with Pro</span>
             </div>
@@ -488,7 +488,7 @@ const Index = () => {
 
         {/* Before You Speak - Problem Statement */}
         <div className="mb-8 md:mb-12 animate-fade-in">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
+          <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
             Before You Speak...
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -547,7 +547,7 @@ const Index = () => {
 
         {/* How It Works */}
         <div className="mb-8 md:mb-12 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-6 md:p-8 border border-secondary/10">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-700">
+          <h2 className="text-3xl md:text-3xl font-bold text-center mb-8 text-gray-700">
             Practice Before You Speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -585,7 +585,7 @@ const Index = () => {
 
         {/* Social Proof */}
         <div className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
+          <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
             Better Conversations, Better Results
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

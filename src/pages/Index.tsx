@@ -482,7 +482,7 @@ const Index = () => {
         {/* Before You Speak - Problem Statement */}
         <div className="mb-8 md:mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
-            Before You Speak...
+            Think Before You Send
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
@@ -507,7 +507,7 @@ const Index = () => {
                 <div className="flex items-start gap-3 mb-3">
                   <Target className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold mb-2">Client Calls</h3>
+                    <h3 className="font-semibold mb-2">Talk to Your Boss</h3>
                     <p className="text-sm text-muted-foreground mb-3">
                       You need to set boundaries, but do not want to damage the relationship
                     </p>

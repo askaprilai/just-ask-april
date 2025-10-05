@@ -390,7 +390,7 @@ const Index = () => {
             </p>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
-            Just Ask April
+            Just Ask April: AI Communication Coach
           </h1>
           <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
           <p className="text-base md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
@@ -541,7 +541,7 @@ const Index = () => {
         {/* How It Works */}
         <div className="mb-8 md:mb-12 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-6 md:p-8 border border-secondary/10">
           <h2 className="text-3xl md:text-3xl font-bold text-center mb-8 text-gray-700">
-            Practice Before You Speak
+            How AI Communication Coaching Works
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <div className="text-center">
@@ -558,7 +558,7 @@ const Index = () => {
               <div className="relative w-16 h-16 mx-auto mb-4">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent to-accent/70 animate-pulse blur-md opacity-75"></div>
                 <div className="relative w-16 h-16 rounded-full ring-2 ring-accent bg-background flex items-center justify-center">
-                  <img src={aprilImage} alt="April" className="w-14 h-14 rounded-full object-cover" />
+                  <img src={aprilImage} alt="April AI communication coach avatar showing professional headshot for conversation practice and message rewrites" className="w-14 h-14 rounded-full object-cover" />
                 </div>
               </div>
               <h3 className="font-semibold mb-2">2. April Shows You How to Say It Better</h3>
@@ -582,7 +582,7 @@ const Index = () => {
         {/* Social Proof */}
         <div className="mb-8 md:mb-12">
           <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
-            Better Conversations, Better Results
+            Proven Results: Better Workplace Communication
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="bg-gradient-to-br from-background to-secondary/5">

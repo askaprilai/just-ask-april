@@ -410,21 +410,21 @@ const Index = () => {
       <div className="container max-w-5xl mx-auto px-4 py-6 md:py-12 relative">
         {/* Hero Section */}
         <div className="text-center mb-6 md:mb-12 animate-fade-in">
-          <div className="inline-block mb-3 md:mb-6 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
+          <div className="inline-block mb-6 md:mb-8 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               AI that helps you find the right words, the human way.
             </p>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             When you know what to say, but not how to say it... Just Ask April.
           </h1>
-          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-2 md:mb-3 font-light px-4 leading-relaxed">The AI for Human Connection</p>
-          <p className="text-base md:text-base text-muted-foreground mb-1 md:mb-2 px-4">
+          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-4 md:mb-5 font-light px-4 leading-relaxed">The AI for Human Connection</p>
+          <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
             Grammarly fixes your grammar. April fixes your impact.
           </p>
           
           {/* Quick Benefits */}
-          <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-4 md:mb-6 px-4">
+          <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-6 md:mb-8 px-4">
             <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>10 free daily rewrites</span>

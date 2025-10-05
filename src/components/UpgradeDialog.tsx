@@ -20,19 +20,6 @@ export const UpgradeDialog = ({ open, onOpenChange, feature = "unlimited Impact 
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   const handleUpgrade = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      toast({
-        title: "Sign in required",
-        description: "Please sign in to upgrade to Pro",
-        variant: "destructive",
-      });
-      navigate('/auth?redirect=checkout');
-      onOpenChange(false);
-      return;
-    }
-
     setCheckoutLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('create-checkout');

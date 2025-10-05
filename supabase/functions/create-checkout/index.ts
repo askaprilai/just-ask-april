@@ -25,31 +25,42 @@ serve(async (req) => {
   try {
     logStep("Function started");
 
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) throw new Error("No authorization header provided");
-    
-    const token = authHeader.replace("Bearer ", "");
-    const { data } = await supabaseClient.auth.getUser(token);
-    const user = data.user;
-    if (!user?.email) throw new Error("User not authenticated or email not available");
-    logStep("User authenticated", { userId: user.id, email: user.email });
-
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", { apiVersion: "2025-08-27.basil" });
-    const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    let customerId;
     
-    if (customers.data.length > 0) {
-      customerId = customers.data[0].id;
-      logStep("Existing customer found", { customerId });
+    // Check if user is authenticated (optional for guest checkout)
+    const authHeader = req.headers.get("Authorization");
+    let userEmail: string | undefined;
+    let customerId: string | undefined;
+    
+    if (authHeader) {
+      try {
+        const token = authHeader.replace("Bearer ", "");
+        const { data } = await supabaseClient.auth.getUser(token);
+        const user = data.user;
+        
+        if (user?.email) {
+          userEmail = user.email;
+          logStep("User authenticated", { userId: user.id, email: user.email });
+          
+          // Check for existing customer
+          const customers = await stripe.customers.list({ email: user.email, limit: 1 });
+          if (customers.data.length > 0) {
+            customerId = customers.data[0].id;
+            logStep("Existing customer found", { customerId });
+          }
+        }
+      } catch (error) {
+        logStep("Auth check failed, proceeding as guest", { error });
+      }
     } else {
-      logStep("Creating new customer");
+      logStep("No auth header, proceeding as guest checkout");
     }
 
     const origin = req.headers.get("origin") || "http://localhost:3000";
     
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
-      customer_email: customerId ? undefined : user.email,
+      customer_email: customerId ? undefined : userEmail,
       line_items: [
         {
           price: "price_1SEkfhG4liszaBokEjYIDEqj",

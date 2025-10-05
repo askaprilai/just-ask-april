@@ -18,6 +18,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { useSubscription } from "@/contexts/SubscriptionContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface Rewrite {
   text: string;
@@ -411,6 +412,7 @@ const Index = () => {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-3 justify-center flex-wrap items-center">
+            <ThemeToggle />
             <Button variant="outline" size="sm" onClick={() => navigate('/about')} className="hover:scale-105 transition-transform">
               About April
             </Button>

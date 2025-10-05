@@ -8,6 +8,7 @@ import { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useSubscription } from "@/contexts/SubscriptionContext";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface MobileNavProps {
   user: User | null;
@@ -51,6 +52,9 @@ export const MobileNav = ({ user }: MobileNavProps) => {
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-[280px] sm:w-[350px]">
+        <div className="flex justify-end mb-4">
+          <ThemeToggle />
+        </div>
         <nav className="flex flex-col gap-4 mt-8">
           {user ? (
             isPro ? (

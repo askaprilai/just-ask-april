@@ -638,26 +638,26 @@ const Index = () => {
                 <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h3>
                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
-                      <span className="text-xl">🎯</span> Impact Language Method™
+                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                      Impact Language Method™
                     </h4>
                     <p className="text-sm md:text-base text-muted-foreground">Based on 5 core communication pillars that drive real results in professional and personal settings.</p>
                   </div>
                   <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
-                      <span className="text-xl">💡</span> Context-Aware Suggestions
+                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                      Context-Aware Suggestions
                     </h4>
                     <p className="text-sm md:text-base text-muted-foreground">Get rewrites tailored to your specific situation, desired outcome, and emotional tone.</p>
                   </div>
                   <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
-                      <span className="text-xl">⚡</span> Instant Results
+                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                      Instant Results
                     </h4>
                     <p className="text-sm md:text-base text-muted-foreground">No more staring at blank screens. Get 3 professional alternatives in seconds.</p>
                   </div>
                   <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2 flex items-center gap-2">
-                      <span className="text-xl">🎤</span> Practice Mode
+                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                      Practice Mode
                     </h4>
                     <p className="text-sm md:text-base text-muted-foreground">Rehearse difficult conversations with AI feedback before the real thing.</p>
                   </div>

@@ -483,10 +483,10 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Before You Hit Send - Problem Statement */}
+        {/* Before You Speak - Problem Statement */}
         <div className="mb-8 md:mb-12 animate-fade-in">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
-            Before You Hit Send...
+            Before You Speak...
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="border-destructive/20 hover:border-destructive/40 transition-all">
@@ -494,12 +494,12 @@ const Index = () => {
                 <div className="flex items-start gap-3 mb-3">
                   <Building2 className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold mb-2">At Work</h3>
+                    <h3 className="font-semibold mb-2">Team Meetings</h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      "We need this done ASAP" → Team feels pressured and defensive
+                      You want to push back on a deadline, but worry you will sound uncommitted
                     </p>
                     <p className="text-xs text-secondary font-medium">
-                      April helps you motivate without pushing away
+                      Practice saying it in a way that shows leadership, not resistance
                     </p>
                   </div>
                 </div>
@@ -511,12 +511,12 @@ const Index = () => {
                 <div className="flex items-start gap-3 mb-3">
                   <Target className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold mb-2">With Clients</h3>
+                    <h3 className="font-semibold mb-2">Client Calls</h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      "That won't work for us" → Client feels dismissed and unheard
+                      You need to set boundaries, but do not want to damage the relationship
                     </p>
                     <p className="text-xs text-secondary font-medium">
-                      April helps you set boundaries while building trust
+                      Practice saying no in a way that strengthens trust
                     </p>
                   </div>
                 </div>
@@ -528,12 +528,12 @@ const Index = () => {
                 <div className="flex items-start gap-3 mb-3">
                   <Smile className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold mb-2">In Relationships</h3>
+                    <h3 className="font-semibold mb-2">Tough Conversations</h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      "You always..." → Partner feels attacked and shuts down
+                      You need to address something important, but every version sounds confrontational
                     </p>
                     <p className="text-xs text-secondary font-medium">
-                      April helps you be heard without blame
+                      Practice saying it so you are heard, not dismissed
                     </p>
                   </div>
                 </div>
@@ -545,16 +545,16 @@ const Index = () => {
         {/* How It Works */}
         <div className="mb-8 md:mb-12 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-6 md:p-8 border border-secondary/10">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-            How It Works
+            Practice Before You Speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <MessageSquare className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-semibold mb-2">1. Type What You Want to Say</h3>
+              <h3 className="font-semibold mb-2">1. Say What You Are Thinking</h3>
               <p className="text-sm text-muted-foreground">
-                Share your message exactly as it comes to mind
+                Type it out exactly as it sounds in your head
               </p>
             </div>
             
@@ -562,19 +562,19 @@ const Index = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <img src={aprilImage} alt="April" className="w-10 h-10 rounded-full object-cover" />
               </div>
-              <h3 className="font-semibold mb-2">2. April Suggests Better Ways</h3>
+              <h3 className="font-semibold mb-2">2. April Shows You How to Say It Better</h3>
               <p className="text-sm text-muted-foreground">
-                Get 3 rewritten versions designed for your outcome
+                Get 3 versions that drive the outcome you actually want
               </p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <ArrowRight className="w-8 h-8 text-white" />
+                <Phone className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-semibold mb-2">3. Choose & Send With Confidence</h3>
+              <h3 className="font-semibold mb-2">3. Practice With Voice (Pro)</h3>
               <p className="text-sm text-muted-foreground">
-                Copy the version that feels right and get better results
+                Talk it through with April before the real conversation
               </p>
             </div>
           </div>
@@ -583,7 +583,7 @@ const Index = () => {
         {/* Social Proof */}
         <div className="mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
-            Real People, Better Outcomes
+            Better Conversations, Better Results
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="bg-gradient-to-br from-background to-secondary/5">
@@ -592,10 +592,10 @@ const Index = () => {
                   <Users className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-sm mb-3 italic">
-                      "I used to dread difficult conversations with my team. April helps me say what I need without sounding harsh."
+                      "I used to rehearse difficult conversations in my head for hours. Now I practice with April and walk in confident."
                     </p>
                     <p className="text-xs font-semibold">Sarah M.</p>
-                    <p className="text-xs text-muted-foreground">Corporate Manager</p>
+                    <p className="text-xs text-muted-foreground">Team Leader</p>
                   </div>
                 </div>
               </CardContent>
@@ -607,10 +607,10 @@ const Index = () => {
                   <Award className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-sm mb-3 italic">
-                      "Client emails used to take me forever. Now I confidently respond in minutes and keep relationships strong."
+                      "Before discovery calls, I use April to practice how I will handle objections. My close rate went up."
                     </p>
                     <p className="text-xs font-semibold">James K.</p>
-                    <p className="text-xs text-muted-foreground">Small Business Owner</p>
+                    <p className="text-xs text-muted-foreground">Sales Professional</p>
                   </div>
                 </div>
               </CardContent>
@@ -622,7 +622,7 @@ const Index = () => {
                   <Shield className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-sm mb-3 italic">
-                      "Finally, a way to express my needs without starting arguments. My partner actually hears me now."
+                      "I finally learned how to express what I need without my partner getting defensive. We actually talk now."
                     </p>
                     <p className="text-xs font-semibold">Alex T.</p>
                     <p className="text-xs text-muted-foreground">Partner & Parent</p>

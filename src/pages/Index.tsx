@@ -483,7 +483,7 @@ const Index = () => {
 
         {/* Before You Speak - Problem Statement */}
         <div className="mb-8 md:mb-12 animate-fade-in">
-          <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700">
+          <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
             Ask April before you speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

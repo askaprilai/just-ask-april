@@ -8,13 +8,14 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon, AlertCircle, RefreshCw } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
 import aprilImage from "@/assets/april-headshot.jpeg";
 import { MobileNav } from "@/components/MobileNav";
 import { useSubscription } from "@/contexts/SubscriptionContext";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Rewrite {
   text: string;
@@ -65,6 +66,7 @@ const Index = () => {
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [showTryItNow, setShowTryItNow] = useState(false);
+  const [errorState, setErrorState] = useState<string | null>(null);
   const FREE_USAGE_LIMIT = 10;
   const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
 
@@ -154,6 +156,7 @@ const Index = () => {
     setRewriteLoading(true);
     setResult(null);
     setFeedbackGiven({});
+    setErrorState(null);
 
     try {
       const { data, error } = await supabase.functions.invoke('rewrite', {
@@ -186,9 +189,11 @@ const Index = () => {
 
     } catch (error: any) {
       console.error("Rewrite error:", error);
+      const errorMessage = error.message || "Failed to generate rewrites";
+      setErrorState(errorMessage);
       toast({
-        title: "Error",
-        description: error.message || "Failed to generate rewrites",
+        title: "Something went wrong",
+        description: "We couldn't process your request. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -196,12 +201,20 @@ const Index = () => {
     }
   };
 
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    toast({
-      title: "Copied",
-      description: "Said better with Just Ask April",
-    });
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({
+        title: "Copied",
+        description: "Said better with Just Ask April",
+      });
+    } catch (error) {
+      toast({
+        title: "Copy failed",
+        description: "Please try selecting and copying manually",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleFeedback = async (helpful: boolean, index: number) => {
@@ -594,10 +607,10 @@ const Index = () => {
             </div>
 
             {/* Examples Section - Now below the input */}
-            {!result && <ExamplesSection />}
+            {!result && !rewriteLoading && <ExamplesSection />}
 
             {/* Social Proof Section */}
-            {!result && (
+            {!result && !rewriteLoading && (
               <section className="mt-12 md:mt-16 space-y-6">
                 <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Why People Love April</h3>
                 <div className="grid md:grid-cols-3 gap-4 md:gap-6">
@@ -633,7 +646,7 @@ const Index = () => {
             )}
 
             {/* Benefits Section */}
-            {!result && (
+            {!result && !rewriteLoading && (
               <section className="mt-12 md:mt-16 space-y-6">
                 <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h3>
                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
@@ -671,6 +684,64 @@ const Index = () => {
             <VoiceConversation />
           </TabsContent>
         </Tabs>
+
+        {/* Loading State */}
+        {rewriteLoading && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="text-center py-4">
+              <div className="inline-flex items-center gap-2 text-secondary">
+                <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
+                <p className="text-sm font-medium">April is analyzing your message...</p>
+              </div>
+            </div>
+            
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="overflow-hidden border-secondary/20">
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    <Skeleton className="h-6 w-32" />
+                    <Skeleton className="h-20 w-full" />
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-full" />
+                      <Skeleton className="h-4 w-full" />
+                      <Skeleton className="h-4 w-3/4" />
+                    </div>
+                    <div className="flex gap-2">
+                      <Skeleton className="h-9 w-24" />
+                      <Skeleton className="h-9 w-24" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* Error State */}
+        {errorState && !rewriteLoading && (
+          <Card className="border-destructive/50 bg-destructive/5 animate-fade-in">
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4">
+                <AlertCircle className="h-6 w-6 text-destructive shrink-0 mt-1" />
+                <div className="flex-1 space-y-3">
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Something went wrong</h3>
+                    <p className="text-sm text-muted-foreground">{errorState}</p>
+                  </div>
+                  <Button
+                    onClick={handleRewrite}
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                    Try Again
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Original Text Display */}
         {result && (

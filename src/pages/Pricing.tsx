@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, X, Zap, Shield, Users, Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSubscription } from "@/contexts/SubscriptionContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -126,12 +126,35 @@ const Pricing = () => {
           >
             ← Back to Home
           </Button>
+          
+          {/* Trust badges */}
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-secondary" />
+              <span>10,000+ Happy Users</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Shield className="h-4 w-4 text-secondary" />
+              <span>Cancel Anytime</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Zap className="h-4 w-4 text-secondary" />
+              <span>Instant Access</span>
+            </div>
+          </div>
+          
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent px-2">
-            Choose Your Plan
+            Say It Better, Get Better Results
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Transform your communication with April. Start free, upgrade as you grow.
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 mb-3">
+            Join thousands of professionals who communicate with confidence
           </p>
+          <div className="flex items-center justify-center gap-1 text-secondary">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-4 w-4 fill-current" />
+            ))}
+            <span className="ml-2 text-sm text-muted-foreground">4.9/5 from 2,000+ reviews</span>
+          </div>
         </div>
 
         {/* Pricing Cards */}
@@ -219,23 +242,156 @@ const Pricing = () => {
           ))}
         </div>
 
+        {/* Feature Comparison Table */}
+        <div className="mt-16 md:mt-20 max-w-5xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Compare Plans</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b-2 border-border">
+                  <th className="text-left py-4 px-4 font-semibold">Features</th>
+                  <th className="text-center py-4 px-4 font-semibold">Free</th>
+                  <th className="text-center py-4 px-4 font-semibold bg-gradient-to-br from-secondary/10 to-accent/10 rounded-t-lg">
+                    <div className="flex flex-col items-center gap-1">
+                      <span>Pro</span>
+                      <span className="text-xs font-normal text-muted-foreground">Most Popular</span>
+                    </div>
+                  </th>
+                  <th className="text-center py-4 px-4 font-semibold">Enterprise</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                <tr className="border-b border-border">
+                  <td className="py-4 px-4">Impact Statements per day</td>
+                  <td className="text-center py-4 px-4">10</td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5">Unlimited</td>
+                  <td className="text-center py-4 px-4">Unlimited</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-4 px-4">Practice conversations</td>
+                  <td className="text-center py-4 px-4"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                  <td className="text-center py-4 px-4"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-4 px-4">The Impact Playbook</td>
+                  <td className="text-center py-4 px-4"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                  <td className="text-center py-4 px-4"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-4 px-4">Analytics Dashboard</td>
+                  <td className="text-center py-4 px-4"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                  <td className="text-center py-4 px-4"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-4 px-4">Priority Support</td>
+                  <td className="text-center py-4 px-4"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                  <td className="text-center py-4 px-4"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-4 px-4">Team Members</td>
+                  <td className="text-center py-4 px-4">1</td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5">1</td>
+                  <td className="text-center py-4 px-4">Unlimited</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-4 px-4">Custom AI Training</td>
+                  <td className="text-center py-4 px-4"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-4">Dedicated Account Manager</td>
+                  <td className="text-center py-4 px-4"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-b-lg"><X className="h-4 w-4 mx-auto text-muted-foreground" /></td>
+                  <td className="text-center py-4 px-4"><Check className="h-5 w-5 mx-auto text-secondary" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Social Proof */}
+        <div className="mt-16 md:mt-20 max-w-4xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Trusted by Professionals</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="border-border">
+              <CardContent className="p-6">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-secondary text-secondary" />
+                  ))}
+                </div>
+                <p className="text-sm md:text-base mb-4">"April Pro has transformed how I handle difficult conversations at work. The practice feature alone is worth the price."</p>
+                <p className="text-sm font-medium">— Jennifer K., Director of Operations</p>
+              </CardContent>
+            </Card>
+            <Card className="border-border">
+              <CardContent className="p-6">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-secondary text-secondary" />
+                  ))}
+                </div>
+                <p className="text-sm md:text-base mb-4">"Best investment I've made in my career. My emails get responses faster and my messages land exactly how I want them to."</p>
+                <p className="text-sm font-medium">— Marcus T., Sales Manager</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         {/* FAQ Section */}
         <div className="mt-16 md:mt-24 max-w-3xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Frequently Asked Questions</h2>
           <div className="space-y-4 md:space-y-6">
             <div className="border border-border rounded-lg p-4 md:p-6">
               <h3 className="font-semibold text-base md:text-lg mb-2">Can I switch plans anytime?</h3>
-              <p className="text-sm md:text-base text-muted-foreground">Yes! You can upgrade, downgrade, or cancel your subscription at any time.</p>
+              <p className="text-sm md:text-base text-muted-foreground">Yes! You can upgrade, downgrade, or cancel your subscription at any time. No long-term commitment required.</p>
             </div>
             <div className="border border-border rounded-lg p-4 md:p-6">
-              <h3 className="font-semibold text-base md:text-lg mb-2">What payment methods do you accept?</h3>
-              <p className="text-sm md:text-base text-muted-foreground">We accept all major credit cards and PayPal.</p>
+              <h3 className="font-semibold text-base md:text-lg mb-2">What happens when I upgrade to Pro?</h3>
+              <p className="text-sm md:text-base text-muted-foreground">You get instant access to unlimited Impact Statements, practice conversations, analytics, and The Impact Playbook. Your card is charged immediately.</p>
+            </div>
+            <div className="border border-border rounded-lg p-4 md:p-6">
+              <h3 className="font-semibold text-base md:text-lg mb-2">Is my data secure?</h3>
+              <p className="text-sm md:text-base text-muted-foreground">Absolutely. We use enterprise-grade encryption and never share your data with third parties. You can delete your history anytime.</p>
             </div>
             <div className="border border-border rounded-lg p-4 md:p-6">
               <h3 className="font-semibold text-base md:text-lg mb-2">How does billing work?</h3>
-              <p className="text-sm md:text-base text-muted-foreground">You'll be billed monthly at $20/month. Cancel anytime with no long-term commitment.</p>
+              <p className="text-sm md:text-base text-muted-foreground">You'll be billed $20/month for Pro. Cancel anytime with no fees or penalties.</p>
             </div>
           </div>
+        </div>
+
+        {/* Final CTA */}
+        <div className="mt-16 md:mt-20 max-w-3xl mx-auto px-4">
+          <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-secondary/20">
+            <CardContent className="p-8 md:p-12 text-center">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to transform your communication?</h2>
+              <p className="text-muted-foreground mb-6 md:mb-8">Join 10,000+ professionals who communicate with confidence</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  onClick={() => navigate('/auth')}
+                  variant="outline"
+                  className="text-base"
+                >
+                  Try Free
+                </Button>
+                <Button 
+                  size="lg"
+                  onClick={handleCheckout}
+                  disabled={checkoutLoading}
+                  className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white text-base"
+                >
+                  {checkoutLoading ? 'Loading...' : 'Upgrade to Pro'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

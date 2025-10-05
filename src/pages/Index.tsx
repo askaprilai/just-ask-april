@@ -562,7 +562,7 @@ const Index = () => {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-accent/50 animate-pulse">
                 <img src={aprilImage} alt="April" className="w-10 h-10 rounded-full object-cover" />
               </div>
               <h3 className="font-semibold mb-2">2. April Shows You How to Say It Better</h3>

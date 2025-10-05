@@ -13,76 +13,80 @@ serve(async (req) => {
   }
 
   try {
-    // Authenticate user
+    console.log('[REWRITE] Function started');
+    
+    // Check for authentication (optional for this endpoint)
     const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
-      return new Response(JSON.stringify({ error: "Authentication required" }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-    }
-
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      { global: { headers: { Authorization: authHeader } } }
-    );
-
-    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
-    if (authError || !user) {
-      return new Response(JSON.stringify({ error: "Invalid authentication" }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-    }
-
-    // Check subscription status and enforce limits
-    const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", { 
-      apiVersion: "2025-08-27.basil" 
-    });
-    
-    const customers = await stripe.customers.list({ email: user.email!, limit: 1 });
+    let user = null;
     let isPro = false;
-    
-    if (customers.data.length > 0) {
-      const subscriptions = await stripe.subscriptions.list({
-        customer: customers.data[0].id,
-        status: "active",
-        limit: 1,
-      });
-      isPro = subscriptions.data.length > 0;
-    }
 
-    // Check daily usage for free users
-    if (!isPro) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      const { count, error: countError } = await supabaseClient
-        .from("rewrites")
-        .select("*", { count: "exact", head: true })
-        .eq("user_id", user.id)
-        .gte("created_at", today.toISOString());
+    if (authHeader) {
+      console.log('[REWRITE] Auth header present, checking user...');
+      const supabaseClient = createClient(
+        Deno.env.get('SUPABASE_URL') ?? '',
+        Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+        { global: { headers: { Authorization: authHeader } } }
+      );
 
-      if (countError) {
-        console.error("Error checking daily usage:", countError);
-      }
+      const { data: userData, error: authError } = await supabaseClient.auth.getUser();
+      if (!authError && userData.user) {
+        user = userData.user;
+        console.log('[REWRITE] User authenticated:', user.id);
 
-      const dailyLimit = 5;
-      if (count !== null && count >= dailyLimit) {
-        return new Response(
-          JSON.stringify({ 
-            error: "daily_limit_reached",
-            message: `You've reached your daily limit of ${dailyLimit} rewrites. Upgrade to Pro for unlimited rewrites!`,
-            limit: dailyLimit,
-            used: count
-          }),
-          {
-            status: 429,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        // Check subscription status for authenticated users
+        const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", { 
+          apiVersion: "2025-08-27.basil" 
+        });
+        
+        const customers = await stripe.customers.list({ email: user.email!, limit: 1 });
+        
+        if (customers.data.length > 0) {
+          const subscriptions = await stripe.subscriptions.list({
+            customer: customers.data[0].id,
+            status: "active",
+            limit: 1,
+          });
+          isPro = subscriptions.data.length > 0;
+          console.log('[REWRITE] Pro status:', isPro);
+        }
+
+        // Check daily usage for authenticated free users
+        if (!isPro) {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          const { count, error: countError } = await supabaseClient
+            .from("rewrites")
+            .select("*", { count: "exact", head: true })
+            .eq("user_id", user.id)
+            .gte("created_at", today.toISOString());
+
+          if (countError) {
+            console.error("[REWRITE] Error checking daily usage:", countError);
           }
-        );
+
+          const dailyLimit = 5;
+          if (count !== null && count >= dailyLimit) {
+            console.log('[REWRITE] Daily limit reached:', count);
+            return new Response(
+              JSON.stringify({ 
+                error: "daily_limit_reached",
+                message: `You've reached your daily limit of ${dailyLimit} rewrites. Upgrade to Pro for unlimited rewrites!`,
+                limit: dailyLimit,
+                used: count
+              }),
+              {
+                status: 429,
+                headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+              }
+            );
+          }
+        }
+      } else {
+        console.log('[REWRITE] Auth header present but invalid');
       }
+    } else {
+      console.log('[REWRITE] No auth header - guest user');
     }
 
     const { user_text, environment, outcome, desired_emotion, allow_infer = true } = await req.json();
@@ -201,36 +205,47 @@ ${!environment || !outcome || !desired_emotion ? 'Please infer missing labels.' 
     aiResponse = aiResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
     const result = JSON.parse(aiResponse);
+    console.log('[REWRITE] AI response parsed successfully');
 
-    // Store in database
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    let rewriteId = null;
 
-    const { data: rewriteRecord, error: dbError } = await supabase
-      .from('rewrites')
-      .insert({
-        user_id: user.id,
-        raw_text: user_text,
-        environment: environment || null,
-        outcome: outcome || null,
-        desired_emotion: desired_emotion || null,
-        inferred_env: result.inferred?.environment || null,
-        inferred_outcome: result.inferred?.outcome || null,
-        inferred_emotion: result.inferred?.desired_emotion || null,
-        intent_summary: result.diagnostics?.intent_summary || null,
-        model_latency_ms: latency
-      })
-      .select()
-      .single();
+    // Store in database only if user is authenticated
+    if (user) {
+      console.log('[REWRITE] Storing rewrite in database...');
+      const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+      const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+      const supabase = createClient(supabaseUrl, supabaseKey);
 
-    if (dbError) {
-      console.error("Database error:", dbError);
+      const { data: rewriteRecord, error: dbError } = await supabase
+        .from('rewrites')
+        .insert({
+          user_id: user.id,
+          raw_text: user_text,
+          environment: environment || null,
+          outcome: outcome || null,
+          desired_emotion: desired_emotion || null,
+          inferred_env: result.inferred?.environment || null,
+          inferred_outcome: result.inferred?.outcome || null,
+          inferred_emotion: result.inferred?.desired_emotion || null,
+          intent_summary: result.diagnostics?.intent_summary || null,
+          model_latency_ms: latency
+        })
+        .select()
+        .single();
+
+      if (dbError) {
+        console.error("[REWRITE] Database error:", dbError);
+      } else {
+        rewriteId = rewriteRecord?.id;
+        console.log('[REWRITE] Stored in database:', rewriteId);
+      }
+    } else {
+      console.log('[REWRITE] Guest user - not storing in database');
     }
 
     return new Response(JSON.stringify({
       ...result,
-      rewrite_id: rewriteRecord?.id,
+      rewrite_id: rewriteId,
       model_latency_ms: latency
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

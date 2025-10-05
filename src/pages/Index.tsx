@@ -485,7 +485,7 @@ const Index = () => {
 
         {/* Before You Speak - Problem Statement */}
         <div className="mb-8 md:mb-12 animate-fade-in">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
             Before You Speak...
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -544,7 +544,7 @@ const Index = () => {
 
         {/* How It Works */}
         <div className="mb-8 md:mb-12 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-6 md:p-8 border border-secondary/10">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-700">
             Practice Before You Speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -582,7 +582,7 @@ const Index = () => {
 
         {/* Social Proof */}
         <div className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
             Better Conversations, Better Results
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -98,14 +98,37 @@ const Index = () => {
     });
   };
 
-  const handleExampleClick = (text: string) => {
-    setUserText(text);
-    setShowTryItNow(true);
-    // Scroll to input field smoothly
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleExampleClick = (before: string, after: string) => {
+    setUserText(before);
+    setShowTryItNow(false);
+    
+    // Create a mock result with the example's after text
+    const mockResult: RewriteResponse = {
+      rewrites: [{
+        text: after,
+        tone_label: "Example",
+        pillars: {
+          intent: "Clear",
+          message: "Direct",
+          position: "Collaborative",
+          action: "Specific",
+          calibration: "Balanced"
+        },
+        rationale: "This is an example transformation showing April's approach.",
+        cautions: ""
+      }]
+    };
+    
+    setResult(mockResult);
+    
+    // Scroll down to see results
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 100);
+    
     toast({
       title: "Example loaded",
-      description: "Click the arrow to see April's suggestions",
+      description: "See how April improved it below",
     });
   };
 

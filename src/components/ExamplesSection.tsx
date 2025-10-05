@@ -22,8 +22,10 @@ const EXAMPLES = [
   },
 ];
 
+export { EXAMPLES };
+
 interface ExamplesSectionProps {
-  onExampleClick?: (text: string) => void;
+  onExampleClick?: (before: string, after: string) => void;
 }
 
 export const ExamplesSection = ({ onExampleClick }: ExamplesSectionProps) => {
@@ -42,7 +44,7 @@ export const ExamplesSection = ({ onExampleClick }: ExamplesSectionProps) => {
         {EXAMPLES.map((example, index) => (
           <Card 
             key={index} 
-            onClick={() => onExampleClick?.(example.before)}
+            onClick={() => onExampleClick?.(example.before, example.after)}
             className="group relative overflow-hidden border-secondary/20 hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.3)] transition-all duration-300 md:hover:scale-105 animate-fade-in hover:border-secondary/40 cursor-pointer active:scale-[0.98]"
             style={{ animationDelay: `${index * 150}ms` }}
           >

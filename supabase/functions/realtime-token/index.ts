@@ -32,9 +32,9 @@ serve(async (req) => {
         voice: "verse",
         turn_detection: {
           type: "server_vad",
-          threshold: 0.5,
-          prefix_padding_ms: 300,
-          silence_duration_ms: 2500,
+          threshold: 0.35,
+          prefix_padding_ms: 400,
+          silence_duration_ms: 3500,
           create_response: true
         },
         instructions: `You are April Sabral, an expert communication coach. Your role is to help people communicate more effectively through conversational practice.

@@ -325,10 +325,24 @@ export const ExamplesSection = () => {
     ? EXAMPLES 
     : EXAMPLES.filter(ex => ex.category === selectedCategory);
 
-  // Show only 4 examples to free users, rest are locked
-  const FREE_USER_LIMIT = 4;
-  const displayExamples = subscribed ? filteredExamples : filteredExamples.slice(0, FREE_USER_LIMIT);
-  const lockedExamples = !subscribed ? filteredExamples.slice(FREE_USER_LIMIT, FREE_USER_LIMIT + 4) : [];
+  // Show diverse examples to free users - one from each key category
+  const FREE_USER_LIMIT = 6;
+  let displayExamples = filteredExamples;
+  let lockedExamples: typeof EXAMPLES = [];
+  
+  if (!subscribed) {
+    // Show diverse categories for free users
+    const priorityCategories = ["Executive Presence", "Conflict", "Leadership", "Team Dynamics", "Workplace", "Feedback"];
+    const diverseExamples: typeof EXAMPLES = [];
+    
+    priorityCategories.forEach(cat => {
+      const example = filteredExamples.find(ex => ex.category === cat && !diverseExamples.includes(ex));
+      if (example) diverseExamples.push(example);
+    });
+    
+    displayExamples = diverseExamples.slice(0, FREE_USER_LIMIT);
+    lockedExamples = filteredExamples.slice(FREE_USER_LIMIT, FREE_USER_LIMIT + 6);
+  }
 
   const handlePracticeWithApril = (example: typeof EXAMPLES[0]) => {
     // This will be implemented to start a voice conversation with this example

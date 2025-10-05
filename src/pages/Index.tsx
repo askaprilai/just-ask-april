@@ -371,20 +371,25 @@ const Index = () => {
             {/* Examples Section */}
             {!result && <ExamplesSection />}
 
-            {/* Input Section */}
-            <div className="relative animate-scale-in">
-              <div className="relative rounded-2xl border border-border bg-background shadow-lg">
-                <Textarea
-                  placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
-                  value={userText}
-                  onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-                  className="min-h-[140px] md:min-h-[120px] text-sm md:text-base leading-relaxed border-0 rounded-2xl pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && userText.trim()) {
-                      handleRewrite();
-                    }
-                  }}
-                />
+            {/* Input Section with Heading */}
+            <div className="space-y-3">
+              <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                How do I say it better?
+              </h2>
+              
+              <div className="relative animate-scale-in">
+                <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl">
+                  <Textarea
+                    placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
+                    value={userText}
+                    onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
+                    className="min-h-[140px] md:min-h-[120px] text-sm md:text-base leading-relaxed border-0 rounded-2xl pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && userText.trim()) {
+                        handleRewrite();
+                      }
+                    }}
+                  />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                   <span className="text-xs text-muted-foreground">
                     {userText.length}/1500
@@ -420,6 +425,7 @@ const Index = () => {
                   </div>
                 )}
               </div>
+            </div>
 
               {/* Label Chips */}
               <Card className="mt-4 shadow-sm">

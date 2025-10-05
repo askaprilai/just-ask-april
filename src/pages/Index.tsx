@@ -307,16 +307,16 @@ const Index = () => {
       
       <div className="container max-w-5xl mx-auto px-4 py-6 md:py-12 relative">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-12 animate-fade-in">
-          <div className="inline-block mb-3 md:mb-4 px-3 md:px-4 py-1.5 md:py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
-            <p className="text-xs md:text-sm font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+        <div className="text-center mb-6 md:mb-12 animate-fade-in">
+          <div className="inline-block mb-2 md:mb-4 px-3 md:px-4 py-1 md:py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
+            <p className="text-[10px] md:text-sm font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               The AI for Human Connection
             </p>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-2">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             Just Ask April
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-4 md:mb-6 font-light px-2">Say it better. Get better results.</p>
+          <p className="text-base sm:text-lg md:text-2xl text-muted-foreground mb-4 md:mb-6 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-3 justify-center flex-wrap items-center">
@@ -354,32 +354,32 @@ const Index = () => {
         </div>
 
         {/* Tabbed Interface */}
-        <Tabs defaultValue="text" className="mb-6 md:mb-8">
-          <TabsList className="grid w-full grid-cols-2 mb-6 md:mb-8 h-12 md:h-11">
-            <TabsTrigger value="text" className="text-sm md:text-base h-full">
-              <MessageSquare className="mr-2 h-4 w-4" />
+        <Tabs defaultValue="text" className="mb-4 md:mb-8">
+          <TabsList className="grid w-full grid-cols-2 mb-4 md:mb-8 h-14 md:h-11">
+            <TabsTrigger value="text" className="text-xs md:text-base h-full">
+              <MessageSquare className="mr-1 md:mr-2 h-4 w-4" />
               Say it better
             </TabsTrigger>
-            <TabsTrigger value="voice" className="text-sm md:text-base h-full">
-              <Phone className="mr-2 h-4 w-4" />
+            <TabsTrigger value="voice" className="text-xs md:text-base h-full">
+              <Phone className="mr-1 md:mr-2 h-4 w-4" />
               Practice Live
             </TabsTrigger>
           </TabsList>
 
           {/* Text Rewrite Tab */}
-          <TabsContent value="text" className="space-y-6 md:space-y-8">
+          <TabsContent value="text" className="space-y-4 md:space-y-8">
             {/* Examples Section */}
             {!result && <ExamplesSection />}
 
             {/* Input Section */}
             <Card className="shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20 backdrop-blur-sm animate-scale-in">
-              <CardContent className="pt-4 md:pt-6 px-4 md:px-6">
+              <CardContent className="pt-5 md:pt-6 px-3 md:px-6">
                 <div className="relative">
                   <Textarea
                     placeholder="Paste what you'd normally say... even if you think it's fine. Let April audit your communication and show you how it could land better."
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-                    className="min-h-[100px] md:min-h-[120px] mb-2 text-sm md:text-base pr-12 md:pr-14"
+                    className="min-h-[120px] md:min-h-[120px] mb-2 text-sm md:text-base pr-12 md:pr-14 leading-relaxed"
                   />
                   <Button
                     type="button"
@@ -405,15 +405,15 @@ const Index = () => {
                 </div>
 
                 {/* Label Chips */}
-                <div className="space-y-3 mb-4">
+                <div className="space-y-3 md:space-y-4 mb-4">
                   <div>
-                    <p className="text-xs md:text-sm font-medium mb-2">Environment:</p>
-                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                    <p className="text-xs md:text-sm font-semibold mb-2 text-foreground">Environment:</p>
+                    <div className="flex flex-wrap gap-2 md:gap-2">
                       {ENVIRONMENTS.map(env => (
                         <Badge
                           key={env}
                           variant={environment === env ? "default" : "outline"}
-                          className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
+                          className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 md:px-3 touch-manipulation"
                           onClick={() => setEnvironment(environment === env ? null : env)}
                         >
                           {env}
@@ -423,13 +423,13 @@ const Index = () => {
                   </div>
 
                   <div>
-                    <p className="text-xs md:text-sm font-medium mb-2">Outcome:</p>
-                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                    <p className="text-xs md:text-sm font-semibold mb-2 text-foreground">Outcome:</p>
+                    <div className="flex flex-wrap gap-2 md:gap-2">
                       {OUTCOMES.map(out => (
                         <Badge
                           key={out}
                           variant={outcome === out ? "default" : "outline"}
-                          className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
+                          className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 md:px-3 touch-manipulation"
                           onClick={() => setOutcome(outcome === out ? null : out)}
                         >
                           {out}
@@ -439,13 +439,13 @@ const Index = () => {
                   </div>
 
                   <div>
-                    <p className="text-xs md:text-sm font-medium mb-2">Desired Emotion:</p>
-                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                    <p className="text-xs md:text-sm font-semibold mb-2 text-foreground">Desired Emotion:</p>
+                    <div className="flex flex-wrap gap-2 md:gap-2">
                       {EMOTIONS.map(emo => (
                         <Badge
                           key={emo}
                           variant={emotion === emo ? "default" : "outline"}
-                          className="cursor-pointer text-xs md:text-sm h-7 md:h-8 px-2 md:px-3"
+                          className="cursor-pointer text-xs md:text-sm h-9 md:h-8 px-3 md:px-3 touch-manipulation"
                           onClick={() => setEmotion(emotion === emo ? null : emo)}
                         >
                           {emo}
@@ -458,7 +458,7 @@ const Index = () => {
                 <Button 
                   onClick={handleRewrite} 
                   disabled={rewriteLoading || !userText.trim()}
-                  className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105 h-12 md:h-14 text-sm md:text-base"
+                  className="w-full bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 hover:scale-105 h-14 md:h-14 text-base md:text-base font-medium touch-manipulation"
                   size="lg"
                 >
                   {rewriteLoading ? "April is thinking..." : "How do I say it better?"}
@@ -475,9 +475,9 @@ const Index = () => {
 
         {/* Original Text Display */}
         {result && (
-          <div className="mb-6 md:mb-8 space-y-3 md:space-y-4 animate-fade-in">
-            <div className="p-4 md:p-6 bg-muted/30 rounded-xl md:rounded-2xl border border-border/50">
-              <p className="text-xs font-semibold text-muted-foreground mb-2 md:mb-3 uppercase tracking-wide flex items-center gap-2">
+          <div className="mb-4 md:mb-8 space-y-3 md:space-y-4 animate-fade-in">
+            <div className="p-4 md:p-6 bg-muted/30 rounded-lg md:rounded-2xl border border-border/50">
+              <p className="text-[10px] md:text-xs font-semibold text-muted-foreground mb-2 md:mb-3 uppercase tracking-wide flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-muted-foreground"></span>
                 What You Said
               </p>
@@ -486,14 +486,14 @@ const Index = () => {
 
             {/* Intent Summary */}
             {result.diagnostics?.intent_summary && (
-              <div className="p-4 md:p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-xl md:rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm">
-                <p className="text-xs md:text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">April&apos;s Analysis</p>
-                <p className="text-sm md:text-base lg:text-lg text-foreground leading-relaxed">{result.diagnostics.intent_summary}</p>
+              <div className="p-4 md:p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg md:rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm">
+                <p className="text-[10px] md:text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">April&apos;s Analysis</p>
+                <p className="text-sm md:text-lg text-foreground leading-relaxed">{result.diagnostics.intent_summary}</p>
               </div>
             )}
 
-            <div className="text-center py-2">
-              <p className="text-xs md:text-sm font-semibold text-secondary uppercase tracking-wide flex items-center justify-center gap-2">
+            <div className="text-center py-2 md:py-3">
+              <p className="text-[10px] md:text-sm font-semibold text-secondary uppercase tracking-wide flex items-center justify-center gap-2">
                 <span className="inline-block w-6 md:w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
                 April&apos;s Rewrites
                 <span className="inline-block w-6 md:w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
@@ -509,50 +509,50 @@ const Index = () => {
               <Card key={index} className="overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.1)] hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.2)] transition-all duration-300 md:hover:scale-[1.02] border-secondary/20 backdrop-blur-sm animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
                 <CardContent className="p-4 md:p-6">
                   {/* Tone Label */}
-                  <div className="flex items-center justify-between mb-3 md:mb-4">
-                    <Badge variant="secondary" className="text-sm md:text-base px-2.5 md:px-3 py-0.5 md:py-1">
+                  <div className="flex items-center justify-between mb-4 md:mb-4">
+                    <Badge variant="secondary" className="text-xs md:text-base px-3 md:px-3 py-1 md:py-1">
                       {rewrite.tone_label}
                     </Badge>
                   </div>
 
                   {/* Rewrite Text */}
-                  <p className="text-base md:text-lg mb-3 md:mb-4 leading-relaxed">{rewrite.text}</p>
+                  <p className="text-base md:text-lg mb-4 md:mb-4 leading-relaxed">{rewrite.text}</p>
 
                   {/* Pillars */}
-                  <div className="space-y-2 mb-3 md:mb-4">
+                  <div className="space-y-2.5 md:space-y-2 mb-4 md:mb-4">
                     {Object.entries(rewrite.pillars).map(([key, value]) => (
-                      <div key={key} className="flex items-start gap-2">
+                      <div key={key} className="flex items-start gap-2.5 md:gap-2">
                         <Badge 
-                          className={`${pillarColors[key as keyof typeof pillarColors]} shrink-0 uppercase text-xs`}
+                          className={`${pillarColors[key as keyof typeof pillarColors]} shrink-0 uppercase text-[10px] md:text-xs`}
                         >
                           {key}
                         </Badge>
-                        <p className="text-xs md:text-sm text-muted-foreground">{value}</p>
+                        <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{value}</p>
                       </div>
                     ))}
                   </div>
 
                   {/* Rationale */}
-                  <div className="mb-3 md:mb-4 p-2.5 md:p-3 bg-muted/50 rounded-md">
-                    <p className="text-xs md:text-sm font-medium text-secondary mb-1">Why it works:</p>
-                    <p className="text-xs md:text-sm">{rewrite.rationale}</p>
+                  <div className="mb-4 md:mb-4 p-3 md:p-3 bg-muted/50 rounded-lg md:rounded-md">
+                    <p className="text-xs md:text-sm font-semibold text-secondary mb-1.5 md:mb-1">Why it works:</p>
+                    <p className="text-xs md:text-sm leading-relaxed">{rewrite.rationale}</p>
                   </div>
 
                   {/* Cautions */}
                   {rewrite.cautions && (
-                    <div className="mb-3 md:mb-4 p-2.5 md:p-3 bg-accent/10 rounded-md border border-accent/20">
-                      <p className="text-xs md:text-sm font-medium text-accent-foreground mb-1">⚠️ Cautions:</p>
-                      <p className="text-xs md:text-sm">{rewrite.cautions}</p>
+                    <div className="mb-4 md:mb-4 p-3 md:p-3 bg-accent/10 rounded-lg md:rounded-md border border-accent/20">
+                      <p className="text-xs md:text-sm font-semibold text-accent-foreground mb-1.5 md:mb-1">⚠️ Cautions:</p>
+                      <p className="text-xs md:text-sm leading-relaxed">{rewrite.cautions}</p>
                     </div>
                   )}
 
                   {/* Actions */}
-                  <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2.5 md:gap-2">
                     <Button 
                       variant="outline" 
                       size="sm"
                       onClick={() => handleCopy(rewrite.text)}
-                      className="w-full sm:w-auto h-10 md:h-9"
+                      className="w-full sm:w-auto h-11 md:h-9 touch-manipulation text-sm"
                     >
                       <Copy className="mr-2 h-4 w-4" />
                       Copy
@@ -562,7 +562,7 @@ const Index = () => {
                       size="sm"
                       onClick={() => handlePlayAudio(rewrite.text, index)}
                       disabled={playingAudio !== null && playingAudio !== index}
-                      className="w-full sm:w-auto h-10 md:h-9"
+                      className="w-full sm:w-auto h-11 md:h-9 touch-manipulation text-sm"
                     >
                       <Volume2 className={`mr-2 h-4 w-4 ${playingAudio === index ? 'animate-pulse' : ''}`} />
                       {playingAudio === index ? 'Playing...' : 'Hear it'}
@@ -573,7 +573,7 @@ const Index = () => {
                           variant="outline" 
                           size="sm"
                           onClick={() => handleFeedback(true, index)}
-                          className="w-full sm:w-auto h-10 md:h-9"
+                          className="w-full sm:w-auto h-11 md:h-9 touch-manipulation text-sm"
                         >
                           <ThumbsUp className="mr-2 h-4 w-4" />
                           Helpful

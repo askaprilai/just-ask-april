@@ -114,6 +114,17 @@ const Index = () => {
       return;
     }
 
+    // Check if user is authenticated
+    if (!user) {
+      toast({
+        title: "Sign up to continue",
+        description: "Create a free account to use April's rewriting features",
+        variant: "destructive",
+      });
+      navigate('/auth');
+      return;
+    }
+
     // Hide the try it now badge when submitting
     setShowTryItNow(false);
 

@@ -51,6 +51,11 @@ export const ExamplesSection = () => {
             className="group relative overflow-hidden border-secondary/20 hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.3)] transition-all duration-300 md:hover:scale-105 animate-fade-in hover:border-secondary/40 cursor-pointer active:scale-[0.98]"
             style={{ animationDelay: `${index * 150}ms` }}
           >
+            <div className="absolute top-2 right-2 px-2.5 py-1 bg-accent/90 rounded-full border border-accent-foreground/20 animate-pulse">
+              <p className="text-[9px] md:text-[10px] font-bold text-accent-foreground uppercase tracking-wider">
+                Try it
+              </p>
+            </div>
             <CardContent className="p-5 md:p-6 space-y-3 md:space-y-4">
               <div className="inline-block px-2.5 md:px-3 py-1 bg-secondary/20 rounded-full border border-secondary/30">
                 <p className="text-[10px] md:text-xs font-bold text-secondary uppercase tracking-wide">

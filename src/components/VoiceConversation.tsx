@@ -83,18 +83,38 @@ const VoiceConversation = () => {
       <Card className="border-secondary/30 shadow-lg">
         <CardContent className="p-6">
           <div className="flex flex-col items-center gap-4">
-            <div className={`w-32 h-32 rounded-full overflow-hidden border-4 transition-all duration-300 ${
+            <div className={`relative w-32 h-32 rounded-full overflow-hidden transition-all duration-500 ${
               isSpeaking 
-                ? 'border-secondary shadow-[0_0_60px_20px_hsl(var(--secondary)/0.8),0_0_100px_30px_hsl(var(--accent)/0.4)] scale-110 animate-pulse' 
+                ? 'scale-110 animate-[pulse_1s_ease-in-out_infinite]' 
                 : isConnected 
-                  ? 'border-secondary shadow-[0_0_30px_10px_hsl(var(--secondary)/0.5)]' 
-                  : 'border-muted shadow-lg'
+                  ? 'scale-105' 
+                  : 'scale-100'
             }`}>
-              <img 
-                src={aprilImage} 
-                alt="April Sabral"
-                className="w-full h-full object-cover"
-              />
+              {/* Glowing rings */}
+              {isSpeaking && (
+                <>
+                  <div className="absolute inset-0 rounded-full bg-secondary/30 blur-xl animate-ping" style={{ animationDuration: '2s' }} />
+                  <div className="absolute inset-0 rounded-full bg-accent/20 blur-2xl animate-pulse" style={{ animationDuration: '1.5s' }} />
+                </>
+              )}
+              {isConnected && !isSpeaking && (
+                <div className="absolute inset-0 rounded-full bg-secondary/20 blur-lg animate-pulse" style={{ animationDuration: '3s' }} />
+              )}
+              
+              {/* Avatar with border */}
+              <div className={`relative w-full h-full rounded-full border-4 transition-all duration-300 ${
+                isSpeaking 
+                  ? 'border-secondary shadow-[0_0_40px_15px_hsl(var(--secondary)/0.6),0_0_80px_25px_hsl(var(--accent)/0.3)]' 
+                  : isConnected 
+                    ? 'border-secondary/70 shadow-[0_0_20px_5px_hsl(var(--secondary)/0.4)]' 
+                    : 'border-muted shadow-lg'
+              }`}>
+                <img 
+                  src={aprilImage} 
+                  alt="April Sabral"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
             </div>
 
             <div className="text-center">

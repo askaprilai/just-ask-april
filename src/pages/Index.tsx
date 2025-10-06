@@ -587,22 +587,28 @@ const Index = () => {
               </div>
 
               {/* Optional Settings - Prominent Design */}
-              <div className="mt-4">
+              <div className="mt-3">
                 <div className="relative">
                   <Button
                     variant="outline"
                     onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
-                    className="w-full justify-between text-sm font-medium border-2 border-secondary/30 hover:border-secondary/60 hover:bg-secondary/5 transition-all h-12 rounded-xl shadow-sm"
+                    className={`w-full justify-between text-sm font-medium border-2 transition-all h-12 rounded-xl shadow-sm ${
+                      userText.length > 0 
+                        ? 'bg-yellow-100 border-yellow-400 hover:bg-yellow-200 hover:border-yellow-500 dark:bg-yellow-900/30 dark:border-yellow-600 dark:hover:bg-yellow-900/50' 
+                        : 'border-secondary/30 hover:border-secondary/60 hover:bg-secondary/5'
+                    }`}
                   >
                     <span className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-lg bg-secondary/10 flex items-center justify-center">
-                        <Target className="h-4 w-4 text-secondary" />
+                      <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${
+                        userText.length > 0 ? 'bg-yellow-200 dark:bg-yellow-800/50' : 'bg-secondary/10'
+                      }`}>
+                        <Target className={`h-4 w-4 ${userText.length > 0 ? 'text-yellow-700 dark:text-yellow-400' : 'text-secondary'}`} />
                       </div>
                       <div className="text-left">
-                        <div className="text-sm font-semibold text-foreground">
-                          {subscribed && productId === PRO_PRODUCT_ID ? 'Pro Options' : 'Fine-tune Your Message'}
+                        <div className={`text-sm font-semibold ${userText.length > 0 ? 'text-yellow-900 dark:text-yellow-300' : 'text-foreground'}`}>
+                          {userText.length > 0 ? 'NOW Fine-tune Your Message' : 'Fine-tune Your Message'}
                         </div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className={`text-xs ${userText.length > 0 ? 'text-yellow-700 dark:text-yellow-400' : 'text-muted-foreground'}`}>
                           {(environment || outcome || emotion) 
                             ? `${[environment, outcome, emotion].filter(Boolean).length} option(s) selected` 
                             : 'Add context for better results'}
@@ -615,12 +621,14 @@ const Index = () => {
                           Active
                         </Badge>
                       )}
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 text-secondary ${showAdvancedOptions ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
+                        userText.length > 0 ? 'text-yellow-700 dark:text-yellow-400' : 'text-secondary'
+                      } ${showAdvancedOptions ? 'rotate-180' : ''}`} />
                     </div>
                   </Button>
                   {!showAdvancedOptions && userText.length > 10 && !(environment || outcome || emotion) && (
                     <div className="absolute -top-2 -right-2 animate-pulse">
-                      <Badge className="bg-secondary text-white text-xs shadow-lg">
+                      <Badge className="bg-yellow-500 text-white text-xs shadow-lg">
                         Click to customize
                       </Badge>
                     </div>

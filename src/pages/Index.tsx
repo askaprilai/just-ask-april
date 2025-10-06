@@ -692,7 +692,7 @@ const Index = () => {
             {/* Social Proof Section */}
             {!result && !rewriteLoading && (
               <section className="mt-20 md:mt-32 mb-16 md:mb-20 space-y-6">
-                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Why People Love April</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Why People Love Asking April</h2>
                 <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                   <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
                     <div className="flex gap-1 mb-3">

@@ -60,7 +60,7 @@ const About = () => {
                 size="lg"
                 className="bg-gradient-to-r from-secondary to-accent hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] transition-all duration-300 w-full sm:w-auto h-12 md:h-11"
               >
-                Try Just Ask April
+                Try Just Ask April AI
               </Button>
             </CardContent>
           </Card>
@@ -89,10 +89,10 @@ const About = () => {
                     As the author of three leadership books — <em>The Positive Effect</em>, <em>Incurable Positivity</em>, and <em>Positive Accountability</em> — and the founder of April Sabral Leadership and RetailU, April has dedicated her career to helping leaders and teams reach their potential through intentional communication.
                   </p>
                   <p>
-                    After decades of hearing the same question — "April, how do I say this?" — she created Just Ask April, an AI-powered communication intelligence tool that brings her proven frameworks right to your device.
+                    After decades of hearing the same question — "April, how do I say this?" — she created Just Ask April AI, an AI-powered communication intelligence tool that brings her proven frameworks right to your device.
                   </p>
                   <p>
-                    Built on the Impact Language Method™, a science-backed model for effective communication, Just Ask April helps you get instant guidance on what to say and how to say it — transforming difficult conversations into positive outcomes.
+                    Built on the Impact Language Method™, a science-backed model for effective communication, Just Ask April AI helps you get instant guidance on what to say and how to say it — transforming difficult conversations into positive outcomes.
                   </p>
                   <p>
                     Whether you're leading a team, managing a client, or navigating relationships, you can now access April's leadership expertise anytime, anywhere.

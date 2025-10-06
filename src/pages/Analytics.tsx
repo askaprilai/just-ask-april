@@ -451,7 +451,7 @@ const Analytics = () => {
               <p className="text-sm">
                 {stats.thisWeek > 0 
                   ? `Great job! You've refined ${stats.thisWeek} messages this week. Keep practicing to build your communication confidence.`
-                  : "Start using Just Ask April to track your progress and improve your communication skills."}
+                  : "Start using Just Ask April AI to track your progress and improve your communication skills."}
               </p>
             </div>
             {stats.totalRewrites > 10 && (

@@ -94,7 +94,7 @@ const Pricing = () => {
       features: [
         "The Impact Playbook",
         "Unlimited impact statements",
-        "Practice with April",
+        "Practice with April AI",
         "Unlimited chat",
         "Personalize your impact statements"
       ],

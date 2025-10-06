@@ -237,7 +237,7 @@ const Index = () => {
       await navigator.clipboard.writeText(text);
       toast({
         title: "Copied",
-        description: "Said better with Just Ask April",
+        description: "Said better with Just Ask April AI",
       });
     } catch (error) {
       toast({
@@ -395,7 +395,7 @@ const Index = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-10 md:mb-14 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             AI Communication Tool for Better Workplace Conversations
           </h1>
-          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-4 md:mb-5 font-light px-4 leading-relaxed">Your voice shapes outcomes. Just Ask April helps you shape it better.</p>
+          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-4 md:mb-5 font-light px-4 leading-relaxed">Your voice shapes outcomes. Just Ask April AI helps you shape it better.</p>
           <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
             Grammarly fixes your grammar. April fixes your impact.
           </p>
@@ -909,7 +909,7 @@ const Index = () => {
             {/* Closing message after rewrites */}
             <div className="text-center py-6 animate-fade-in">
               <p className="text-lg md:text-xl italic text-muted-foreground font-medium">
-                If in doubt, just ask April
+                If in doubt, just ask April AI
               </p>
             </div>
           </div>
@@ -918,7 +918,7 @@ const Index = () => {
         {/* Before You Speak - Problem Statement */}
         <div className="mb-16 md:mb-24 animate-fade-in mt-16 md:mt-20">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-foreground">
-            Ask April Before You Speak
+            Ask April AI Before You Speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
@@ -1070,7 +1070,7 @@ const Index = () => {
                 We build workplace relationships that transform lives
               </p>
               <p className="text-lg md:text-xl font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent mb-2">
-                When in doubt, just ask April
+                When in doubt, just ask April AI
               </p>
               <p className="text-sm md:text-base text-muted-foreground">
                 Professional communication coaching powered by AI
@@ -1109,7 +1109,7 @@ const Index = () => {
             
             <div className="text-center pt-6 border-t border-border/40">
               <p className="text-xs text-muted-foreground">
-                © 2025 Just Ask April. All rights reserved.
+                © 2025 Just Ask April AI. All rights reserved.
               </p>
             </div>
           </div>

@@ -133,7 +133,7 @@ const AuthPage = () => {
       <Card className="w-full max-w-md shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            Just Ask April
+            Just Ask April AI
           </CardTitle>
           <CardDescription>Sign in to access your communication coach</CardDescription>
         </CardHeader>

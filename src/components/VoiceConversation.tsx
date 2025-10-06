@@ -112,7 +112,7 @@ const VoiceConversation = () => {
             </div>
 
             <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2">Practice with April</h2>
+              <h2 className="text-2xl font-bold mb-2">Practice with April AI</h2>
               <p className="text-muted-foreground mb-6">
                 Voice practice is available for Pro subscribers
               </p>
@@ -146,7 +146,7 @@ const VoiceConversation = () => {
           </div>
 
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Practice with April</h2>
+            <h2 className="text-2xl font-bold mb-2">Practice with April AI</h2>
           </div>
 
           <p className="text-muted-foreground mb-8">

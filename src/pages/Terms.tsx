@@ -27,14 +27,14 @@ const Terms = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
             <p className="text-muted-foreground">
-              By accessing and using Just Ask April ("Service"), you accept and agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our Service.
+              By accessing and using Just Ask April AI ("Service"), you accept and agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our Service.
             </p>
           </section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">2. Description of Service</h2>
             <p className="text-muted-foreground mb-4">
-              Just Ask April is an AI-powered communication improvement platform that helps users enhance their written and verbal communication skills. The Service includes:
+              Just Ask April AI is an AI-powered communication improvement platform that helps users enhance their written and verbal communication skills. The Service includes:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
               <li>Text rewriting and communication improvement suggestions</li>
@@ -128,7 +128,7 @@ const Terms = () => {
 
             <h3 className="text-xl font-semibold mb-3 mt-4">Our Intellectual Property</h3>
             <p className="text-muted-foreground">
-              The Service, including The Impact Language Method™, its design, features, and functionality, are owned by Just Ask April and protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, or reverse engineer any part of the Service.
+              The Service, including The Impact Language Method™, its design, features, and functionality, are owned by Just Ask April AI and protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, or reverse engineer any part of the Service.
             </p>
           </section>
 
@@ -155,19 +155,19 @@ const Terms = () => {
 
             <h3 className="text-xl font-semibold mb-3 mt-4">Not Professional Advice</h3>
             <p className="text-muted-foreground mb-4">
-              Just Ask April is a communication improvement tool, not a substitute for professional advice. For legal, medical, or other professional matters, consult qualified professionals.
+              Just Ask April AI is a communication improvement tool, not a substitute for professional advice. For legal, medical, or other professional matters, consult qualified professionals.
             </p>
 
             <h3 className="text-xl font-semibold mb-3 mt-4">Limitation of Liability</h3>
             <p className="text-muted-foreground">
-              To the maximum extent permitted by law, Just Ask April shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from your use of the Service.
+              To the maximum extent permitted by law, Just Ask April AI shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from your use of the Service.
             </p>
           </section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">9. Indemnification</h2>
             <p className="text-muted-foreground">
-              You agree to indemnify and hold harmless Just Ask April, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of the Service or violation of these Terms.
+              You agree to indemnify and hold harmless Just Ask April AI, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of the Service or violation of these Terms.
             </p>
           </section>
 
@@ -214,7 +214,7 @@ const Terms = () => {
             <h2 className="text-2xl font-semibold mb-4">14. Miscellaneous</h2>
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
               <li><strong>Severability:</strong> If any provision is found invalid, the remaining provisions remain in effect</li>
-              <li><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and Just Ask April</li>
+              <li><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and Just Ask April AI</li>
               <li><strong>No Waiver:</strong> Failure to enforce any provision does not constitute a waiver</li>
               <li><strong>Assignment:</strong> You may not assign these Terms without our consent</li>
               <li><strong>Force Majeure:</strong> We are not liable for delays or failures due to circumstances beyond our control</li>
@@ -228,7 +228,7 @@ const Terms = () => {
             </p>
             <div className="p-4 bg-muted/50 rounded-lg">
               <p className="text-muted-foreground">
-                <strong>Just Ask April</strong><br />
+                <strong>Just Ask April AI</strong><br />
                 Email: legal@justaskapril.com<br />
                 Support: support@justaskapril.com
               </p>
@@ -237,7 +237,7 @@ const Terms = () => {
 
           <div className="mt-12 p-6 bg-secondary/10 rounded-lg border border-secondary/20">
             <p className="text-sm text-muted-foreground">
-              By using Just Ask April, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy.
+              By using Just Ask April AI, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy.
             </p>
           </div>
         </div>

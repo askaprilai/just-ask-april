@@ -27,7 +27,7 @@ const Privacy = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
             <p className="text-muted-foreground">
-              Just Ask April ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our communication improvement service.
+              Just Ask April AI ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our communication improvement service.
             </p>
           </section>
 
@@ -156,7 +156,7 @@ const Privacy = () => {
             </p>
             <div className="mt-4 p-4 bg-muted/50 rounded-lg">
               <p className="text-muted-foreground">
-                <strong>Just Ask April</strong><br />
+                <strong>Just Ask April AI</strong><br />
                 Email: privacy@justaskapril.com<br />
                 For data subject requests: privacy-requests@justaskapril.com
               </p>

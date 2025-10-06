@@ -352,7 +352,7 @@ export const ExamplesSection = () => {
 
   const handlePracticeWithApril = (example: typeof EXAMPLES[0]) => {
     // This will be implemented to start a voice conversation with this example
-    console.log("Practice with April:", example);
+    console.log("Practice with April AI:", example);
   };
 
   return (
@@ -370,7 +370,7 @@ export const ExamplesSection = () => {
         </p>
         {!subscribed && (
           <p className="text-xs md:text-sm text-accent font-semibold">
-            ✨ Upgrade to unlock unlimited Impact Statements + practice with April
+            ✨ Upgrade to unlock unlimited Impact Statements + practice with April AI
           </p>
         )}
       </div>
@@ -440,7 +440,7 @@ export const ExamplesSection = () => {
               <div className="pt-3 border-t border-border/50 space-y-2">
                 <p className="text-[10px] md:text-xs text-accent font-bold">✨ {example.outcome}</p>
                 
-                {/* Practice with April Button - Pro Feature */}
+                {/* Practice with April AI Button - Pro Feature */}
                 {expandedIndex === index && (
                   <Button
                     size="sm"
@@ -450,7 +450,7 @@ export const ExamplesSection = () => {
                     variant={subscribed ? "default" : "outline"}
                   >
                     <Sparkles className="h-3 w-3 mr-1" />
-                    {subscribed ? "Practice with April" : "Practice with April (Pro)"}
+                    {subscribed ? "Practice with April AI" : "Practice with April AI (Pro)"}
                   </Button>
                 )}
               </div>

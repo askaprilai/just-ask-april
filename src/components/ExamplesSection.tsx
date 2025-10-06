@@ -394,7 +394,7 @@ export const ExamplesSection = () => {
 
   return (
     <div className="mt-20 md:mt-32 mb-8 md:mb-16 animate-fade-in px-4">
-      <Card className="bg-gradient-to-br from-secondary/10 via-accent/10 to-primary/10 border-secondary/20 shadow-lg">
+      <Card className="bg-gradient-to-br from-secondary/15 via-primary/10 to-secondary/20 border-secondary/30 shadow-lg">
         <CardContent className="p-6 md:p-10">
           <div className="text-center mb-6 md:mb-8">
             <div className="inline-flex items-center gap-2 mb-3">

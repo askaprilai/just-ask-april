@@ -528,7 +528,7 @@ const Index = () => {
                   </div>
                   
                   <Textarea
-                    placeholder={animatedPlaceholder || "What do you want to say?"}
+                    placeholder={`What do you want to say? ${animatedPlaceholder}`}
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
                     className="min-h-[180px] md:min-h-[160px] text-sm md:text-base leading-relaxed border-0 rounded-none pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"

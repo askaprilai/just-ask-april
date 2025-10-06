@@ -12,7 +12,7 @@ import { useConversation } from '@11labs/react';
 import { supabase } from '@/integrations/supabase/client';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-const ELEVENLABS_AGENT_ID = '1KtMKr5khbNAxBQoRs3X';
+const ELEVENLABS_AGENT_ID = '7QG56pLLidBy9m2egJfA';
 
 const VoiceConversation = () => {
   const { toast } = useToast();

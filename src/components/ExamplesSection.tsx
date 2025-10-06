@@ -242,6 +242,27 @@ const EXAMPLES = [
     category: "Team Dynamics",
     outcome: "From observation to action"
   },
+
+  // Additional Workplace Examples
+  {
+    before: "This is taking way too long. We need results now.",
+    after: "I understand this is complex. What's blocking progress, and how can I help accelerate it?",
+    category: "Workplace",
+    outcome: "From pressure to support"
+  },
+  {
+    before: "I don't agree with that decision at all.",
+    after: "I have concerns about this direction. Can we discuss the factors that led to this decision?",
+    category: "Leadership",
+    outcome: "From opposition to dialogue"
+  },
+  {
+    before: "You always wait until the last minute to get things done.",
+    after: "I've noticed deadlines are tight. What's making it hard to start earlier?",
+    category: "Feedback",
+    outcome: "From accusation to understanding"
+  },
+  
   {
     before: "I need this done ASAP or we're going to miss the deadline.",
     after: "This is time-sensitive. Can you prioritize it by end of day? I'm here if you need support.",
@@ -457,6 +478,77 @@ export const ExamplesSection = () => {
             </CardContent>
           </Card>
         ))}
+        
+        {/* Pro Upgrade Tiles - Show only to free users */}
+        {!subscribed && (
+          <>
+            <Card 
+              onClick={handleLockedClick}
+              className="group relative overflow-hidden border-accent/40 bg-gradient-to-br from-secondary/5 to-accent/5 hover:shadow-[0_20px_50px_-10px_hsl(var(--accent)/0.4)] transition-all duration-300 md:hover:scale-105 animate-fade-in cursor-pointer hover:border-accent/60"
+            >
+              <CardContent className="p-5 md:p-6 flex flex-col items-center justify-center h-full min-h-[250px] text-center space-y-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center">
+                  <Sparkles className="h-8 w-8 text-white" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                    Unlock All Examples
+                  </h3>
+                  <p className="text-xs md:text-sm text-muted-foreground">
+                    Get unlimited access to all Impact Statements across every category
+                  </p>
+                </div>
+                <Button size="sm" className="w-full bg-gradient-to-r from-secondary to-accent text-white">
+                  Upgrade to Pro
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card 
+              onClick={handleLockedClick}
+              className="group relative overflow-hidden border-accent/40 bg-gradient-to-br from-accent/5 to-secondary/5 hover:shadow-[0_20px_50px_-10px_hsl(var(--accent)/0.4)] transition-all duration-300 md:hover:scale-105 animate-fade-in cursor-pointer hover:border-accent/60"
+            >
+              <CardContent className="p-5 md:p-6 flex flex-col items-center justify-center h-full min-h-[250px] text-center space-y-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center">
+                  <Sparkles className="h-8 w-8 text-white" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                    Practice with April AI
+                  </h3>
+                  <p className="text-xs md:text-sm text-muted-foreground">
+                    Have real voice conversations to practice these scenarios before they happen
+                  </p>
+                </div>
+                <Button size="sm" className="w-full bg-gradient-to-r from-secondary to-accent text-white">
+                  Upgrade to Pro
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card 
+              onClick={handleLockedClick}
+              className="group relative overflow-hidden border-accent/40 bg-gradient-to-br from-secondary/5 via-accent/5 to-primary/5 hover:shadow-[0_20px_50px_-10px_hsl(var(--accent)/0.4)] transition-all duration-300 md:hover:scale-105 animate-fade-in cursor-pointer hover:border-accent/60"
+            >
+              <CardContent className="p-5 md:p-6 flex flex-col items-center justify-center h-full min-h-[250px] text-center space-y-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                  <Sparkles className="h-8 w-8 text-white" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                    Filter by Category
+                  </h3>
+                  <p className="text-xs md:text-sm text-muted-foreground">
+                    Access targeted examples for Leadership, Conflict, Feedback, and more
+                  </p>
+                </div>
+                <Button size="sm" className="w-full bg-gradient-to-r from-secondary to-accent text-white">
+                  Upgrade to Pro
+                </Button>
+              </CardContent>
+            </Card>
+          </>
+        )}
       </div>
 
       {displayExamples.length === 0 && (

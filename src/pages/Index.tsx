@@ -572,25 +572,25 @@ const Index = () => {
                             type="button"
                             size="sm"
                             variant="outline"
-                            className="h-9 gap-1.5 border-secondary/30 hover:border-secondary hover:bg-secondary/5"
+                            className="h-9 gap-1 sm:gap-1.5 border-secondary/30 hover:border-secondary hover:bg-secondary/5"
                             title="Fine-tune your message"
                           >
-                            <span className="font-bold">1.</span>
-                            <Settings2 className="h-3.5 w-3.5" />
-                            <span className="text-xs">Fine-tune</span>
+                            <span className="font-bold text-xs sm:text-sm">1.</span>
+                            <Settings2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                            <span className="text-[10px] sm:text-xs">Fine-tune</span>
                             {(environment || outcome || emotion) && (
-                              <Badge variant="secondary" className="h-4 px-1 text-[10px] ml-0.5">
+                              <Badge variant="secondary" className="h-4 px-1 text-[9px] sm:text-[10px] ml-0.5">
                                 {[environment, outcome, emotion].filter(Boolean).length}
                               </Badge>
                             )}
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent 
-                          className="w-80 p-4 bg-popover z-50" 
+                          className="w-[calc(100vw-2rem)] sm:w-80 p-3 sm:p-4 bg-popover z-50 max-h-[70vh] overflow-y-auto" 
                           align="end"
                           sideOffset={8}
                         >
-                          <div className="space-y-4">
+                          <div className="space-y-3 sm:space-y-4">
                             <div>
                               <div className="flex items-center gap-2 mb-2">
                                 <Building2 className="h-3.5 w-3.5 text-secondary" />
@@ -601,7 +601,7 @@ const Index = () => {
                                   <Badge
                                     key={env}
                                     variant={environment === env ? "default" : "outline"}
-                                    className="cursor-pointer text-xs h-7 px-2 hover:scale-105 transition-transform"
+                                    className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
                                     onClick={() => setEnvironment(environment === env ? null : env)}
                                   >
                                     {env}
@@ -620,7 +620,7 @@ const Index = () => {
                                   <Badge
                                     key={out}
                                     variant={outcome === out ? "default" : "outline"}
-                                    className="cursor-pointer text-xs h-7 px-2 hover:scale-105 transition-transform"
+                                    className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
                                     onClick={() => setOutcome(outcome === out ? null : out)}
                                   >
                                     {out}
@@ -639,7 +639,7 @@ const Index = () => {
                                   <Badge
                                     key={emo}
                                     variant={emotion === emo ? "default" : "outline"}
-                                    className="cursor-pointer text-xs h-7 px-2 hover:scale-105 transition-transform"
+                                    className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
                                     onClick={() => setEmotion(emotion === emo ? null : emo)}
                                   >
                                     {emo}

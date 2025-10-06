@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MessageSquare, Mic, BookOpen, LogOut, Menu, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -34,6 +36,9 @@ const Dashboard = () => {
   const [userText, setUserText] = useState("");
   const [rewriteLoading, setRewriteLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const [environment, setEnvironment] = useState<string>("");
+  const [outcome, setOutcome] = useState<string>("");
+  const [desiredEmotion, setDesiredEmotion] = useState<string>("");
   const FREE_USAGE_LIMIT = 10;
 
   useEffect(() => {
@@ -106,9 +111,9 @@ const Dashboard = () => {
       const { data, error } = await supabase.functions.invoke('rewrite', {
         body: {
           raw_text: userText,
-          environment: null,
-          outcome: null,
-          desired_emotion: null
+          environment: environment || null,
+          outcome: outcome || null,
+          desired_emotion: desiredEmotion || null
         }
       });
 
@@ -275,7 +280,97 @@ const Dashboard = () => {
                 <VoiceConversation />
               </TabsContent>
 
-              <TabsContent value="playbook">
+              <TabsContent value="playbook" className="space-y-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-2xl font-semibold mb-6">Say it better</h3>
+                    <p className="text-muted-foreground mb-6">What do you want to say?</p>
+                    
+                    <Textarea
+                      placeholder="Paste or type what you want to say..."
+                      value={userText}
+                      onChange={(e) => setUserText(e.target.value)}
+                      className="min-h-[150px] mb-6"
+                    />
+
+                    <div className="space-y-4 mb-6">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="environment">Environment (optional)</Label>
+                          <Select value={environment} onValueChange={setEnvironment}>
+                            <SelectTrigger id="environment">
+                              <SelectValue placeholder="Select environment" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="work">Work</SelectItem>
+                              <SelectItem value="social">Social</SelectItem>
+                              <SelectItem value="family">Family</SelectItem>
+                              <SelectItem value="formal">Formal</SelectItem>
+                              <SelectItem value="casual">Casual</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="outcome">Desired Outcome (optional)</Label>
+                          <Select value={outcome} onValueChange={setOutcome}>
+                            <SelectTrigger id="outcome">
+                              <SelectValue placeholder="Select outcome" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="persuade">Persuade</SelectItem>
+                              <SelectItem value="inform">Inform</SelectItem>
+                              <SelectItem value="inspire">Inspire</SelectItem>
+                              <SelectItem value="connect">Connect</SelectItem>
+                              <SelectItem value="resolve">Resolve</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="emotion">Desired Emotion (optional)</Label>
+                          <Select value={desiredEmotion} onValueChange={setDesiredEmotion}>
+                            <SelectTrigger id="emotion">
+                              <SelectValue placeholder="Select emotion" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="confident">Confident</SelectItem>
+                              <SelectItem value="empathetic">Empathetic</SelectItem>
+                              <SelectItem value="enthusiastic">Enthusiastic</SelectItem>
+                              <SelectItem value="calm">Calm</SelectItem>
+                              <SelectItem value="assertive">Assertive</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button 
+                      onClick={handleRewrite}
+                      disabled={rewriteLoading || !userText.trim()}
+                      className="w-full"
+                    >
+                      {rewriteLoading ? "Rewriting..." : "Rewrite with Impact"}
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {result && (
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Impact Rewrites</h3>
+                      <div className="space-y-4">
+                        {result.rewrites?.map((rewrite: any, idx: number) => (
+                          <div key={idx} className="p-4 bg-muted/30 rounded-lg">
+                            <p className="text-sm mb-2">{rewrite.text}</p>
+                            <Badge variant="secondary">{rewrite.tone_label}</Badge>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
                 <Card>
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold mb-6 text-center">The Impact Language Method™</h3>

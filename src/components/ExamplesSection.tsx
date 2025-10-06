@@ -262,6 +262,24 @@ const EXAMPLES = [
     category: "Feedback",
     outcome: "From accusation to understanding"
   },
+  {
+    before: "Your presentation didn't hit the mark. I need you to take this more seriously.",
+    after: "The data was solid, but the story didn't land. What would help you connect the dots next time?",
+    category: "Leadership",
+    outcome: "From criticism to coaching"
+  },
+  {
+    before: "I'm really stressed and can't take on anything else right now.",
+    after: "I'm at capacity. To take this on, I'd need to deprioritize [X]. What's most critical?",
+    category: "Workplace",
+    outcome: "From overwhelm to boundary-setting"
+  },
+  {
+    before: "That's not my job.",
+    after: "This falls outside my current scope. Let's clarify ownership so nothing falls through the cracks.",
+    category: "Team Dynamics",
+    outcome: "From defensive to collaborative"
+  },
   
   {
     before: "I need this done ASAP or we're going to miss the deadline.",
@@ -428,8 +446,8 @@ export const ExamplesSection = () => {
             className="group relative overflow-hidden border-secondary/20 hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.3)] transition-all duration-300 md:hover:scale-105 animate-fade-in hover:border-secondary/40"
             style={{ animationDelay: `${index * 50}ms` }}
           >
-            <div className="absolute top-2 right-2 px-2.5 py-1 bg-accent/90 rounded-full border border-accent-foreground/20">
-              <p className="text-[9px] md:text-[10px] font-bold text-accent-foreground uppercase tracking-wider">
+            <div className="absolute top-2 right-2 px-2.5 py-1 bg-accent/95 rounded-full border border-accent-foreground/30 shadow-sm">
+              <p className="text-[9px] md:text-[10px] font-bold text-accent-foreground uppercase tracking-wider drop-shadow-sm">
                 {expandedIndex === index ? "Showing" : "Click"}
               </p>
             </div>

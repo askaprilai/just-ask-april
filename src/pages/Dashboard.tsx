@@ -356,19 +356,75 @@ const Dashboard = () => {
                 </Card>
 
                 {result && (
-                  <Card>
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold mb-4">Impact Rewrites</h3>
-                      <div className="space-y-4">
-                        {result.rewrites?.map((rewrite: any, idx: number) => (
-                          <div key={idx} className="p-4 bg-muted/30 rounded-lg">
-                            <p className="text-sm mb-2">{rewrite.text}</p>
-                            <Badge variant="secondary">{rewrite.tone_label}</Badge>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <>
+                    <Card className="border-accent/50">
+                      <CardContent className="p-6">
+                        <h3 className="text-lg font-semibold mb-4">Emotional Assessment</h3>
+                        <div className="space-y-4">
+                          {result.diagnostics?.current_emotional_tone && (
+                            <div>
+                              <p className="text-sm font-medium text-muted-foreground mb-1">Current Emotional Tone</p>
+                              <p className="text-sm">{result.diagnostics.current_emotional_tone}</p>
+                            </div>
+                          )}
+                          
+                          {result.diagnostics?.intent_summary && (
+                            <div>
+                              <p className="text-sm font-medium text-muted-foreground mb-1">Your Intent</p>
+                              <p className="text-sm">{result.diagnostics.intent_summary}</p>
+                            </div>
+                          )}
+
+                          {result.diagnostics?.intent_alignment && (
+                            <div className="p-3 bg-accent/10 rounded-lg border border-accent/30">
+                              <p className="text-sm font-medium text-accent mb-1">Intent Alignment</p>
+                              <p className="text-sm">{result.diagnostics.intent_alignment}</p>
+                            </div>
+                          )}
+
+                          {result.diagnostics?.emotional_impact && (
+                            <div>
+                              <p className="text-sm font-medium text-muted-foreground mb-1">Likely Emotional Impact</p>
+                              <p className="text-sm">{result.diagnostics.emotional_impact}</p>
+                            </div>
+                          )}
+
+                          {result.diagnostics?.resistance_factors && (
+                            <div className="p-3 bg-destructive/10 rounded-lg border border-destructive/30">
+                              <p className="text-sm font-medium text-destructive mb-1">Resistance Factors</p>
+                              <p className="text-sm">{result.diagnostics.resistance_factors}</p>
+                            </div>
+                          )}
+
+                          {result.diagnostics?.intention_question && (
+                            <div className="p-3 bg-primary/10 rounded-lg border border-primary/30">
+                              <p className="text-sm font-medium text-primary mb-1">Reflection</p>
+                              <p className="text-sm italic">{result.diagnostics.intention_question}</p>
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardContent className="p-6">
+                        <h3 className="text-lg font-semibold mb-4">Impact Rewrites</h3>
+                        <div className="space-y-4">
+                          {result.rewrites?.map((rewrite: any, idx: number) => (
+                            <div key={idx} className="p-4 bg-muted/30 rounded-lg border border-border">
+                              <p className="text-sm mb-3">{rewrite.text}</p>
+                              <Badge variant="secondary" className="mb-3">{rewrite.tone_label}</Badge>
+                              {rewrite.rationale && (
+                                <p className="text-xs text-muted-foreground italic mt-2">
+                                  Why it works: {rewrite.rationale}
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </>
                 )}
 
                 <Card>

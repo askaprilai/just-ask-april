@@ -137,6 +137,9 @@ Return ONLY valid JSON in this exact structure:
   },
   "diagnostics": {
     "intent_summary": "One sentence describing the user's core intent",
+    "current_emotional_tone": "Identify the current emotional tone (e.g., frustrated, anxious, defensive, urgent, casual)",
+    "intent_alignment": "Assess how the current emotional tone aligns or conflicts with their stated/inferred desired outcome and emotion. Be specific about gaps.",
+    "emotional_impact": "Explain what emotional response this message is likely to trigger in the recipient and whether it serves the user's goal",
     "resistance_factors": "2-3 sentences analyzing specific words/phrases that could cause resistance, defensiveness, or disengagement. Be direct about potential negative impacts.",
     "disconnection_risk": "1-2 sentences on how the original phrasing might damage relationships or drive negative outcomes",
     "intention_question": "A reflective question to help the user consider: what is your true intention with these words?"

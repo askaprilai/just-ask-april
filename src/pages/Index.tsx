@@ -533,7 +533,7 @@ const Index = () => {
                   </div>
                   
                   <Textarea
-                    placeholder={`What do you want to say? ${animatedPlaceholder}`}
+                    placeholder={`TYPE WHAT YOU WANT TO SAY BETTER ${animatedPlaceholder}`}
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
                     className="min-h-[180px] md:min-h-[160px] text-sm md:text-base leading-relaxed border-0 rounded-none pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
@@ -571,7 +571,7 @@ const Index = () => {
                         className={`bg-foreground hover:bg-foreground/90 text-background rounded-lg ${showTryItNow ? 'ring-2 ring-secondary ring-offset-2' : ''}`}
                         title="Send (⌘/Ctrl + Enter)"
                       >
-                        Try it free - Say it better
+                        Try it HERE - Say it better
                         <ArrowRight className="h-4 w-4 ml-2" />
                       </Button>
                     </div>

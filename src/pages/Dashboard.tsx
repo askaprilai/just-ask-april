@@ -53,15 +53,21 @@ const Dashboard = () => {
       setUser(session.user);
       
       // Check if user is admin
-      const { data: roles } = await supabase
+      console.log('Checking admin status for user:', session.user.id);
+      const { data: roles, error: roleError } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', session.user.id)
         .eq('role', 'admin')
         .maybeSingle();
       
+      console.log('Admin check result:', { roles, roleError });
+      
       if (roles) {
+        console.log('User is admin!');
         setIsAdmin(true);
+      } else {
+        console.log('User is NOT admin');
       }
       
       setAuthLoading(false);

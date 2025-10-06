@@ -19,12 +19,20 @@ const Stats = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuthAndFetchStats = async () => {
+    const fetchStats = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         
         if (!session) {
-          navigate('/auth');
+          // Show example data for non-logged-in users
+          setStats({
+            'Work_Action': { total: 24, helpful: 22, rate: 92 },
+            'Work_Recognition': { total: 18, helpful: 17, rate: 94 },
+            'Work_Input': { total: 15, helpful: 13, rate: 87 },
+            'Personal_Recognition': { total: 12, helpful: 11, rate: 92 },
+            'Personal_Delay': { total: 8, helpful: 7, rate: 88 },
+          });
+          setLoading(false);
           return;
         }
 
@@ -39,7 +47,7 @@ const Stats = () => {
       }
     };
 
-    checkAuthAndFetchStats();
+    fetchStats();
   }, [navigate]);
 
   return (

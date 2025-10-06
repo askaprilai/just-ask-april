@@ -679,7 +679,7 @@ const Index = () => {
                 </h2>
                   <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
                     In the age of AI, being a people person is your edge.<br />
-                    What you say, how you say it, and when you say it — that's where influence begins.
+                    What you say, how you say it, and when you say it that's where influence begins.
                   </p>
                 </div>
                 <ImpactMethodDiagram />

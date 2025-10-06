@@ -54,8 +54,8 @@ interface RewriteResponse {
 }
 
 const ENVIRONMENTS = ["Corporate", "SmallBusiness", "Personal", "Relationship"];
-const OUTCOMES = ["Resolve", "Motivate", "Align", "Clarify", "Inspire", "SetBoundary"];
-const EMOTIONS = ["Heard", "Motivated", "Respected", "Accountable", "Reassured", "Understood"];
+const OUTCOMES = ["Resolve", "Motivate", "Align", "Clarify", "Inspire", "SetBoundary", "Persuade", "Collaborate", "Negotiate", "Support", "Redirect", "Acknowledge"];
+const EMOTIONS = ["Heard", "Motivated", "Respected", "Accountable", "Reassured", "Understood", "Valued", "Confident", "Safe", "Empowered", "Appreciated", "Connected"];
 
 const PLACEHOLDER_EXAMPLES = [
   "I need to tell my team the project is delayed...",

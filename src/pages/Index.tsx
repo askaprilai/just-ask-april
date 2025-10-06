@@ -478,16 +478,22 @@ const Index = () => {
       
       <div className="container max-w-5xl mx-auto px-4 py-8 md:py-12 relative">
         {/* Hero Section */}
-        <div className="text-center mb-8 md:mb-10 animate-fade-in">
-          <div className="inline-block mb-3 md:mb-4 px-4 md:px-6 py-1.5 md:py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
-            <p className="text-sm md:text-base font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-              AI that helps you find the right words, your voice at its best.
-            </p>
-          </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
-            AI Communication Tool for Better Workplace Conversations
+        <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
+          {/* Main Headline */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight px-4">
+            <span className="block text-foreground/90">Grammarly fixes your grammar.</span>
+            <span className="block mt-2 bg-gradient-to-r from-secondary via-accent to-secondary bg-clip-text text-transparent">
+              April fixes your impact.
+            </span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-foreground/80 mb-4 md:mb-5 font-normal px-4 leading-relaxed">
+          
+          {/* Tagline */}
+          <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-3 md:mb-4 px-4">
+            Say it better. Get better results.
+          </p>
+          
+          {/* Supporting Text */}
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 px-4 leading-relaxed">
             Because how you say it shapes what happens next.
           </p>
         </div>
@@ -496,11 +502,8 @@ const Index = () => {
         <Tabs defaultValue="text" className="mb-4 md:mb-6" id="input-section">
           {/* Text Rewrite Tab */}
           <TabsContent value="text" className="space-y-6 md:space-y-10">
-            {/* Input Section with Heading */}
-            <div className="space-y-3 mt-6 md:mt-8 mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground">
-                Say it better get better results
-              </h2>
+            {/* Input Section */}
+            <div className="space-y-3 mb-8">
               
               <div className="relative animate-scale-in max-w-3xl mx-auto">
                 <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl overflow-hidden">

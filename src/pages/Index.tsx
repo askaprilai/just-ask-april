@@ -640,7 +640,7 @@ const Index = () => {
                     {!user && (
                       <Button 
                         onClick={() => {
-                          document.getElementById('input-section')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                          document.getElementById('input-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }} 
                         size="lg"
                         className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white font-semibold px-8"

@@ -496,9 +496,6 @@ const Index = () => {
           </p>
           
           {/* Supporting Text */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 px-4 leading-relaxed">
-            How you say it shapes what happens next, April helps you get it right.
-          </p>
         </div>
 
         {/* Tabbed Interface */}

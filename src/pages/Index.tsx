@@ -382,9 +382,9 @@ const Index = () => {
       <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-secondary/10 rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
       
-      <div className="container max-w-5xl mx-auto px-4 py-6 md:py-12 relative">
+      <div className="container max-w-5xl mx-auto px-4 py-8 md:py-16 relative">
         {/* Hero Section */}
-        <div className="text-center mb-6 md:mb-12 animate-fade-in">
+        <div className="text-center mb-12 md:mb-20 animate-fade-in">
           <div className="inline-block mb-6 md:mb-8 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               AI that helps you find the right words, the human way.
@@ -482,7 +482,7 @@ const Index = () => {
         </div>
 
         {/* Before You Speak - Problem Statement */}
-        <div className="mb-8 md:mb-12 animate-fade-in">
+        <div className="mb-16 md:mb-24 animate-fade-in">
           <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
             Ask April before you speak
           </h2>
@@ -541,7 +541,7 @@ const Index = () => {
         </div>
 
         {/* How It Works */}
-        <div className="mb-8 md:mb-12 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-6 md:p-8 border border-secondary/10">
+        <div className="mb-16 md:mb-24 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-secondary/10">
           <h2 className="text-3xl md:text-3xl font-bold text-center mb-8 text-gray-700">
             How AI Communication Coaching Works
           </h2>
@@ -582,7 +582,7 @@ const Index = () => {
         </div>
 
         {/* Social Proof */}
-        <div className="mb-8 md:mb-12">
+        <div className="mb-16 md:mb-24">
           <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
             Proven Results: Better Workplace Communication
           </h2>
@@ -648,20 +648,23 @@ const Index = () => {
           </TabsList>
 
           {/* Text Rewrite Tab */}
-          <TabsContent value="text" className="space-y-4 md:space-y-8">
+          <TabsContent value="text" className="space-y-6 md:space-y-10">
             {/* Input Section with Heading */}
-            <div className="space-y-3 mt-8 md:mt-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+            <div className="space-y-6 mt-16 md:mt-20 mb-12">
+              <p className="text-base md:text-lg text-center text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Because how you say it shapes what happens next.
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
                 How do I say it better?
               </h2>
               
-              <div className="relative animate-scale-in">
+              <div className="relative animate-scale-in max-w-3xl mx-auto">
                 <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl">
                   <Textarea
                     placeholder="What do you want to say? Let April audit your communication and show you how it could land better."
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-                    className="min-h-[140px] md:min-h-[120px] text-sm md:text-base leading-relaxed border-0 rounded-2xl pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
+                    className="min-h-[180px] md:min-h-[160px] text-sm md:text-base leading-relaxed border-0 rounded-2xl pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && userText.trim()) {
                         handleRewrite();

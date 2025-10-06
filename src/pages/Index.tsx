@@ -677,8 +677,12 @@ const Index = () => {
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                   The Impact Language Method™
                 </h2>
-                  <p className="text-lg md:text-xl text-muted-foreground">
+                  <p className="text-lg md:text-xl text-muted-foreground mb-4">
                     Say it Better. Get Better Results.
+                  </p>
+                  <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+                    In the age of AI, being a people person is your edge.<br />
+                    What you say, how you say it, and when you say it — that's where influence begins.
                   </p>
                 </div>
                 <ImpactMethodDiagram />

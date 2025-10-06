@@ -571,11 +571,24 @@ const Index = () => {
                         onClick={handleRewrite} 
                         disabled={rewriteLoading || !userText.trim()}
                         size="sm"
-                        className={`bg-foreground hover:bg-foreground/90 text-background rounded-lg ${showTryItNow ? 'ring-2 ring-secondary ring-offset-2' : ''}`}
+                        className={`rounded-lg transition-all duration-300 ${
+                          userText.trim() 
+                            ? 'bg-yellow-500 hover:bg-yellow-600 text-white animate-pulse shadow-lg shadow-yellow-500/50 ring-2 ring-yellow-400 ring-offset-2' 
+                            : 'bg-foreground hover:bg-foreground/90 text-background'
+                        } ${showTryItNow ? 'ring-2 ring-secondary ring-offset-2' : ''}`}
                         title="Send (⌘/Ctrl + Enter)"
                       >
-                        Try it HERE - Say it better
-                        <ArrowRight className="h-4 w-4 ml-2" />
+                        {userText.trim() ? (
+                          <>
+                            <span className="font-bold">STEP 1: Try it HERE</span>
+                            <ArrowRight className="h-4 w-4 ml-2 animate-bounce" />
+                          </>
+                        ) : (
+                          <>
+                            Try it HERE - Say it better
+                            <ArrowRight className="h-4 w-4 ml-2" />
+                          </>
+                        )}
                       </Button>
                     </div>
                   </div>
@@ -589,50 +602,83 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Optional Settings - Prominent Design */}
+              {/* Optional Settings - Step 2 After Results */}
               <div className="mt-3 max-w-3xl mx-auto">
                 <div className="relative">
                   <Button
                     variant="outline"
                     onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
-                    className={`w-full justify-between text-sm font-medium border-2 transition-all h-12 rounded-xl shadow-sm ${
-                      userText.length > 0 
-                        ? 'bg-yellow-100 border-yellow-400 hover:bg-yellow-200 hover:border-yellow-500 dark:bg-yellow-900/30 dark:border-yellow-600 dark:hover:bg-yellow-900/50' 
+                    className={`w-full justify-between text-sm font-medium border-2 transition-all h-auto py-3 rounded-xl shadow-sm ${
+                      result 
+                        ? 'bg-gradient-to-r from-yellow-100 to-yellow-50 border-yellow-500 hover:from-yellow-200 hover:to-yellow-100 dark:from-yellow-900/40 dark:to-yellow-900/20 dark:border-yellow-500 animate-pulse' 
+                        : userText.length > 0 
+                        ? 'bg-yellow-50 border-yellow-300 hover:bg-yellow-100 dark:bg-yellow-900/20 dark:border-yellow-600' 
                         : 'border-secondary/30 hover:border-secondary/60 hover:bg-secondary/5'
                     }`}
                   >
                     <span className="flex items-center gap-3">
-                      <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${
-                        userText.length > 0 ? 'bg-yellow-200 dark:bg-yellow-800/50' : 'bg-secondary/10'
+                      <div className={`h-10 w-10 rounded-lg flex items-center justify-center font-bold text-lg ${
+                        result 
+                          ? 'bg-yellow-500 text-white shadow-lg' 
+                          : userText.length > 0 
+                          ? 'bg-yellow-200 text-yellow-800 dark:bg-yellow-800/50 dark:text-yellow-200' 
+                          : 'bg-secondary/10 text-secondary'
                       }`}>
-                        <Target className={`h-4 w-4 ${userText.length > 0 ? 'text-yellow-700 dark:text-yellow-400' : 'text-secondary'}`} />
+                        {result ? '2' : <Target className="h-5 w-5" />}
                       </div>
                       <div className="text-left">
-                        <div className={`text-sm font-semibold ${userText.length > 0 ? 'text-yellow-900 dark:text-yellow-300' : 'text-foreground'}`}>
-                          {userText.length > 0 ? 'NOW Fine-tune Your Message' : 'Fine-tune Your Message'}
+                        <div className={`text-sm font-bold ${
+                          result 
+                            ? 'text-yellow-900 dark:text-yellow-200' 
+                            : userText.length > 0 
+                            ? 'text-yellow-900 dark:text-yellow-300' 
+                            : 'text-foreground'
+                        }`}>
+                          {result 
+                            ? 'STEP 2: Fine-tune Your Message' 
+                            : userText.length > 0 
+                            ? 'Optional: Fine-tune Your Message' 
+                            : 'Fine-tune Your Message'}
                         </div>
-                        <div className={`text-xs ${userText.length > 0 ? 'text-yellow-700 dark:text-yellow-400' : 'text-muted-foreground'}`}>
-                          {(environment || outcome || emotion) 
+                        <div className={`text-xs ${
+                          result 
+                            ? 'text-yellow-800 dark:text-yellow-300 font-medium' 
+                            : userText.length > 0 
+                            ? 'text-yellow-700 dark:text-yellow-400' 
+                            : 'text-muted-foreground'
+                        }`}>
+                          {result 
+                            ? 'Want even better results? Add context here!' 
+                            : (environment || outcome || emotion) 
                             ? `${[environment, outcome, emotion].filter(Boolean).length} option(s) selected` 
-                            : 'Add context for better results'}
+                            : 'Optional: Add context for better results'}
                         </div>
                       </div>
                     </span>
                     <div className="flex items-center gap-2">
-                      {(environment || outcome || emotion) && (
+                      {result && (
+                        <Badge className="bg-yellow-600 text-white text-xs shadow-lg animate-bounce">
+                          Click Here
+                        </Badge>
+                      )}
+                      {!result && (environment || outcome || emotion) && (
                         <Badge variant="secondary" className="text-xs">
                           Active
                         </Badge>
                       )}
                       <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
-                        userText.length > 0 ? 'text-yellow-700 dark:text-yellow-400' : 'text-secondary'
+                        result 
+                          ? 'text-yellow-700 dark:text-yellow-300' 
+                          : userText.length > 0 
+                          ? 'text-yellow-700 dark:text-yellow-400' 
+                          : 'text-secondary'
                       } ${showAdvancedOptions ? 'rotate-180' : ''}`} />
                     </div>
                   </Button>
-                  {!showAdvancedOptions && userText.length > 10 && !(environment || outcome || emotion) && (
+                  {!result && !showAdvancedOptions && userText.length > 10 && !(environment || outcome || emotion) && (
                     <div className="absolute -top-2 -right-2 animate-pulse">
                       <Badge className="bg-yellow-500 text-white text-xs shadow-lg">
-                        Click to customize
+                        Optional
                       </Badge>
                     </div>
                   )}

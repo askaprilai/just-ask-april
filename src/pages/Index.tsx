@@ -389,7 +389,7 @@ const Index = () => {
         <div className="text-center mb-12 md:mb-20 animate-fade-in">
           <div className="inline-block mb-6 md:mb-8 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-              AI that helps you find the right words, the human way.
+              AI that helps you find the right words, your voice at its best.
             </p>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">

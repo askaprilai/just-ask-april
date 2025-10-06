@@ -395,7 +395,7 @@ const Index = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-10 md:mb-14 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             AI Communication Tool for Better Workplace Conversations
           </h1>
-          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-4 md:mb-5 font-light px-4 leading-relaxed">Your voice shapes outcomes. Just Ask April AI helps you shape it better.</p>
+          <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 mb-4 md:mb-5 font-normal px-4 leading-relaxed">Your voice shapes outcomes. Just Ask April AI helps you shape it better.</p>
           <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
             Grammarly fixes your grammar. April fixes your impact.
           </p>

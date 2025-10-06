@@ -479,6 +479,11 @@ const Index = () => {
       <div className="container max-w-5xl mx-auto px-4 py-8 md:py-12 relative">
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
+          {/* Supporting Description */}
+          <p className="text-sm md:text-base text-muted-foreground mb-4 uppercase tracking-wide font-semibold">
+            AI Communication Tool for Better Workplace Conversations
+          </p>
+          
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight px-4">
             <span className="block text-foreground/90">Grammarly fixes your grammar.</span>

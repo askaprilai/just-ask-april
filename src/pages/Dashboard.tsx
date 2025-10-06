@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb } from "lucide-react";
+import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb, Shield } from "lucide-react";
 import { EXAMPLES } from "@/components/ExamplesSection";
 import { useToast } from "@/hooks/use-toast";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -32,6 +32,7 @@ const Dashboard = () => {
   const { subscribed, dailyUsage, incrementUsage, canUseFeature } = useSubscription();
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [impactStatements, setImpactStatements] = useState<ImpactStatement[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [userText, setUserText] = useState("");
@@ -50,6 +51,19 @@ const Dashboard = () => {
         return;
       }
       setUser(session.user);
+      
+      // Check if user is admin
+      const { data: roles } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .eq('role', 'admin')
+        .single();
+      
+      if (roles) {
+        setIsAdmin(true);
+      }
+      
       setAuthLoading(false);
       loadImpactStatements(session.user.id);
     };
@@ -202,6 +216,12 @@ const Dashboard = () => {
               </p>
             )}
           </div>
+          {isAdmin && (
+            <Button onClick={() => navigate('/admin')} variant="secondary" className="w-full mb-2" size="sm">
+              <Shield className="h-4 w-4 mr-2" />
+              Admin Panel
+            </Button>
+          )}
           <Button onClick={handleSignOut} variant="outline" className="w-full" size="sm">
             <LogOut className="h-4 w-4 mr-2" />
             Sign Out

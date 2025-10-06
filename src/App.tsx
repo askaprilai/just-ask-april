@@ -16,6 +16,7 @@ import Auth from "./pages/Auth";
 import History from "./pages/History";
 import Analytics from "./pages/Analytics";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="/stats" element={<Stats />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />

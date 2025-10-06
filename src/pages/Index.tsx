@@ -384,27 +384,23 @@ const Index = () => {
       <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-secondary/10 rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
       
-      <div className="container max-w-5xl mx-auto px-4 py-8 md:py-16 relative">
+      <div className="container max-w-5xl mx-auto px-4 py-4 md:py-6 relative">
         {/* Hero Section */}
-        <div className="text-center mb-12 md:mb-20 animate-fade-in">
-          <div className="inline-block mb-6 md:mb-8 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
-            <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+        <div className="text-center mb-6 md:mb-8 animate-fade-in">
+          <div className="inline-block mb-3 md:mb-4 px-4 md:px-6 py-1.5 md:py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
+            <p className="text-sm md:text-base font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               AI that helps you find the right words, your voice at its best.
             </p>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-10 md:mb-14 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
-            AI Communication Tool for Better Workplace Conversations
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
+            Transform Your Communication
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 mb-4 md:mb-5 font-normal px-4 leading-relaxed flex items-center justify-center gap-3">
-            Your voice shapes outcomes. Just Ask April AI helps you shape it better.
-            <img src={aprilLogo} alt="April AI Logo" className="h-8 md:h-10 inline-block rounded-full" />
-          </p>
-          <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
-            Grammarly fixes your grammar. April AI fixes your impact.
+          <p className="text-base sm:text-lg md:text-xl text-foreground/80 mb-2 md:mb-3 font-normal px-4 leading-relaxed">
+            Because how you say it shapes what happens next.
           </p>
           
           {/* Quick Benefits */}
-          <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-6 md:mb-8 px-4">
+          <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-4 md:mb-5 px-4">
             <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-secondary rounded-full" />
               <span>10 free daily impact statements</span>
@@ -487,8 +483,8 @@ const Index = () => {
         </div>
 
         {/* Tabbed Interface */}
-        <Tabs defaultValue="text" className="mb-4 md:mb-8" id="input-section">
-          <TabsList className="grid w-full grid-cols-2 mb-4 md:mb-8 h-14 md:h-11">
+        <Tabs defaultValue="text" className="mb-4 md:mb-6" id="input-section">
+          <TabsList className="grid w-full grid-cols-2 mb-3 md:mb-4 h-12 md:h-11">
             <TabsTrigger value="text" className="text-xs md:text-base h-full">
               <MessageSquare className="mr-1 md:mr-2 h-4 w-4" />
               Say it better

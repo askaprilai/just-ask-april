@@ -481,7 +481,7 @@ const Index = () => {
         <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
           {/* Supporting Description */}
           <p className="text-sm md:text-base text-muted-foreground mb-4 uppercase tracking-wide font-semibold">
-            AI Communication Tool for Better Workplace Conversations
+            AI Communication Tool for Better Conversations
           </p>
           
           {/* Main Headline */}
@@ -495,6 +495,11 @@ const Index = () => {
           {/* Tagline */}
           <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-3 md:mb-4 px-4">
             Say it better. Get better results.
+          </p>
+          
+          {/* New Supporting Text */}
+          <p className="text-base md:text-lg text-muted-foreground px-4">
+            Because how you say it changes everything.
           </p>
           
           {/* Supporting Text */}

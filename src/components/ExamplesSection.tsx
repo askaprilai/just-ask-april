@@ -371,12 +371,12 @@ export const ExamplesSection = () => {
     : EXAMPLES.filter(ex => ex.category === selectedCategory);
 
   // Show diverse examples to free users - one from each key category
-  const FREE_USER_LIMIT = 3;
+  const FREE_USER_LIMIT = 6;
   let displayExamples = filteredExamples;
   
   if (!subscribed) {
     // Show diverse categories for free users
-    const priorityCategories = ["Executive Presence", "Conflict", "Leadership"];
+    const priorityCategories = ["Executive Presence", "Conflict", "Leadership", "Workplace", "Team Dynamics", "Feedback"];
     const diverseExamples: typeof EXAMPLES = [];
     
     priorityCategories.forEach(cat => {

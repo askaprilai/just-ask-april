@@ -392,8 +392,8 @@ const Index = () => {
               AI that helps you find the right words, your voice at its best.
             </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
-            Transform Your Communication
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
+            AI Communication Tool for Better Workplace Conversations
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-foreground/80 mb-2 md:mb-3 font-normal px-4 leading-relaxed">
             Because how you say it shapes what happens next.

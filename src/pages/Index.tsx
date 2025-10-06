@@ -13,6 +13,7 @@ import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Pho
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
+import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
 import aprilImage from "@/assets/april-headshot.jpeg";
 import { MobileNav } from "@/components/MobileNav";
 import { useSubscription } from "@/contexts/SubscriptionContext";
@@ -481,159 +482,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Before You Speak - Problem Statement */}
-        <div className="mb-16 md:mb-24 animate-fade-in">
-          <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
-            Ask April before you speak
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3 mb-3">
-                  <Building2 className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold mb-2">Team Meetings</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      You want to push back on a deadline, but worry you will sound uncommitted
-                    </p>
-                    <p className="text-xs text-secondary font-medium">
-                      Practice saying it in a way that shows leadership, not resistance
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3 mb-3">
-                  <Target className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold mb-2">Talk to Your Boss</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      You need to set boundaries, but do not want to damage the relationship
-                    </p>
-                    <p className="text-xs text-secondary font-medium">
-                      Practice saying no in a way that strengthens trust
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3 mb-3">
-                  <Smile className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold mb-2">Tough Conversations</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      You need to address something important, but every version sounds confrontational
-                    </p>
-                    <p className="text-xs text-secondary font-medium">
-                      Practice saying it so you are heard, not dismissed
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* How It Works */}
-        <div className="mb-16 md:mb-24 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-secondary/10">
-          <h2 className="text-3xl md:text-3xl font-bold text-center mb-8 text-gray-700">
-            How AI Communication Coaching Works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <MessageSquare className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="font-semibold mb-2">1. Say What You Are Thinking</h3>
-              <p className="text-sm text-muted-foreground">
-                Type it out exactly as it sounds in your head
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="relative w-16 h-16 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent to-accent/70 animate-pulse blur-md opacity-75"></div>
-                <div className="relative w-16 h-16 rounded-full ring-2 ring-accent bg-background flex items-center justify-center">
-                  <img src={aprilImage} alt="April AI communication coach avatar showing professional headshot for conversation practice and message rewrites" className="w-14 h-14 rounded-full object-cover" />
-                </div>
-              </div>
-              <h3 className="font-semibold mb-2">2. April Shows You How to Say It Better</h3>
-              <p className="text-sm text-muted-foreground">
-                Get 3 versions that drive the outcome you actually want
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Phone className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="font-semibold mb-2">3. Practice With Voice (Pro)</h3>
-              <p className="text-sm text-muted-foreground">
-                Talk it through with April before the real conversation
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Social Proof */}
-        <div className="mb-16 md:mb-24">
-          <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
-            Proven Results: Better Workplace Communication
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="bg-gradient-to-br from-background to-secondary/5">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <Users className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm mb-3 italic">
-                      "I used to rehearse difficult conversations in my head for hours. Now I practice with April and walk in confident."
-                    </p>
-                    <p className="text-xs font-semibold">Sarah M.</p>
-                    <p className="text-xs text-muted-foreground">Team Leader</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-background to-accent/5">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <Award className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm mb-3 italic">
-                      "Before discovery calls, I use April to practice how I will handle objections. My close rate went up."
-                    </p>
-                    <p className="text-xs font-semibold">James K.</p>
-                    <p className="text-xs text-muted-foreground">Sales Professional</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-background to-primary/5">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <Shield className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm mb-3 italic">
-                      "I finally learned how to express what I need without my partner getting defensive. We actually talk now."
-                    </p>
-                    <p className="text-xs font-semibold">Alex T.</p>
-                    <p className="text-xs text-muted-foreground">Partner & Parent</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
         {/* Tabbed Interface */}
         <Tabs defaultValue="text" className="mb-4 md:mb-8">
           <TabsList className="grid w-full grid-cols-2 mb-4 md:mb-8 h-14 md:h-11">
@@ -797,7 +645,22 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Examples Section - Now below the input */}
+            {/* Impact Language Method Diagram */}
+            {!result && !rewriteLoading && (
+              <div className="mb-16 md:mb-24 animate-fade-in">
+                <div className="text-center mb-8 md:mb-12">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                    The Impact Language Method™
+                  </h2>
+                  <p className="text-lg md:text-xl text-muted-foreground">
+                    Say it Better. Get Better Results.
+                  </p>
+                </div>
+                <ImpactMethodDiagram />
+              </div>
+            )}
+
+            {/* The Impact Playbook - Examples Section */}
             {!result && !rewriteLoading && <ExamplesSection />}
 
             {/* Social Proof Section */}
@@ -1049,6 +912,191 @@ const Index = () => {
             </div>
           </div>
         )}
+
+        {/* Before You Speak - Problem Statement */}
+        <div className="mb-16 md:mb-24 animate-fade-in mt-16 md:mt-20">
+          <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
+            Ask April before you speak
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3 mb-3">
+                  <Building2 className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold mb-2">Team Meetings</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      You want to push back on a deadline, but worry you will sound uncommitted
+                    </p>
+                    <p className="text-xs text-secondary font-medium">
+                      Practice saying it in a way that shows leadership, not resistance
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3 mb-3">
+                  <Target className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold mb-2">Talk to Your Boss</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      You need to set boundaries, but do not want to damage the relationship
+                    </p>
+                    <p className="text-xs text-secondary font-medium">
+                      Practice saying no in a way that strengthens trust
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3 mb-3">
+                  <Smile className="w-5 h-5 text-teal-700 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold mb-2">Tough Conversations</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      You need to address something important, but every version sounds confrontational
+                    </p>
+                    <p className="text-xs text-secondary font-medium">
+                      Practice saying it so you are heard, not dismissed
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* How It Works */}
+        <div className="mb-16 md:mb-24 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-secondary/10">
+          <h2 className="text-3xl md:text-3xl font-bold text-center mb-8 text-gray-700">
+            How AI Communication Coaching Works
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <MessageSquare className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-semibold mb-2">1. Say What You Are Thinking</h3>
+              <p className="text-sm text-muted-foreground">
+                Type it out exactly as it sounds in your head
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="relative w-16 h-16 mx-auto mb-4">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent to-accent/70 animate-pulse blur-md opacity-75"></div>
+                <div className="relative w-16 h-16 rounded-full ring-2 ring-accent bg-background flex items-center justify-center">
+                  <img src={aprilImage} alt="April AI communication coach avatar showing professional headshot for conversation practice and message rewrites" className="w-14 h-14 rounded-full object-cover" />
+                </div>
+              </div>
+              <h3 className="font-semibold mb-2">2. April Shows You How to Say It Better</h3>
+              <p className="text-sm text-muted-foreground">
+                Get 3 versions that drive the outcome you actually want
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Phone className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-semibold mb-2">3. Practice With Voice (Pro)</h3>
+              <p className="text-sm text-muted-foreground">
+                Talk it through with April before the real conversation
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Social Proof */}
+        <div className="mb-16 md:mb-24">
+          <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
+            Proven Results: Better Workplace Communication
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="bg-gradient-to-br from-background to-secondary/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <Users className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm mb-3 italic">
+                      "I used to rehearse difficult conversations in my head for hours. Now I practice with April and walk in confident."
+                    </p>
+                    <p className="text-xs font-semibold">Sarah M.</p>
+                    <p className="text-xs text-muted-foreground">Team Leader</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-gradient-to-br from-background to-accent/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <Award className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm mb-3 italic">
+                      "Before discovery calls, I use April to practice how I will handle objections. My close rate went up."
+                    </p>
+                    <p className="text-xs font-semibold">James K.</p>
+                    <p className="text-xs text-muted-foreground">Sales Professional</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-gradient-to-br from-background to-primary/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <Shield className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm mb-3 italic">
+                      "I finally learned how to express what I need without my partner getting defensive. We actually talk now."
+                    </p>
+                    <p className="text-xs font-semibold">Alex T.</p>
+                    <p className="text-xs text-muted-foreground">Partner & Parent</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* ROI Section */}
+        <div className="mb-16 md:mb-24 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-secondary/20">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+            What's the ROI on better verbal communication skills?
+          </h2>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <p className="text-lg md:text-xl text-center text-muted-foreground leading-relaxed">
+              Every conversation is an investment. The right words build trust, drive action, and create outcomes. The wrong words cost time, relationships, and opportunities.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6 mt-8">
+              <Card className="border-secondary/20">
+                <CardContent className="pt-6 text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-secondary mb-2">85%</div>
+                  <p className="text-sm text-muted-foreground">of career success comes from communication skills</p>
+                </CardContent>
+              </Card>
+              <Card className="border-accent/20">
+                <CardContent className="pt-6 text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-accent mb-2">70%</div>
+                  <p className="text-sm text-muted-foreground">of workplace mistakes trace back to poor communication</p>
+                </CardContent>
+              </Card>
+              <Card className="border-primary/20">
+                <CardContent className="pt-6 text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">$37B</div>
+                  <p className="text-sm text-muted-foreground">annual cost of poor communication in US businesses</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
 
         {/* Footer */}
         <footer className="mt-12 md:mt-20 py-8 md:py-12 border-t border-border/40 bg-muted/20">

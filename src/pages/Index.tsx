@@ -384,9 +384,90 @@ const Index = () => {
       <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-secondary/10 rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
       
-      <div className="container max-w-5xl mx-auto px-4 py-4 md:py-6 relative">
+      {/* Top Navigation Bar */}
+      <nav className="border-b border-border/50 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container max-w-6xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-2">
+              <img src={aprilLogo} alt="Just Ask April AI" className="h-8 w-8 rounded-full" />
+              <span className="font-semibold text-lg hidden sm:inline">Just Ask April</span>
+            </div>
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={() => navigate('/about')}>
+                About
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => {
+                trackEvent('pricing_clicked', { source: 'header' });
+                navigate('/pricing');
+              }}>
+                Pricing
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/stats')}>
+                Impact Index
+              </Button>
+              {user && (
+                <Button variant="ghost" size="sm" onClick={() => navigate('/history')}>
+                  History
+                </Button>
+              )}
+              {user && subscribed && productId === PRO_PRODUCT_ID && (
+                <Button variant="ghost" size="sm" onClick={() => navigate('/analytics')}>
+                  Analytics
+                </Button>
+              )}
+              
+              <div className="w-px h-6 bg-border mx-2" />
+              
+              <ThemeToggle />
+              
+              {user ? (
+                <>
+                  {subscribed && productId === PRO_PRODUCT_ID ? (
+                    <Badge className="bg-gradient-to-r from-secondary to-accent text-white">
+                      Pro ✨
+                    </Badge>
+                  ) : (
+                    <>
+                      <span className="text-xs text-muted-foreground">
+                        {dailyUsage}/{FREE_USAGE_LIMIT}
+                      </span>
+                      <Button 
+                        variant="default" 
+                        size="sm" 
+                        onClick={() => {
+                          trackEvent('upgrade_clicked', { source: 'header', daily_usage: dailyUsage });
+                          navigate('/pricing');
+                        }}
+                      >
+                        Upgrade
+                      </Button>
+                    </>
+                  )}
+                  <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button variant="default" size="sm" onClick={() => navigate('/auth')}>
+                  Sign In
+                </Button>
+              )}
+            </div>
+            
+            {/* Mobile Navigation */}
+            <div className="md:hidden">
+              <MobileNav user={user} />
+            </div>
+          </div>
+        </div>
+      </nav>
+      
+      <div className="container max-w-5xl mx-auto px-4 py-8 md:py-12 relative">
         {/* Hero Section */}
-        <div className="text-center mb-6 md:mb-8 animate-fade-in">
+        <div className="text-center mb-8 md:mb-10 animate-fade-in">
           <div className="inline-block mb-3 md:mb-4 px-4 md:px-6 py-1.5 md:py-2 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
             <p className="text-sm md:text-base font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
               AI that helps you find the right words, your voice at its best.
@@ -395,91 +476,9 @@ const Index = () => {
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             AI Communication Tool for Better Workplace Conversations
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-foreground/80 mb-2 md:mb-3 font-normal px-4 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-foreground/80 mb-4 md:mb-5 font-normal px-4 leading-relaxed">
             Because how you say it shapes what happens next.
           </p>
-          
-          {/* Quick Benefits */}
-          <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-4 md:mb-5 px-4">
-            <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
-              <div className="w-2 h-2 bg-secondary rounded-full" />
-              <span>10 free daily impact statements</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm md:text-sm text-muted-foreground">
-              <div className="w-2 h-2 bg-accent rounded-full" />
-              <span>Unlimited with Pro</span>
-            </div>
-          </div>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-3 justify-center flex-wrap items-center">
-            <ThemeToggle />
-            <Button variant="outline" size="sm" onClick={() => navigate('/about')} className="hover:scale-105 transition-transform">
-              About April
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => {
-              trackEvent('pricing_clicked', { source: 'header' });
-              navigate('/pricing');
-            }} className="hover:scale-105 transition-transform">
-              Pricing
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => navigate('/stats')} className="hover:scale-105 transition-transform">
-              <BarChart3 className="mr-2 h-4 w-4" />
-              Impact Index
-            </Button>
-            {user && (
-              <Button variant="outline" size="sm" onClick={() => navigate('/history')} className="hover:scale-105 transition-transform">
-                <HistoryIcon className="mr-2 h-4 w-4" />
-                History
-              </Button>
-            )}
-            {user && subscribed && productId === PRO_PRODUCT_ID && (
-              <Button variant="outline" size="sm" onClick={() => navigate('/analytics')} className="hover:scale-105 transition-transform border-secondary/30">
-                <BarChart3 className="mr-2 h-4 w-4" />
-                Analytics
-              </Button>
-            )}
-            <Button variant="ghost" size="sm" onClick={() => navigate('/privacy')}>
-              Privacy
-            </Button>
-            <Button variant="ghost" size="sm" onClick={() => navigate('/terms')}>
-              Terms
-            </Button>
-            {user && (
-              <Button variant="outline" size="sm" onClick={handleSignOut} className="hover:scale-105 transition-transform">
-                Sign Out
-              </Button>
-            )}
-            {user ? (
-              subscribed && productId === PRO_PRODUCT_ID ? (
-                <Badge className="bg-gradient-to-r from-secondary to-accent text-white">
-                  Pro Plan ✨
-                </Badge>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">
-                    {dailyUsage}/{FREE_USAGE_LIMIT} today
-                  </span>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={() => {
-                      trackEvent('upgrade_clicked', { source: 'header', daily_usage: dailyUsage });
-                      navigate('/pricing');
-                    }}
-                    className="hover:scale-105 transition-transform"
-                  >
-                    Upgrade to Pro
-                  </Button>
-                </div>
-              )
-            ) : null}
-          </div>
-          
-          {/* Mobile Navigation */}
-          <div className="md:hidden flex justify-center">
-            <MobileNav user={user} />
-          </div>
         </div>
 
         {/* Tabbed Interface */}

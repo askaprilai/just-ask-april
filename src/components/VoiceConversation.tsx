@@ -134,15 +134,15 @@ const VoiceConversation = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[600px] space-y-8 p-8">
-      <Card className="w-full max-w-2xl p-8">
-        <div className="flex flex-col items-center space-y-6">
+    <div className="flex flex-col items-center justify-center min-h-[400px] space-y-6 p-6">
+      <Card className="w-full max-w-lg p-6">
+        <div className="flex flex-col items-center space-y-4">
           <div
             className={`relative transition-all duration-300 ${
               conversation.isSpeaking ? 'scale-110' : 'scale-100'
             } ${conversation.status === 'connected' ? 'ring-4 ring-primary ring-offset-4' : ''}`}
           >
-            <div className="relative w-32 h-32 rounded-full overflow-hidden">
+            <div className="relative w-24 h-24 rounded-full overflow-hidden">
               {conversation.status === 'connected' && (
                 <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse" />
               )}
@@ -155,10 +155,10 @@ const VoiceConversation = () => {
           </div>
 
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Practice with April AI</h2>
+            <h2 className="text-xl font-bold mb-2">Practice with April AI</h2>
           </div>
 
-          <p className="text-muted-foreground mb-8">
+          <p className="text-sm text-muted-foreground mb-4">
             {conversation.status === 'connected'
               ? conversation.isSpeaking
                 ? "April is speaking..."
@@ -190,9 +190,9 @@ const VoiceConversation = () => {
           </div>
 
           {conversation.status === 'connected' && transcript.length > 0 && (
-            <div className="w-full mt-8">
-              <h3 className="text-lg font-semibold mb-4">Conversation Transcript</h3>
-              <ScrollArea className="h-[300px] w-full rounded-md border p-4">
+            <div className="w-full mt-6">
+              <h3 className="text-base font-semibold mb-3">Conversation Transcript</h3>
+              <ScrollArea className="h-[200px] w-full rounded-md border p-3">
                 <div className="space-y-4">
                   {transcript.map((message, index) => (
                     <div

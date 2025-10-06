@@ -575,6 +575,7 @@ const Index = () => {
                             className="h-9 gap-1.5 border-secondary/30 hover:border-secondary hover:bg-secondary/5"
                             title="Fine-tune your message"
                           >
+                            <span className="font-bold">1.</span>
                             <Settings2 className="h-3.5 w-3.5" />
                             <span className="text-xs">Fine-tune</span>
                             {(environment || outcome || emotion) && (
@@ -663,12 +664,12 @@ const Index = () => {
                       >
                         {userText.trim() ? (
                           <>
-                            <span className="font-bold">Try it HERE</span>
+                            <span className="font-bold">2. Try it HERE</span>
                             <ArrowRight className="h-4 w-4 ml-2 animate-bounce" />
                           </>
                         ) : (
                           <>
-                            Try it HERE
+                            <span className="font-bold">2.</span> Try it HERE
                             <ArrowRight className="h-4 w-4 ml-2" />
                           </>
                         )}

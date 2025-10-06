@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
 import aprilImage from "@/assets/april-sabral.png";
-import aprilLogo from "@/assets/just-ask-april-logo.png";
+import aprilLogo from "@/assets/april-logo.png";
 
 const About = () => {
   const navigate = useNavigate();

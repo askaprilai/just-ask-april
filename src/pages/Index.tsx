@@ -674,7 +674,7 @@ const Index = () => {
             {!result && !rewriteLoading && (
               <div className="mb-16 md:mb-24 animate-fade-in">
                 <div className="text-center mb-8 md:mb-12">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                   The Impact Language Method™
                 </h2>
                   <p className="text-lg md:text-xl text-muted-foreground">

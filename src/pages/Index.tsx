@@ -1088,12 +1088,25 @@ const Index = () => {
               </div>
             )}
 
-            <div className="text-center py-2 md:py-3">
-              <p className="text-[10px] md:text-sm font-semibold text-secondary uppercase tracking-wide flex items-center justify-center gap-2">
-                <span className="inline-block w-6 md:w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
-                April&apos;s Suggestions
-                <span className="inline-block w-6 md:w-8 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
-              </p>
+            {/* Impact Statements Header - Now You Know, Here's How to Say It */}
+            <div className="text-center py-4 md:py-6 mt-2">
+              <div className="max-w-2xl mx-auto space-y-3">
+                <div className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-secondary/20 to-accent/20 px-6 py-3 rounded-full border-2 border-secondary/30">
+                  <Award className="h-5 w-5 text-secondary" />
+                  <p className="text-sm md:text-base font-bold text-secondary uppercase tracking-wide">
+                    Your Impact Statements
+                  </p>
+                  <Award className="h-5 w-5 text-secondary" />
+                </div>
+                <p className="text-base md:text-lg text-foreground font-medium px-4">
+                  Here&apos;s how to say it to drive positive outcomes and achieve results
+                </p>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="inline-block w-12 md:w-16 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
+                  <span className="text-xs md:text-sm text-muted-foreground">Choose the approach that feels right</span>
+                  <span className="inline-block w-12 md:w-16 h-px bg-gradient-to-r from-transparent via-secondary to-transparent"></span>
+                </div>
+              </div>
             </div>
           </div>
         )}

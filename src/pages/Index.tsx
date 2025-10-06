@@ -1141,7 +1141,7 @@ const Index = () => {
                 We build workplace relationships that transform lives
               </p>
               <p className="text-sm md:text-base text-muted-foreground">
-                Professional communication coaching powered by AI
+                AI for better communication. Human for better results.
               </p>
             </div>
             

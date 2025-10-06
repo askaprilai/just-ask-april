@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Mic, MicOff, Lock } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
@@ -98,28 +99,66 @@ const VoiceConversation = () => {
   if (!isPro) {
     return (
       <>
-        <div className="flex flex-col items-center justify-center min-h-[600px] space-y-8 p-8">
-          <Card className="w-full max-w-2xl p-8 cursor-pointer hover:border-accent/50 transition-colors" onClick={() => setShowUpgradeDialog(true)}>
-            <div className="flex flex-col items-center space-y-6">
-              <div className="relative">
-                <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-muted">
+        <div className="flex flex-col items-center justify-center space-y-6 py-6">
+          <Card className="w-full max-w-2xl p-6 cursor-pointer hover:border-accent/50 transition-colors" onClick={() => setShowUpgradeDialog(true)}>
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              {/* April's Photo with Glow Effect */}
+              <div className="relative flex-shrink-0">
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-accent rounded-full blur-xl opacity-60 animate-pulse" />
+                <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-secondary/30 shadow-lg">
                   <img
                     src={aprilImage}
                     alt="April Sabral"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground rounded-full p-2">
-                  <Lock className="w-5 h-5" />
+                <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground rounded-full p-2 shadow-md">
+                  <Lock className="w-4 h-4" />
                 </div>
               </div>
 
-              <div className="text-center">
-                <h2 className="text-2xl font-bold mb-2">Practice with April AI</h2>
-                <p className="text-muted-foreground mb-6">
-                  Voice practice is available for Pro subscribers
-                </p>
-                <ProFeatureBadge feature="Voice Practice" onClick={() => setShowUpgradeDialog(true)} />
+              {/* Content */}
+              <div className="flex-1 text-center md:text-left space-y-3">
+                <div>
+                  <h2 className="text-xl font-bold mb-1 flex items-center justify-center md:justify-start gap-2">
+                    Practice with April AI
+                    <Badge variant="secondary" className="text-xs">PRO</Badge>
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Have real-time voice conversations to practice difficult conversations
+                  </p>
+                </div>
+
+                {/* Voice Example Preview */}
+                <div className="bg-muted/30 rounded-lg p-3 border border-border">
+                  <p className="text-xs font-medium mb-2 text-muted-foreground">🎧 Example: Hear April's voice</p>
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const audio = new Audio('https://storage.googleapis.com/eleven-public-prod/premade/voices/9BWtsMINqrJLrRacOk9x/e6206d1a-0721-4787-aafb-06a6e705c2d8.mp3');
+                        audio.play();
+                      }}
+                      className="gap-2"
+                    >
+                      <Mic className="w-3.5 h-3.5" />
+                      Play Sample
+                    </Button>
+                    <p className="text-xs text-muted-foreground">
+                      "Hi! I'm April. Let's practice your conversation together."
+                    </p>
+                  </div>
+                </div>
+
+                <Button 
+                  onClick={() => setShowUpgradeDialog(true)}
+                  className="w-full md:w-auto gap-2"
+                >
+                  Unlock Voice Practice
+                  <Lock className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           </Card>
@@ -134,91 +173,103 @@ const VoiceConversation = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] space-y-6 p-6">
-      <Card className="w-full max-w-lg p-6">
-        <div className="flex flex-col items-center space-y-4">
-          <div
-            className={`relative transition-all duration-300 ${
-              conversation.isSpeaking ? 'scale-110' : 'scale-100'
-            } ${conversation.status === 'connected' ? 'ring-4 ring-primary ring-offset-4' : ''}`}
-          >
-            <div className="relative w-24 h-24 rounded-full overflow-hidden">
+    <div className="flex flex-col items-center justify-center space-y-6 py-4">
+      <Card className="w-full max-w-2xl p-4">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
+          {/* April's Photo with Dynamic Glow */}
+          <div className="flex-shrink-0">
+            <div
+              className={`relative transition-all duration-300 ${
+                conversation.isSpeaking ? 'scale-110' : 'scale-100'
+              }`}
+            >
               {conversation.status === 'connected' && (
-                <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-accent rounded-full blur-xl opacity-70 animate-pulse" />
               )}
-              <img
-                src={aprilImage}
-                alt="April Sabral"
-                className="w-full h-full object-cover"
-              />
+              <div className={`relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 transition-all ${
+                conversation.status === 'connected' 
+                  ? 'border-secondary shadow-lg shadow-secondary/50' 
+                  : 'border-secondary/30'
+              }`}>
+                {conversation.status === 'connected' && (
+                  <div className="absolute inset-0 bg-secondary/20 rounded-full animate-pulse" />
+                )}
+                <img
+                  src={aprilImage}
+                  alt="April Sabral"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="text-center">
-            <h2 className="text-xl font-bold mb-2">Practice with April AI</h2>
-          </div>
+          {/* Content */}
+          <div className="flex-1 w-full space-y-3">
+            <div className="text-center md:text-left">
+              <h2 className="text-lg font-bold mb-1">Practice with April AI</h2>
+              <p className="text-sm text-muted-foreground">
+                {conversation.status === 'connected'
+                  ? conversation.isSpeaking
+                    ? "April is speaking..."
+                    : "Listening to you..."
+                  : "Click below to start your voice practice session"}
+              </p>
+            </div>
 
-          <p className="text-sm text-muted-foreground mb-4">
-            {conversation.status === 'connected'
-              ? conversation.isSpeaking
-                ? "April is speaking..."
-                : "Listening..."
-              : "Click the button below to start your practice conversation"}
-          </p>
+            <div className="flex gap-3 justify-center md:justify-start">
+              {conversation.status !== 'connected' ? (
+                <Button
+                  onClick={startConversation}
+                  size="lg"
+                  className="gap-2 bg-gradient-to-r from-secondary to-accent hover:opacity-90"
+                >
+                  <Mic className="w-4 h-4" />
+                  Start Voice Practice
+                </Button>
+              ) : (
+                <Button
+                  onClick={endConversation}
+                  size="lg"
+                  variant="destructive"
+                  className="gap-2"
+                >
+                  <MicOff className="w-4 h-4" />
+                  End Conversation
+                </Button>
+              )}
+            </div>
 
-          <div className="flex gap-4 justify-center">
-            {conversation.status !== 'connected' ? (
-              <Button
-                onClick={startConversation}
-                size="lg"
-                className="gap-2"
-              >
-                <Mic className="w-5 h-5" />
-                Start Voice Practice
-              </Button>
-            ) : (
-              <Button
-                onClick={endConversation}
-                size="lg"
-                variant="destructive"
-                className="gap-2"
-              >
-                <MicOff className="w-5 h-5" />
-                End Conversation
-              </Button>
-            )}
-          </div>
-
-          {conversation.status === 'connected' && transcript.length > 0 && (
-            <div className="w-full mt-6">
-              <h3 className="text-base font-semibold mb-3">Conversation Transcript</h3>
-              <ScrollArea className="h-[200px] w-full rounded-md border p-3">
-                <div className="space-y-4">
-                  {transcript.map((message, index) => (
-                    <div
-                      key={index}
-                      className={`flex ${
-                        message.role === 'user' ? 'justify-end' : 'justify-start'
-                      }`}
-                    >
+            {conversation.status === 'connected' && transcript.length > 0 && (
+              <div className="w-full">
+                <h3 className="text-sm font-semibold mb-2">Conversation Transcript</h3>
+                <ScrollArea className="h-[160px] w-full rounded-md border p-2">
+                  <div className="space-y-3">
+                    {transcript.map((message, index) => (
                       <div
-                        className={`max-w-[80%] rounded-lg p-3 ${
-                          message.role === 'user'
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted'
+                        key={index}
+                        className={`flex ${
+                          message.role === 'user' ? 'justify-end' : 'justify-start'
                         }`}
                       >
-                        <p className="text-sm font-medium mb-1">
-                          {message.role === 'user' ? 'You' : 'April'}
-                        </p>
-                        <p className="text-sm">{message.content}</p>
+                        <div
+                          className={`max-w-[85%] rounded-lg p-2 ${
+                            message.role === 'user'
+                              ? 'bg-primary text-primary-foreground'
+                              : 'bg-muted'
+                          }`}
+                        >
+                          <p className="text-xs font-medium mb-0.5">
+                            {message.role === 'user' ? 'You' : 'April'}
+                          </p>
+                          <p className="text-xs">{message.content}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea>
-            </div>
-          )}
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
+          </div>
         </div>
       </Card>
     </div>

@@ -686,6 +686,40 @@ const Index = () => {
               </div>
             )}
 
+            {/* Promotional Section - With Better Communication */}
+            {!result && !rewriteLoading && (
+              <section className="mb-12 md:mb-16 animate-fade-in px-4">
+                <Card className="bg-gradient-to-br from-secondary/10 via-accent/10 to-primary/10 border-secondary/20 shadow-lg">
+                  <CardContent className="p-8 md:p-12 text-center">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-secondary via-accent to-primary bg-clip-text text-transparent">
+                      With Better Communication
+                    </h2>
+                    <p className="text-lg md:text-xl text-foreground mb-6 leading-relaxed max-w-2xl mx-auto">
+                      You get promoted faster. Your team respects you more. Conflicts resolve easier. You lead with confidence.
+                    </p>
+                    {!user && (
+                      <Button 
+                        onClick={() => navigate('/auth')} 
+                        size="lg"
+                        className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white font-semibold px-8"
+                      >
+                        Start Communicating Better Today
+                      </Button>
+                    )}
+                    {user && !subscribed && (
+                      <Button 
+                        onClick={() => setShowUpgradeDialog(true)} 
+                        size="lg"
+                        className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white font-semibold px-8"
+                      >
+                        Upgrade to Pro for $10/month
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              </section>
+            )}
+
             {/* The Impact Playbook - Examples Section */}
             {!result && !rewriteLoading && <ExamplesSection />}
 

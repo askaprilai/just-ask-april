@@ -404,6 +404,12 @@ export const ExamplesSection = () => {
               </h2>
               <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-accent animate-pulse" />
             </div>
+            <p className="text-base md:text-lg font-semibold text-foreground mb-2">
+              Be the best employee. Be the best manager. Be the best teammate.
+            </p>
+            <p className="text-sm md:text-base text-accent font-semibold mb-4">
+              Say it better with Just Ask April.
+            </p>
             <p className="text-sm md:text-base text-muted-foreground mb-4">
               Your answer key to better communication. Click any example to see the transformation.
             </p>

@@ -136,10 +136,28 @@ const VoiceConversation = () => {
                     <Button 
                       size="sm" 
                       variant="outline"
-                      onClick={(e) => {
+                      onClick={async (e) => {
                         e.stopPropagation();
-                        const audio = new Audio('https://storage.googleapis.com/eleven-public-prod/premade/voices/9BWtsMINqrJLrRacOk9x/e6206d1a-0721-4787-aafb-06a6e705c2d8.mp3');
-                        audio.play();
+                        try {
+                          const { data, error } = await supabase.functions.invoke('elevenlabs-tts', {
+                            body: { 
+                              text: "Hi! I'm April. Let's practice your conversation together.",
+                              voiceId: ELEVENLABS_AGENT_ID
+                            }
+                          });
+                          
+                          if (error) throw error;
+                          
+                          const audio = new Audio(`data:audio/mp3;base64,${data.audioContent}`);
+                          audio.play();
+                        } catch (error) {
+                          console.error('Error playing sample:', error);
+                          toast({
+                            title: "Error",
+                            description: "Failed to play sample audio",
+                            variant: "destructive",
+                          });
+                        }
                       }}
                       className="gap-2"
                     >

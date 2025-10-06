@@ -77,7 +77,7 @@ serve(async (req) => {
       .filter(fb => fb.helpful)
       .map(fb => fb.rewrite_id);
 
-    let topRewrites = [];
+    let topRewrites: any[] = [];
     if (helpfulRewriteIds.length > 0) {
       const { data: rewritesData, error: rewritesError } = await supabaseClient
         .from('rewrites')

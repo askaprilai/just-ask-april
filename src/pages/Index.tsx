@@ -587,7 +587,7 @@ const Index = () => {
               </div>
 
               {/* Optional Settings - Prominent Design */}
-              <div className="mt-3">
+              <div className="mt-3 max-w-3xl mx-auto">
                 <div className="relative">
                   <Button
                     variant="outline"

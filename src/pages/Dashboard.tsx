@@ -10,7 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MessageSquare, Mic, BookOpen, LogOut, Menu, X } from "lucide-react";
+import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb } from "lucide-react";
+import { EXAMPLES } from "@/components/ExamplesSection";
 import { useToast } from "@/hooks/use-toast";
 import VoiceConversation from "@/components/VoiceConversation";
 import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
@@ -224,7 +225,7 @@ const Dashboard = () => {
         <div className="flex-1 overflow-auto">
           <div className="max-w-5xl mx-auto p-6">
             <Tabs defaultValue="chat" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6">
+              <TabsList className="grid w-full grid-cols-4 mb-6">
                 <TabsTrigger value="chat">
                   <MessageSquare className="h-4 w-4 mr-2" />
                   Chat
@@ -236,6 +237,10 @@ const Dashboard = () => {
                 <TabsTrigger value="playbook">
                   <BookOpen className="h-4 w-4 mr-2" />
                   Impact Playbook
+                </TabsTrigger>
+                <TabsTrigger value="examples">
+                  <Lightbulb className="h-4 w-4 mr-2" />
+                  Example Cards
                 </TabsTrigger>
               </TabsList>
 
@@ -278,6 +283,60 @@ const Dashboard = () => {
 
               <TabsContent value="voice">
                 <VoiceConversation />
+              </TabsContent>
+
+              <TabsContent value="examples" className="space-y-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-2xl font-semibold mb-2">Quick Example Cards</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Browse real-world communication examples for instant inspiration
+                    </p>
+                    
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {EXAMPLES.map((example, index) => (
+                        <Card key={index} className="bg-gradient-to-br from-card to-muted/20 border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg">
+                          <CardContent className="p-4 space-y-3">
+                            {/* Category Badge */}
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
+                                {example.category}
+                              </span>
+                            </div>
+
+                            {/* Before */}
+                            <div className="space-y-1">
+                              <div className="text-xs font-semibold text-muted-foreground">Before:</div>
+                              <div className="text-sm text-foreground/80 italic">
+                                "{example.before}"
+                              </div>
+                            </div>
+
+                            {/* Arrow */}
+                            <div className="flex justify-center">
+                              <ArrowRight className="h-4 w-4 text-accent" />
+                            </div>
+
+                            {/* After */}
+                            <div className="space-y-1">
+                              <div className="text-xs font-semibold text-accent">After:</div>
+                              <div className="text-sm text-foreground font-medium">
+                                "{example.after}"
+                              </div>
+                            </div>
+
+                            {/* Outcome */}
+                            <div className="pt-2 border-t border-border">
+                              <div className="text-xs text-muted-foreground">
+                                <span className="font-semibold">Impact:</span> {example.outcome}
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
 
               <TabsContent value="playbook" className="space-y-6">

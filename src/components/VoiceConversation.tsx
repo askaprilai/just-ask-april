@@ -5,6 +5,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Mic, MicOff, Lock } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { ProFeatureBadge } from '@/components/ProFeatureBadge';
+import { UpgradeDialog } from '@/components/UpgradeDialog';
 import aprilImage from '@/assets/april-headshot.jpeg';
 import { useConversation } from '@11labs/react';
 import { supabase } from '@/integrations/supabase/client';
@@ -17,6 +18,7 @@ const VoiceConversation = () => {
   const { subscribed, productId } = useSubscription();
   const isPro = subscribed && productId === 'prod_TB6tW8iBKEha8e';
   const [transcript, setTranscript] = useState<Array<{ role: string; content: string }>>([]);
+  const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   
   const conversation = useConversation({
     onConnect: () => {
@@ -95,32 +97,39 @@ const VoiceConversation = () => {
 
   if (!isPro) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[600px] space-y-8 p-8">
-        <Card className="w-full max-w-2xl p-8">
-          <div className="flex flex-col items-center space-y-6">
-            <div className="relative">
-              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-muted">
-                <img
-                  src={aprilImage}
-                  alt="April Sabral"
-                  className="w-full h-full object-cover"
-                />
+      <>
+        <div className="flex flex-col items-center justify-center min-h-[600px] space-y-8 p-8">
+          <Card className="w-full max-w-2xl p-8 cursor-pointer hover:border-accent/50 transition-colors" onClick={() => setShowUpgradeDialog(true)}>
+            <div className="flex flex-col items-center space-y-6">
+              <div className="relative">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-muted">
+                  <img
+                    src={aprilImage}
+                    alt="April Sabral"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground rounded-full p-2">
+                  <Lock className="w-5 h-5" />
+                </div>
               </div>
-              <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground rounded-full p-2">
-                <Lock className="w-5 h-5" />
-              </div>
-            </div>
 
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2">Practice with April AI</h2>
-              <p className="text-muted-foreground mb-6">
-                Voice practice is available for Pro subscribers
-              </p>
-              <ProFeatureBadge feature="Voice Practice" />
+              <div className="text-center">
+                <h2 className="text-2xl font-bold mb-2">Practice with April AI</h2>
+                <p className="text-muted-foreground mb-6">
+                  Voice practice is available for Pro subscribers
+                </p>
+                <ProFeatureBadge feature="Voice Practice" onClick={() => setShowUpgradeDialog(true)} />
+              </div>
             </div>
-          </div>
-        </Card>
-      </div>
+          </Card>
+        </div>
+        <UpgradeDialog 
+          open={showUpgradeDialog} 
+          onOpenChange={setShowUpgradeDialog}
+          feature="Voice Practice with April AI"
+        />
+      </>
     );
   }
 

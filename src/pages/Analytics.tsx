@@ -7,10 +7,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { Lock, TrendingUp, MessageSquare, Target, Calendar, ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { UpgradeDialog } from '@/components/UpgradeDialog';
 
 const Analytics = () => {
   const navigate = useNavigate();
   const { subscribed, productId, loading } = useSubscription();
+  const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   const [stats, setStats] = useState({
     totalRewrites: 0,
     thisWeek: 0,
@@ -147,49 +149,62 @@ const Analytics = () => {
 
   if (!isPro) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-        <div className="container max-w-4xl mx-auto px-4 py-12">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/')}
-            className="mb-6"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Button>
+      <>
+        <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+          <div className="container max-w-4xl mx-auto px-4 py-12">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate('/')}
+              className="mb-6"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Home
+            </Button>
 
-          <Card className="border-accent/30">
-            <CardContent className="p-12 text-center">
-              <div className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
-                <Lock className="h-10 w-10 text-accent" />
-              </div>
-              <h1 className="text-3xl font-bold mb-4">Analytics Dashboard</h1>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Track your communication progress, identify patterns, and see your improvement over time with detailed analytics.
-              </p>
-              <Badge className="mb-6 bg-gradient-to-r from-secondary to-accent text-white">
-                Pro Feature ✨
-              </Badge>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button
-                  onClick={() => navigate('/pricing')}
-                  size="lg"
-                  className="bg-gradient-to-r from-secondary to-accent"
-                >
-                  Upgrade to Pro
-                </Button>
-                <Button
-                  onClick={() => navigate('/')}
-                  variant="outline"
-                  size="lg"
-                >
-                  Go Back
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            <Card className="border-accent/30 cursor-pointer hover:border-accent/50 transition-colors" onClick={() => setShowUpgradeDialog(true)}>
+              <CardContent className="p-12 text-center">
+                <div className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
+                  <Lock className="h-10 w-10 text-accent" />
+                </div>
+                <h1 className="text-3xl font-bold mb-4">Analytics Dashboard</h1>
+                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                  Track your communication progress, identify patterns, and see your improvement over time with detailed analytics.
+                </p>
+                <Badge className="mb-6 bg-gradient-to-r from-secondary to-accent text-white">
+                  Pro Feature ✨
+                </Badge>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowUpgradeDialog(true);
+                    }}
+                    size="lg"
+                    className="bg-gradient-to-r from-secondary to-accent"
+                  >
+                    Upgrade to Pro
+                  </Button>
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate('/');
+                    }}
+                    variant="outline"
+                    size="lg"
+                  >
+                    Go Back
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
+        <UpgradeDialog 
+          open={showUpgradeDialog} 
+          onOpenChange={setShowUpgradeDialog}
+          feature="Analytics Dashboard"
+        />
+      </>
     );
   }
 

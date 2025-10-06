@@ -369,7 +369,10 @@ export const ExamplesSection = () => {
           Your answer key to better communication. Click any example to see the transformation.
         </p>
         {!subscribed && (
-          <p className="text-xs md:text-sm text-accent font-semibold">
+          <p 
+            className="text-xs md:text-sm text-accent font-semibold cursor-pointer hover:text-accent/80 transition-colors"
+            onClick={handleLockedClick}
+          >
             ✨ Upgrade to unlock unlimited Impact Statements + practice with April AI
           </p>
         )}
@@ -379,17 +382,17 @@ export const ExamplesSection = () => {
       <div className="mb-6 px-4">
         <div className="flex items-center justify-center gap-2 mb-3">
           <span className="text-sm font-semibold text-foreground">Filter by Category</span>
-          {!subscribed && <ProFeatureBadge feature="Categories" inline />}
+          {!subscribed && <ProFeatureBadge feature="Categories" inline onClick={handleLockedClick} />}
         </div>
         <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
           {CATEGORIES.map((category) => (
             <Button
               key={category}
-              onClick={() => subscribed ? setSelectedCategory(category) : null}
+              onClick={() => subscribed ? setSelectedCategory(category) : handleLockedClick()}
               variant={selectedCategory === category ? "default" : "outline"}
               size="sm"
               disabled={!subscribed && category !== "All"}
-              className={`text-xs md:text-sm ${!subscribed && category !== "All" ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`text-xs md:text-sm ${!subscribed && category !== "All" ? "opacity-50 cursor-pointer" : ""}`}
             >
               {category}
             </Button>
@@ -444,8 +447,7 @@ export const ExamplesSection = () => {
                 {expandedIndex === index && (
                   <Button
                     size="sm"
-                    onClick={() => subscribed ? handlePracticeWithApril(example) : null}
-                    disabled={!subscribed}
+                    onClick={() => subscribed ? handlePracticeWithApril(example) : handleLockedClick()}
                     className="w-full text-xs"
                     variant={subscribed ? "default" : "outline"}
                   >

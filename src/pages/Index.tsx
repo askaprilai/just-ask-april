@@ -393,7 +393,7 @@ const Index = () => {
             </p>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-10 md:mb-14 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
-            When you need your words to influence, align and drive real outcomes...just ask april
+            AI Communication Tool for Better Workplace Conversations
           </h1>
           <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-4 md:mb-5 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
           <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
@@ -504,7 +504,7 @@ const Index = () => {
                 Because how you say it shapes what happens next.
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                How do I say it better?
+                Transform Your Communication
               </h2>
               
               <div className="relative animate-scale-in max-w-3xl mx-auto">
@@ -650,9 +650,9 @@ const Index = () => {
             {!result && !rewriteLoading && (
               <div className="mb-16 md:mb-24 animate-fade-in">
                 <div className="text-center mb-8 md:mb-12">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                    The Impact Language Method™
-                  </h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                  The Impact Language Method™
+                </h2>
                   <p className="text-lg md:text-xl text-muted-foreground">
                     Say it Better. Get Better Results.
                   </p>
@@ -667,7 +667,7 @@ const Index = () => {
             {/* Social Proof Section */}
             {!result && !rewriteLoading && (
               <section className="mt-12 md:mt-16 mb-16 md:mb-20 space-y-6">
-                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Why People Love April</h3>
+                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Why People Love April</h2>
                 <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                   <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
                     <div className="flex gap-1 mb-3">
@@ -703,7 +703,7 @@ const Index = () => {
             {/* Benefits Section */}
             {!result && !rewriteLoading && (
               <section className="mt-16 md:mt-24 space-y-6">
-                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h3>
+                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h2>
                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
                     <h4 className="font-semibold text-base md:text-lg mb-2">
@@ -736,7 +736,7 @@ const Index = () => {
             {/* FAQ Section */}
             {!result && !rewriteLoading && (
               <section className="mt-12 md:mt-16 space-y-6">
-                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Frequently Asked Questions</h3>
+                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Frequently Asked Questions</h2>
                 <Accordion type="single" collapsible className="w-full space-y-4">
                   <AccordionItem value="item-1" className="border border-border rounded-lg px-6">
                     <AccordionTrigger className="text-left hover:no-underline">
@@ -916,8 +916,8 @@ const Index = () => {
 
         {/* Before You Speak - Problem Statement */}
         <div className="mb-16 md:mb-24 animate-fade-in mt-16 md:mt-20">
-          <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
-            Ask April before you speak
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
+            Ask April Before You Speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="border-teal-700/20 hover:border-teal-700/40 transition-all">
@@ -975,7 +975,7 @@ const Index = () => {
 
         {/* How It Works */}
         <div className="mb-16 md:mb-24 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-secondary/10">
-          <h2 className="text-3xl md:text-3xl font-bold text-center mb-8 text-gray-700">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-700">
             How AI Communication Coaching Works
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -1031,7 +1031,7 @@ const Index = () => {
 
         {/* Social Proof */}
         <div className="mb-16 md:mb-24">
-          <h2 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
             Proven Results: Better Workplace Communication
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1084,8 +1084,8 @@ const Index = () => {
 
         {/* ROI Section */}
         <div className="mb-16 md:mb-24 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-secondary/20">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-            What's the ROI on better verbal communication skills?
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+            What's the ROI on Better Communication Skills?
           </h2>
           <div className="max-w-3xl mx-auto space-y-6">
             <p className="text-lg md:text-xl text-center text-muted-foreground leading-relaxed">

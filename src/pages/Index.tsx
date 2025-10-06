@@ -84,6 +84,7 @@ const Index = () => {
   const [playingAudio, setPlayingAudio] = useState<number | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const [showSignupDialog, setShowSignupDialog] = useState(false);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [showTryItNow, setShowTryItNow] = useState(false);
   const [errorState, setErrorState] = useState<string | null>(null);
@@ -150,12 +151,7 @@ const Index = () => {
       const triesUsed = parseInt(localStorage.getItem(freeTriesKey) || '0');
       
       if (triesUsed >= 3) {
-        toast({
-          title: "Free tries used up",
-          description: "Create a free account to continue using April's rewriting features",
-          variant: "destructive",
-        });
-        navigate('/auth');
+        setShowSignupDialog(true);
         return;
       }
       
@@ -167,7 +163,7 @@ const Index = () => {
       if (remaining > 0) {
         toast({
           title: `${remaining} free ${remaining === 1 ? 'try' : 'tries'} remaining`,
-          description: "Sign up for unlimited access",
+          description: "Sign up for 7 more free uses + save your history",
         });
       }
     }
@@ -1342,6 +1338,69 @@ const Index = () => {
           </div>
         </footer>
       </div>
+
+      {/* Sign Up Dialog - After 3 Free Tries */}
+      <Dialog open={showSignupDialog} onOpenChange={setShowSignupDialog}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">
+              🎉 You just tried April 3 times!
+            </DialogTitle>
+            <DialogDescription className="space-y-4 pt-4">
+              <p className="text-base font-medium text-foreground">
+                Love what you see? Create a free account to unlock:
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-secondary/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-secondary font-bold text-sm">7</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">7 More Free Uses Daily</p>
+                    <p className="text-sm text-muted-foreground">Get 10 total free rewrites per day</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <HistoryIcon className="h-3.5 w-3.5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Save Your History</p>
+                    <p className="text-sm text-muted-foreground">Track all your rewrites and refer back anytime</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <BarChart3 className="h-3.5 w-3.5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Track Your Impact</p>
+                    <p className="text-sm text-muted-foreground">See how your communication improves over time</p>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground italic pt-2">
+                Sign up takes 30 seconds. No credit card required.
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setShowSignupDialog(false)}
+              className="w-full sm:w-auto"
+            >
+              Maybe later
+            </Button>
+            <Button
+              onClick={() => navigate('/auth')}
+              className="w-full sm:w-auto bg-gradient-to-r from-secondary to-accent hover:from-secondary/90 hover:to-accent/90 text-white font-semibold"
+            >
+              Sign Up Free - Get 7 More Uses
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Upgrade Dialog */}
       <Dialog open={showUpgradeDialog} onOpenChange={setShowUpgradeDialog}>

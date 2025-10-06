@@ -665,7 +665,7 @@ const Index = () => {
 
             {/* Social Proof Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-12 md:mt-16 space-y-6">
+              <section className="mt-12 md:mt-16 mb-16 md:mb-20 space-y-6">
                 <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Why People Love April</h3>
                 <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                   <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
@@ -701,7 +701,7 @@ const Index = () => {
 
             {/* Benefits Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-12 md:mt-16 space-y-6">
+              <section className="mt-16 md:mt-24 space-y-6">
                 <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h3>
                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">

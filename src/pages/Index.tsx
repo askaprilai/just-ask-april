@@ -397,7 +397,7 @@ const Index = () => {
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 mb-4 md:mb-5 font-normal px-4 leading-relaxed flex items-center justify-center gap-3">
             Your voice shapes outcomes. Just Ask April AI helps you shape it better.
-            <img src={aprilLogo} alt="April AI Logo" className="h-8 md:h-10 inline-block" />
+            <img src={aprilLogo} alt="April AI Logo" className="h-8 md:h-10 inline-block rounded-full" />
           </p>
           <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
             Grammarly fixes your grammar. April AI fixes your impact.

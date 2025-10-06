@@ -45,6 +45,9 @@ interface RewriteResponse {
   };
   diagnostics?: {
     intent_summary?: string;
+    resistance_factors?: string;
+    disconnection_risk?: string;
+    intention_question?: string;
   };
   rewrites: Rewrite[];
   rewrite_id?: string;
@@ -998,11 +1001,51 @@ const Index = () => {
               <p className="text-sm md:text-base text-foreground leading-relaxed italic">&ldquo;{userText}&rdquo;</p>
             </div>
 
-            {/* Intent Summary */}
-            {result.diagnostics?.intent_summary && (
-              <div className="p-4 md:p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg md:rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm">
-                <p className="text-[10px] md:text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">April&apos;s Analysis</p>
-                <p className="text-sm md:text-lg text-foreground leading-relaxed">{result.diagnostics.intent_summary}</p>
+            {/* Comprehensive Analysis Section */}
+            {result.diagnostics && (
+              <div className="space-y-4">
+                {/* Self-Awareness Alert */}
+                {(result.diagnostics.resistance_factors || result.diagnostics.disconnection_risk) && (
+                  <Card className="border-destructive/30 bg-destructive/5">
+                    <CardContent className="p-4 md:p-6">
+                      <div className="flex items-start gap-3 mb-3">
+                        <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-1" />
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-destructive mb-2">Self-Reflection Moment</h3>
+                          <p className="text-xs md:text-sm text-muted-foreground mb-1 font-medium">How your language might be received:</p>
+                        </div>
+                      </div>
+                      
+                      {result.diagnostics.resistance_factors && (
+                        <div className="mb-4 pl-8">
+                          <p className="text-xs md:text-sm font-medium text-destructive/90 mb-1">⚠️ Potential Resistance Triggers:</p>
+                          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{result.diagnostics.resistance_factors}</p>
+                        </div>
+                      )}
+                      
+                      {result.diagnostics.disconnection_risk && (
+                        <div className="mb-4 pl-8">
+                          <p className="text-xs md:text-sm font-medium text-destructive/90 mb-1">💔 Relationship Impact:</p>
+                          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{result.diagnostics.disconnection_risk}</p>
+                        </div>
+                      )}
+                      
+                      {result.diagnostics.intention_question && (
+                        <div className="pl-8 pt-2 border-t border-destructive/20">
+                          <p className="text-xs md:text-sm font-semibold text-foreground italic mt-2">🤔 {result.diagnostics.intention_question}</p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
+                
+                {/* Intent Summary */}
+                {result.diagnostics.intent_summary && (
+                  <div className="p-4 md:p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg md:rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm">
+                    <p className="text-[10px] md:text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">Your Core Intent</p>
+                    <p className="text-sm md:text-lg text-foreground leading-relaxed">{result.diagnostics.intent_summary}</p>
+                  </div>
+                )}
               </div>
             )}
 

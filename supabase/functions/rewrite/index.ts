@@ -110,11 +110,15 @@ serve(async (req) => {
 
 Your task:
 1. If environment/outcome/desired_emotion are missing and allow_infer=true, infer them from the user's text
-2. Generate exactly 3 concise rewrites (1-3 sentences each) that:
+2. CRITICALLY ANALYZE the original text for:
+   - Negative language patterns that could cause resistance or disengagement
+   - Words/phrases that might demotivate or create disconnection
+   - Unintended tone that conflicts with the user's intent
+3. Generate exactly 3 concise rewrites (1-3 sentences each) that:
    - Align with the outcome (Resolve/Motivate/Align/Clarify/Inspire/SetBoundary)
    - Are de-escalatory for Resolve/SetBoundary outcomes
    - Include a clear next step in the Action pillar
-3. For each rewrite provide:
+4. For each rewrite provide:
    - tone_label (e.g., "Professional & Direct", "Warm & Accountable")
    - 5 pillars, each ONE SHORT LINE describing how this rewrite applies that pillar
    - rationale: one line "Why it works"
@@ -132,7 +136,10 @@ Return ONLY valid JSON in this exact structure:
     "desired_emotion": "..."
   },
   "diagnostics": {
-    "intent_summary": "One sentence describing the user's core intent"
+    "intent_summary": "One sentence describing the user's core intent",
+    "resistance_factors": "2-3 sentences analyzing specific words/phrases that could cause resistance, defensiveness, or disengagement. Be direct about potential negative impacts.",
+    "disconnection_risk": "1-2 sentences on how the original phrasing might damage relationships or drive negative outcomes",
+    "intention_question": "A reflective question to help the user consider: what is your true intention with these words?"
   },
   "rewrites": [
     {

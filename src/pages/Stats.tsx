@@ -14,9 +14,20 @@ interface ImpactStats {
   };
 }
 
+interface TopRewrite {
+  id: string;
+  raw_text: string;
+  environment: string;
+  outcome: string;
+  inferred_emotion?: string;
+  desired_emotion?: string;
+  created_at: string;
+}
+
 const Stats = () => {
   const navigate = useNavigate();
   const [stats, setStats] = useState<ImpactStats>({});
+  const [topRewrites, setTopRewrites] = useState<TopRewrite[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,6 +52,7 @@ const Stats = () => {
         
         if (error) throw error;
         setStats(data.stats || {});
+        setTopRewrites(data.topRewrites || []);
       } catch (error) {
         console.error("Error fetching stats:", error);
       } finally {
@@ -128,6 +140,46 @@ const Stats = () => {
                 <ImpactMethodDiagram />
               </CardContent>
             </Card>
+
+            {/* Top Impact Statements */}
+            {topRewrites.length > 0 && (
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Top Impact Statements</CardTitle>
+                  <CardDescription>
+                    Your most effective rewrites that got results
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {topRewrites.map((rewrite) => (
+                    <div key={rewrite.id} className="p-4 bg-muted/30 rounded-lg border border-border/50 hover:border-primary/30 transition-colors">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <span className="capitalize font-medium">{rewrite.environment}</span>
+                          <span>·</span>
+                          <span className="capitalize">{rewrite.outcome}</span>
+                        </div>
+                        <Award className="h-4 w-4 text-primary flex-shrink-0" />
+                      </div>
+                      <p className="text-sm leading-relaxed">"{rewrite.raw_text}"</p>
+                      {(rewrite.inferred_emotion || rewrite.desired_emotion) && (
+                        <div className="mt-2 flex gap-2 text-xs">
+                          {rewrite.inferred_emotion && (
+                            <span className="text-muted-foreground">From: {rewrite.inferred_emotion}</span>
+                          )}
+                          {rewrite.desired_emotion && (
+                            <>
+                              <span className="text-muted-foreground">→</span>
+                              <span className="text-primary font-medium">To: {rewrite.desired_emotion}</span>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
 
             {/* Detailed Stats */}
             <div className="mb-6">

@@ -38,7 +38,7 @@ serve(async (req) => {
     // Get authenticated user's feedback only
     const { data: feedbackData, error } = await supabaseClient
       .from('feedback')
-      .select('helpful, environment, outcome')
+      .select('helpful, environment, outcome, rewrite_id')
       .eq('user_id', user.id);
 
     if (error) {
@@ -72,7 +72,27 @@ serve(async (req) => {
         : 0;
     });
 
-    return new Response(JSON.stringify({ stats }), {
+    // Get top impact statements (helpful rewrites)
+    const helpfulRewriteIds = feedbackData
+      .filter(fb => fb.helpful)
+      .map(fb => fb.rewrite_id);
+
+    let topRewrites = [];
+    if (helpfulRewriteIds.length > 0) {
+      const { data: rewritesData, error: rewritesError } = await supabaseClient
+        .from('rewrites')
+        .select('id, raw_text, environment, outcome, inferred_emotion, desired_emotion, created_at')
+        .in('id', helpfulRewriteIds)
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (!rewritesError && rewritesData) {
+        topRewrites = rewritesData;
+      }
+    }
+
+    return new Response(JSON.stringify({ stats, topRewrites }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 

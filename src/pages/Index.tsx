@@ -1102,6 +1102,9 @@ const Index = () => {
         <footer className="mt-12 md:mt-20 py-8 md:py-12 border-t border-border/40 bg-muted/20">
           <div className="max-w-4xl mx-auto px-4">
             <div className="text-center mb-6 md:mb-8">
+              <p className="text-xl md:text-2xl font-semibold mb-4 text-foreground">
+                We build workplace relationships that transform lives
+              </p>
               <p className="text-lg md:text-xl font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent mb-2">
                 When in doubt, just ask April
               </p>

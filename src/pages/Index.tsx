@@ -955,7 +955,15 @@ const Index = () => {
                   </div>
 
                   {/* 1. IMPACT STATEMENT - THE STAR OF THE SHOW (immediate dopamine!) */}
-                  <div className="mb-6 md:mb-8 p-4 md:p-6 bg-gradient-to-br from-secondary/10 to-accent/5 rounded-xl border-2 border-secondary/20 shadow-inner">
+                  <div className="mb-6 md:mb-8 p-4 md:p-6 bg-gradient-to-br from-secondary/10 to-accent/5 rounded-xl border-2 border-secondary/20 shadow-inner relative">
+                    <div className="flex items-center gap-2 mb-3 pb-2 border-b border-secondary/20">
+                      <div className="flex items-center gap-1.5 bg-secondary/20 px-3 py-1 rounded-full">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                        <p className="text-xs md:text-sm font-bold text-secondary uppercase tracking-wide">Impact Statement #{index + 1}</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-secondary" />
+                      <p className="text-xs md:text-sm font-semibold text-accent">Say This:</p>
+                    </div>
                     <p className="text-base md:text-xl leading-relaxed text-foreground font-medium">
                       {rewrite.text}
                     </p>

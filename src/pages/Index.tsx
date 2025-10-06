@@ -544,11 +544,12 @@ const Index = () => {
                       <Button 
                         onClick={handleRewrite} 
                         disabled={rewriteLoading || !userText.trim()}
-                        size="icon"
-                        className={`h-9 w-9 bg-foreground hover:bg-foreground/90 text-background rounded-lg ${showTryItNow ? 'ring-2 ring-secondary ring-offset-2' : ''}`}
+                        size="sm"
+                        className={`bg-foreground hover:bg-foreground/90 text-background rounded-lg ${showTryItNow ? 'ring-2 ring-secondary ring-offset-2' : ''}`}
                         title="Send (⌘/Ctrl + Enter)"
                       >
-                        <ArrowRight className="h-4 w-4" />
+                        Try it free - Say it better
+                        <ArrowRight className="h-4 w-4 ml-2" />
                       </Button>
                     </div>
                   </div>

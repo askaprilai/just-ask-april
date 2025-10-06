@@ -565,92 +565,6 @@ const Index = () => {
                         <Mic className={`h-4 w-4 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
                       </Button>
                       
-                      {/* Fine-tune Dropdown */}
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="outline"
-                            className="h-9 gap-1 sm:gap-1.5 border-secondary/30 hover:border-secondary hover:bg-secondary/5"
-                            title="Fine-tune your message"
-                          >
-                            <span className="font-bold text-xs sm:text-sm">1.</span>
-                            <Settings2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                            <span className="text-[10px] sm:text-xs">Fine-tune</span>
-                            {(environment || outcome || emotion) && (
-                              <Badge variant="secondary" className="h-4 px-1 text-[9px] sm:text-[10px] ml-0.5">
-                                {[environment, outcome, emotion].filter(Boolean).length}
-                              </Badge>
-                            )}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent 
-                          className="w-[calc(100vw-2rem)] sm:w-80 p-3 sm:p-4 bg-popover z-50 max-h-[70vh] overflow-y-auto" 
-                          align="end"
-                          sideOffset={8}
-                        >
-                          <div className="space-y-3 sm:space-y-4">
-                            <div>
-                              <div className="flex items-center gap-2 mb-2">
-                                <Building2 className="h-3.5 w-3.5 text-secondary" />
-                                <p className="text-xs font-semibold">Environment</p>
-                              </div>
-                              <div className="flex flex-wrap gap-1.5">
-                                {ENVIRONMENTS.map(env => (
-                                  <Badge
-                                    key={env}
-                                    variant={environment === env ? "default" : "outline"}
-                                    className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
-                                    onClick={() => setEnvironment(environment === env ? null : env)}
-                                  >
-                                    {env}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="pt-2 border-t">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Target className="h-3.5 w-3.5 text-secondary" />
-                                <p className="text-xs font-semibold">Outcome</p>
-                              </div>
-                              <div className="flex flex-wrap gap-1.5">
-                                {OUTCOMES.map(out => (
-                                  <Badge
-                                    key={out}
-                                    variant={outcome === out ? "default" : "outline"}
-                                    className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
-                                    onClick={() => setOutcome(outcome === out ? null : out)}
-                                  >
-                                    {out}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="pt-2 border-t">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Smile className="h-3.5 w-3.5 text-secondary" />
-                                <p className="text-xs font-semibold">Desired Emotion</p>
-                              </div>
-                              <div className="flex flex-wrap gap-1.5">
-                                {EMOTIONS.map(emo => (
-                                  <Badge
-                                    key={emo}
-                                    variant={emotion === emo ? "default" : "outline"}
-                                    className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
-                                    onClick={() => setEmotion(emotion === emo ? null : emo)}
-                                  >
-                                    {emo}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </PopoverContent>
-                      </Popover>
-                      
                       <Button 
                         onClick={handleRewrite} 
                         disabled={rewriteLoading || !userText.trim()}
@@ -664,12 +578,12 @@ const Index = () => {
                       >
                         {userText.trim() ? (
                           <>
-                            <span className="font-bold">2. Try it HERE</span>
+                            <span className="font-bold">Try it HERE</span>
                             <ArrowRight className="h-4 w-4 ml-2 animate-bounce" />
                           </>
                         ) : (
                           <>
-                            <span className="font-bold">2.</span> Try it HERE
+                            Try it HERE
                             <ArrowRight className="h-4 w-4 ml-2" />
                           </>
                         )}
@@ -1045,6 +959,133 @@ const Index = () => {
                 </div>
               </div>
             </div>
+
+            {/* Pro Fine-tune Feature */}
+            <Card className="border-2 border-secondary/30 bg-gradient-to-br from-secondary/5 to-accent/5 animate-fade-in">
+              <CardContent className="p-4 md:p-6">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex items-start gap-3">
+                    <Settings2 className="h-5 w-5 text-secondary mt-0.5 shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-base md:text-lg mb-1">Fine-tune Your Results</h3>
+                      <p className="text-xs md:text-sm text-muted-foreground">
+                        Get even more precise suggestions by adding context
+                      </p>
+                    </div>
+                  </div>
+                  {!subscribed && (
+                    <Badge className="bg-gradient-to-r from-secondary to-accent text-white shrink-0">
+                      PRO
+                    </Badge>
+                  )}
+                </div>
+
+                {subscribed && productId === PRO_PRODUCT_ID ? (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between border-secondary/50 hover:bg-secondary/10"
+                      >
+                        <span className="text-sm">
+                          {(environment || outcome || emotion) 
+                            ? `${[environment, outcome, emotion].filter(Boolean).length} option(s) selected` 
+                            : 'Add context to refine results'}
+                        </span>
+                        <ChevronDown className="h-4 w-4 text-secondary" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent 
+                      className="w-[calc(100vw-2rem)] sm:w-96 p-4 bg-popover z-50 max-h-[70vh] overflow-y-auto" 
+                      align="center"
+                      sideOffset={8}
+                    >
+                      <div className="space-y-4">
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <Building2 className="h-3.5 w-3.5 text-secondary" />
+                            <p className="text-xs font-semibold">Environment</p>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {ENVIRONMENTS.map(env => (
+                              <Badge
+                                key={env}
+                                variant={environment === env ? "default" : "outline"}
+                                className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
+                                onClick={() => setEnvironment(environment === env ? null : env)}
+                              >
+                                {env}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="pt-2 border-t">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Target className="h-3.5 w-3.5 text-secondary" />
+                            <p className="text-xs font-semibold">Outcome</p>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {OUTCOMES.map(out => (
+                              <Badge
+                                key={out}
+                                variant={outcome === out ? "default" : "outline"}
+                                className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
+                                onClick={() => setOutcome(outcome === out ? null : out)}
+                              >
+                                {out}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="pt-2 border-t">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Smile className="h-3.5 w-3.5 text-secondary" />
+                            <p className="text-xs font-semibold">Desired Emotion</p>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {EMOTIONS.map(emo => (
+                              <Badge
+                                key={emo}
+                                variant={emotion === emo ? "default" : "outline"}
+                                className="cursor-pointer text-[10px] sm:text-xs h-6 sm:h-7 px-2 hover:scale-105 transition-transform touch-manipulation"
+                                onClick={() => setEmotion(emotion === emo ? null : emo)}
+                              >
+                                {emo}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        <Button 
+                          onClick={handleRewrite}
+                          disabled={rewriteLoading}
+                          className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white"
+                        >
+                          Regenerate with Context
+                        </Button>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                ) : (
+                  <div className="space-y-3">
+                    <p className="text-xs md:text-sm text-muted-foreground">
+                      Unlock fine-tuning to specify environment, outcome, and desired emotion for ultra-precise suggestions.
+                    </p>
+                    <Button
+                      onClick={() => {
+                        trackEvent('upgrade_clicked', { source: 'fine_tune_feature' });
+                        navigate('/pricing');
+                      }}
+                      className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white"
+                    >
+                      Upgrade to Pro for $10/month
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         )}
 

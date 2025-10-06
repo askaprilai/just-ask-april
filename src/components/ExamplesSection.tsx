@@ -332,13 +332,12 @@ export const ExamplesSection = () => {
     : EXAMPLES.filter(ex => ex.category === selectedCategory);
 
   // Show diverse examples to free users - one from each key category
-  const FREE_USER_LIMIT = 6;
+  const FREE_USER_LIMIT = 3;
   let displayExamples = filteredExamples;
-  let lockedExamples: typeof EXAMPLES = [];
   
   if (!subscribed) {
     // Show diverse categories for free users
-    const priorityCategories = ["Executive Presence", "Conflict", "Leadership", "Team Dynamics", "Workplace", "Feedback"];
+    const priorityCategories = ["Executive Presence", "Conflict", "Leadership"];
     const diverseExamples: typeof EXAMPLES = [];
     
     priorityCategories.forEach(cat => {
@@ -347,7 +346,6 @@ export const ExamplesSection = () => {
     });
     
     displayExamples = diverseExamples.slice(0, FREE_USER_LIMIT);
-    lockedExamples = filteredExamples.slice(FREE_USER_LIMIT, FREE_USER_LIMIT + 6);
   }
 
   const handlePracticeWithApril = (example: typeof EXAMPLES[0]) => {
@@ -459,48 +457,9 @@ export const ExamplesSection = () => {
             </CardContent>
           </Card>
         ))}
-
-        {/* Locked Examples for Free Users */}
-        {lockedExamples.map((example, index) => (
-          <Card 
-            key={`locked-${index}`}
-            onClick={handleLockedClick}
-            className="group relative overflow-hidden border-accent/30 animate-fade-in cursor-pointer hover:border-accent/50 transition-all"
-            style={{ animationDelay: `${(displayExamples.length + index) * 50}ms` }}
-          >
-            <div className="absolute inset-0 backdrop-blur-sm bg-background/80 z-10 flex flex-col items-center justify-center p-6 text-center space-y-3 hover:bg-background/90 transition-all">
-              <div className="bg-accent/20 border-2 border-accent/40 rounded-full p-4 group-hover:scale-110 transition-transform">
-                <Sparkles className="h-8 w-8 text-accent animate-pulse" />
-              </div>
-              <div className="space-y-1">
-                <p className="text-sm font-bold text-foreground">Unlock Unlimited</p>
-                <p className="text-xs text-muted-foreground">Impact Statements</p>
-              </div>
-              <Button size="sm" variant="outline" className="border-accent/40 text-accent hover:bg-accent/10">
-                Upgrade to Pro
-              </Button>
-            </div>
-            <CardContent className="p-5 md:p-6 space-y-3 md:space-y-4 opacity-30">
-              <Badge variant="secondary" className="text-[10px] md:text-xs font-bold uppercase tracking-wide">
-                {example.category}
-              </Badge>
-
-              <div className="space-y-3">
-                <div className="p-3 bg-muted/50 border-2 border-border rounded-lg">
-                  <p className="text-[10px] md:text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wide">Before</p>
-                  <p className="text-xs md:text-sm text-foreground/80 italic leading-relaxed font-medium">&ldquo;{example.before}&rdquo;</p>
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-border/50">
-                <p className="text-[10px] md:text-xs text-accent font-bold">✨ {example.outcome}</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
       </div>
 
-      {displayExamples.length === 0 && lockedExamples.length === 0 && (
+      {displayExamples.length === 0 && (
         <div className="text-center py-12">
           <p className="text-muted-foreground">No examples found in this category.</p>
         </div>

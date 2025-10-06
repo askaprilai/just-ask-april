@@ -483,17 +483,6 @@ const Index = () => {
 
         {/* Tabbed Interface */}
         <Tabs defaultValue="text" className="mb-4 md:mb-6" id="input-section">
-          <TabsList className="grid w-full grid-cols-2 mb-3 md:mb-4 h-12 md:h-11">
-            <TabsTrigger value="text" className="text-xs md:text-base h-full">
-              <MessageSquare className="mr-1 md:mr-2 h-4 w-4" />
-              Say it better
-            </TabsTrigger>
-            <TabsTrigger value="voice" className="text-xs md:text-base h-full">
-              <Phone className="mr-1 md:mr-2 h-4 w-4" />
-              Practice Live
-            </TabsTrigger>
-          </TabsList>
-
           {/* Text Rewrite Tab */}
           <TabsContent value="text" className="space-y-6 md:space-y-10">
             {/* Input Section with Heading */}
@@ -503,12 +492,24 @@ const Index = () => {
               </h2>
               
               <div className="relative animate-scale-in max-w-3xl mx-auto">
-                <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl">
+                <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl overflow-hidden">
+                  {/* Toggle Buttons Inside Chat Box */}
+                  <TabsList className="w-full grid grid-cols-2 h-12 rounded-none border-b bg-muted/30">
+                    <TabsTrigger value="text" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
+                      <MessageSquare className="mr-2 h-4 w-4" />
+                      Say it better
+                    </TabsTrigger>
+                    <TabsTrigger value="voice" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
+                      <Phone className="mr-2 h-4 w-4" />
+                      Practice Live
+                    </TabsTrigger>
+                  </TabsList>
+                  
                   <Textarea
                     placeholder="What do you want to say? Let April audit your communication and show you how it could land better."
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-                    className="min-h-[180px] md:min-h-[160px] text-sm md:text-base leading-relaxed border-0 rounded-2xl pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
+                    className="min-h-[180px] md:min-h-[160px] text-sm md:text-base leading-relaxed border-0 rounded-none pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && userText.trim()) {
                         handleRewrite();
@@ -801,7 +802,31 @@ const Index = () => {
 
           {/* Voice Practice Tab */}
           <TabsContent value="voice">
-            <VoiceConversation />
+            <div className="space-y-3 mt-6 md:mt-8 mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground">
+                Practice Live Conversations
+              </h2>
+              
+              <div className="relative animate-scale-in max-w-3xl mx-auto">
+                <div className="relative rounded-2xl border-2 border-border bg-card shadow-xl overflow-hidden">
+                  {/* Toggle Buttons Inside Chat Box */}
+                  <TabsList className="w-full grid grid-cols-2 h-12 rounded-none border-b bg-muted/30">
+                    <TabsTrigger value="text" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
+                      <MessageSquare className="mr-2 h-4 w-4" />
+                      Say it better
+                    </TabsTrigger>
+                    <TabsTrigger value="voice" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
+                      <Phone className="mr-2 h-4 w-4" />
+                      Practice Live
+                    </TabsTrigger>
+                  </TabsList>
+                  
+                  <div className="p-4">
+                    <VoiceConversation />
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
 

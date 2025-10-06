@@ -613,25 +613,9 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Impact Language Method Diagram */}
-            {!result && !rewriteLoading && (
-              <div className="mb-16 md:mb-24 animate-fade-in">
-                <div className="text-center mb-8 md:mb-12">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  The Impact Language Method™
-                </h2>
-                  <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-                    In the age of AI, being a people person is your edge.<br />
-                    What you say, how you say it, and when you say it that's where influence begins.
-                  </p>
-                </div>
-                <ImpactMethodDiagram />
-              </div>
-            )}
-
             {/* Promotional Section - With Better Communication */}
             {!result && !rewriteLoading && (
-              <section className="mb-12 md:mb-16 animate-fade-in px-4">
+              <section className="mb-8 md:mb-12 animate-fade-in px-4">
                 <Card className="bg-gradient-to-br from-secondary/10 via-accent/10 to-primary/10 border-secondary/20 shadow-lg">
                   <CardContent className="p-8 md:p-12 text-center">
                     <p className="text-xl md:text-2xl text-accent font-semibold mb-6 leading-relaxed max-w-2xl mx-auto">
@@ -659,6 +643,23 @@ const Index = () => {
                 </Card>
               </section>
             )}
+
+            {/* Impact Language Method Diagram */}
+            {!result && !rewriteLoading && (
+              <div className="mb-16 md:mb-24 animate-fade-in">
+                <div className="text-center mb-8 md:mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                  The Impact Language Method™
+                </h2>
+                  <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+                    In the age of AI, being a people person is your edge.<br />
+                    What you say, how you say it, and when you say it that's where influence begins.
+                  </p>
+                </div>
+                <ImpactMethodDiagram />
+              </div>
+            )}
+
 
             {/* The Impact Playbook - Examples Section */}
             {!result && !rewriteLoading && <ExamplesSection />}

@@ -485,11 +485,15 @@ const Index = () => {
           </p>
           
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight px-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight px-4">
             <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Say it better. Get better results.
             </span>
           </h1>
+          
+          <p className="text-xl sm:text-2xl md:text-3xl font-semibold mb-6 md:mb-8 px-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            How you say it shapes what happens next, April AI helps you get it right.
+          </p>
           
           {/* Supporting Text */}
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 px-4 leading-relaxed">

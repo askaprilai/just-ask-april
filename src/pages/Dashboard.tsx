@@ -238,13 +238,21 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="h-16 border-b border-border flex items-center px-6 bg-card">
-          {!sidebarOpen && (
-            <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="mr-4">
-              <Menu className="h-5 w-5" />
+        <div className="h-16 border-b border-border flex items-center justify-between px-6 bg-card">
+          <div className="flex items-center">
+            {!sidebarOpen && (
+              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="mr-4">
+                <Menu className="h-5 w-5" />
+              </Button>
+            )}
+            <h1 className="text-xl font-semibold">Just Ask April</h1>
+          </div>
+          {isAdmin && (
+            <Button onClick={() => navigate('/admin')} variant="outline" size="sm">
+              <Shield className="h-4 w-4 mr-2" />
+              Admin Panel
             </Button>
           )}
-          <h1 className="text-xl font-semibold">Just Ask April</h1>
         </div>
 
         {/* Content Area */}

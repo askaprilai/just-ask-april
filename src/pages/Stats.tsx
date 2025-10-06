@@ -3,7 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, TrendingUp, Award, Target } from "lucide-react";
+import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
 
 interface ImpactStats {
   [key: string]: {
@@ -50,9 +51,24 @@ const Stats = () => {
     fetchStats();
   }, [navigate]);
 
+  const totalRewrites = Object.values(stats).reduce((sum, data) => sum + data.total, 0);
+  const avgRate = Object.values(stats).length > 0 
+    ? Math.round(Object.values(stats).reduce((sum, data) => sum + data.rate, 0) / Object.values(stats).length)
+    : 0;
+
+  const getInsight = () => {
+    if (avgRate >= 90) return { text: "Exceptional! Your communication is consistently hitting the mark.", icon: Award, color: "text-green-600" };
+    if (avgRate >= 75) return { text: "Great work! You're mastering the Impact Language Method.", icon: TrendingUp, color: "text-blue-600" };
+    if (avgRate >= 60) return { text: "Good progress. Keep refining your approach.", icon: Target, color: "text-orange-600" };
+    return { text: "Every rewrite is a learning opportunity. Keep practicing!", icon: Target, color: "text-muted-foreground" };
+  };
+
+  const insight = getInsight();
+  const InsightIcon = insight.icon;
+
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-4xl mx-auto px-4 py-6 md:py-8">
+      <div className="container max-w-6xl mx-auto px-4 py-6 md:py-8">
         <Button 
           variant="ghost" 
           onClick={() => navigate('/')}
@@ -62,57 +78,121 @@ const Stats = () => {
           Back to Home
         </Button>
 
-        <div className="mb-6 md:mb-8 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">My Impact Index</h1>
-          <p className="text-sm md:text-base text-muted-foreground px-4">Track how April helps you communicate better</p>
+        <div className="mb-8 md:mb-12 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-3">My Impact Index</h1>
+          <p className="text-sm md:text-lg text-muted-foreground px-4 max-w-2xl mx-auto">
+            Track how the Impact Language Method™ transforms your communication
+          </p>
         </div>
 
         {loading ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground">Loading stats...</p>
           </div>
-        ) : Object.keys(stats).length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center px-4">
-              <p className="text-sm md:text-base text-muted-foreground">No feedback data yet. Start using April to see your impact!</p>
-            </CardContent>
-          </Card>
         ) : (
-          <div className="grid gap-3 md:gap-4">
-            {Object.entries(stats).map(([key, data]) => {
-              const [environment, outcome] = key.split('_');
-              return (
-                <Card key={key}>
-                  <CardHeader className="px-4 md:px-6 py-4 md:py-6">
-                    <CardTitle className="text-base md:text-lg">
-                      {environment} · {outcome}
-                    </CardTitle>
-                    <CardDescription className="text-xs md:text-sm">
-                      {data.total} fine-tune{data.total !== 1 ? 's' : ''} used
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="px-4 md:px-6">
-                    <div className="flex items-center gap-3 md:gap-4">
-                      <div className="flex-1">
-                        <div className="h-3 md:h-4 bg-muted rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-secondary transition-all"
-                            style={{ width: `${data.rate}%` }}
-                          />
+          <>
+            {/* Overview Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Total Rewrites</CardDescription>
+                  <CardTitle className="text-3xl font-bold text-primary">{totalRewrites}</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Average Success Rate</CardDescription>
+                  <CardTitle className="text-3xl font-bold text-primary">{avgRate}%</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card className="md:col-span-1">
+                <CardHeader className="pb-3 flex-row items-start gap-3">
+                  <InsightIcon className={`h-5 w-5 mt-1 ${insight.color}`} />
+                  <div>
+                    <CardDescription>Your Impact</CardDescription>
+                    <p className="text-sm font-medium mt-1">{insight.text}</p>
+                  </div>
+                </CardHeader>
+              </Card>
+            </div>
+
+            {/* Impact Method Framework */}
+            <Card className="mb-8 overflow-hidden">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">The Impact Language Method™</CardTitle>
+                <CardDescription>
+                  Your stats below show how well you're applying each pillar
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pb-8">
+                <ImpactMethodDiagram />
+              </CardContent>
+            </Card>
+
+            {/* Detailed Stats */}
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-4">Your Performance by Context</h2>
+              <p className="text-sm text-muted-foreground mb-6">
+                See how effectively you communicate across different environments and outcomes
+              </p>
+            </div>
+
+            {Object.keys(stats).length === 0 ? (
+              <Card>
+                <CardContent className="py-12 text-center px-4">
+                  <p className="text-sm md:text-base text-muted-foreground">
+                    No feedback data yet. Start using April to see your impact!
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-4">
+                {Object.entries(stats).map(([key, data]) => {
+                  const [environment, outcome] = key.split('_');
+                  const isHighPerformance = data.rate >= 85;
+                  
+                  return (
+                    <Card key={key} className={isHighPerformance ? "border-primary/50" : ""}>
+                      <CardHeader className="px-4 md:px-6 py-4">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-lg md:text-xl capitalize">
+                              {environment} · {outcome}
+                            </CardTitle>
+                            <CardDescription className="text-xs md:text-sm mt-1">
+                              {data.total} fine-tune{data.total !== 1 ? 's' : ''} used
+                            </CardDescription>
+                          </div>
+                          {isHighPerformance && (
+                            <Award className="h-5 w-5 text-primary" />
+                          )}
                         </div>
-                      </div>
-                      <div className="text-xl md:text-2xl font-bold text-primary">
-                        {data.rate}%
-                      </div>
-                    </div>
-                    <p className="text-xs md:text-sm text-muted-foreground mt-2">
-                      {data.helpful} helpful · {data.total - data.helpful} not helpful
-                    </p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                      </CardHeader>
+                      <CardContent className="px-4 md:px-6">
+                        <div className="flex items-center gap-4">
+                          <div className="flex-1">
+                            <div className="h-4 bg-muted rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-gradient-to-r from-secondary to-primary transition-all duration-500"
+                                style={{ width: `${data.rate}%` }}
+                              />
+                            </div>
+                          </div>
+                          <div className="text-2xl font-bold text-primary min-w-[60px] text-right">
+                            {data.rate}%
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center mt-3 text-xs md:text-sm">
+                          <span className="text-green-600 font-medium">{data.helpful} helpful</span>
+                          <span className="text-muted-foreground">{data.total - data.helpful} not helpful</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

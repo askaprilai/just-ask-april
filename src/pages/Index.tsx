@@ -481,7 +481,7 @@ const Index = () => {
         <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
           {/* Supporting Description */}
           <p className="text-sm md:text-base text-muted-foreground mb-4 uppercase tracking-wide font-semibold">
-            AI Communication Tool for Better Conversations
+            AI Communication Tool for Better Work Conversations
           </p>
           
           {/* Main Headline */}

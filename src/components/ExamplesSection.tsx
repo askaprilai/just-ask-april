@@ -375,7 +375,7 @@ export const ExamplesSection = () => {
   };
 
   return (
-    <div className="mb-8 md:mb-16 animate-fade-in">
+    <div className="mt-20 md:mt-32 mb-8 md:mb-16 animate-fade-in">
       <div className="text-center mb-6 md:mb-8 px-4">
         <div className="inline-flex items-center gap-2 mb-3">
           <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-secondary animate-pulse" />

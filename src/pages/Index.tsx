@@ -21,6 +21,7 @@ import { useSubscription } from "@/contexts/SubscriptionContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useTypewriter } from "@/hooks/useTypewriter";
 
 interface Rewrite {
   text: string;
@@ -53,11 +54,21 @@ const ENVIRONMENTS = ["Corporate", "SmallBusiness", "Personal", "Relationship"];
 const OUTCOMES = ["Resolve", "Motivate", "Align", "Clarify", "Inspire", "SetBoundary"];
 const EMOTIONS = ["Heard", "Motivated", "Respected", "Accountable", "Reassured", "Understood"];
 
+const PLACEHOLDER_EXAMPLES = [
+  "I need to tell my team the project is delayed...",
+  "My colleague keeps missing deadlines and I need to address it...",
+  "I want to ask for a raise but don't know how to start...",
+  "I need to decline a meeting request without offending anyone...",
+  "My manager gave me feedback I disagree with...",
+  "I want to pitch my idea to leadership..."
+];
+
 const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { subscribed, dailyUsage, incrementUsage, canUseFeature, productId } = useSubscription();
   const { trackEvent } = useAnalytics();
+  const animatedPlaceholder = useTypewriter(PLACEHOLDER_EXAMPLES, 80, 40, 2500);
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [userText, setUserText] = useState("");
@@ -514,7 +525,7 @@ const Index = () => {
                   </div>
                   
                   <Textarea
-                    placeholder="What do you want to say? Let April audit your communication and show you how it could land better."
+                    placeholder={animatedPlaceholder || "What do you want to say?"}
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
                     className="min-h-[180px] md:min-h-[160px] text-sm md:text-base leading-relaxed border-0 rounded-none pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"

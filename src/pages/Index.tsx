@@ -393,7 +393,7 @@ const Index = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight px-4">
             When you need your words to influence, align and drive real outcomes...just ask april
           </h1>
-          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-4 md:mb-5 font-light px-4 leading-relaxed">Get Better Results</p>
+          <p className="text-xl sm:text-2xl md:text-2xl text-muted-foreground mb-4 md:mb-5 font-light px-4 leading-relaxed">Say it better. Get better results.</p>
           <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
             Grammarly fixes your grammar. April fixes your impact.
           </p>

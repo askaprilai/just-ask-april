@@ -7,9 +7,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon, AlertCircle, RefreshCw, Shield, Users, Award, ChevronRight } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon, AlertCircle, RefreshCw, Shield, Users, Award, ChevronRight, Settings2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -563,6 +564,92 @@ const Index = () => {
                       >
                         <Mic className={`h-4 w-4 ${isListening ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`} />
                       </Button>
+                      
+                      {/* Fine-tune Dropdown */}
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            className="h-9 gap-1.5 border-secondary/30 hover:border-secondary hover:bg-secondary/5"
+                            title="Fine-tune your message"
+                          >
+                            <Settings2 className="h-3.5 w-3.5" />
+                            <span className="text-xs">Fine-tune</span>
+                            {(environment || outcome || emotion) && (
+                              <Badge variant="secondary" className="h-4 px-1 text-[10px] ml-0.5">
+                                {[environment, outcome, emotion].filter(Boolean).length}
+                              </Badge>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent 
+                          className="w-80 p-4 bg-popover z-50" 
+                          align="end"
+                          sideOffset={8}
+                        >
+                          <div className="space-y-4">
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <Building2 className="h-3.5 w-3.5 text-secondary" />
+                                <p className="text-xs font-semibold">Environment</p>
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {ENVIRONMENTS.map(env => (
+                                  <Badge
+                                    key={env}
+                                    variant={environment === env ? "default" : "outline"}
+                                    className="cursor-pointer text-xs h-7 px-2 hover:scale-105 transition-transform"
+                                    onClick={() => setEnvironment(environment === env ? null : env)}
+                                  >
+                                    {env}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="pt-2 border-t">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Target className="h-3.5 w-3.5 text-secondary" />
+                                <p className="text-xs font-semibold">Outcome</p>
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {OUTCOMES.map(out => (
+                                  <Badge
+                                    key={out}
+                                    variant={outcome === out ? "default" : "outline"}
+                                    className="cursor-pointer text-xs h-7 px-2 hover:scale-105 transition-transform"
+                                    onClick={() => setOutcome(outcome === out ? null : out)}
+                                  >
+                                    {out}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="pt-2 border-t">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Smile className="h-3.5 w-3.5 text-secondary" />
+                                <p className="text-xs font-semibold">Desired Emotion</p>
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {EMOTIONS.map(emo => (
+                                  <Badge
+                                    key={emo}
+                                    variant={emotion === emo ? "default" : "outline"}
+                                    className="cursor-pointer text-xs h-7 px-2 hover:scale-105 transition-transform"
+                                    onClick={() => setEmotion(emotion === emo ? null : emo)}
+                                  >
+                                    {emo}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </PopoverContent>
+                      </Popover>
+                      
                       <Button 
                         onClick={handleRewrite} 
                         disabled={rewriteLoading || !userText.trim()}
@@ -576,12 +663,12 @@ const Index = () => {
                       >
                         {userText.trim() ? (
                           <>
-                            <span className="font-bold">STEP 1: Try it HERE</span>
+                            <span className="font-bold">Try it HERE</span>
                             <ArrowRight className="h-4 w-4 ml-2 animate-bounce" />
                           </>
                         ) : (
                           <>
-                            Try it HERE - Say it better
+                            Try it HERE
                             <ArrowRight className="h-4 w-4 ml-2" />
                           </>
                         )}

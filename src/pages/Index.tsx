@@ -513,7 +513,7 @@ const Index = () => {
               <div className="relative animate-scale-in max-w-3xl mx-auto">
                 <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl overflow-hidden">
                   {/* Toggle Buttons Inside Chat Box */}
-                  <div className="p-3 border-b bg-muted/20">
+                  <div className="p-3 border-b bg-muted/20 flex items-center justify-between">
                     <TabsList className="inline-flex h-9 bg-transparent p-0 gap-2">
                       <TabsTrigger 
                         value="text" 
@@ -530,6 +530,18 @@ const Index = () => {
                         Practice Live
                       </TabsTrigger>
                     </TabsList>
+                    
+                    {/* April's Glowing Photo */}
+                    <div className="relative hidden sm:block">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary to-accent rounded-full blur-lg opacity-60 animate-pulse" />
+                      <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-secondary/40 shadow-md">
+                        <img
+                          src={aprilImage}
+                          alt="April AI"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
                   </div>
                   
                   <Textarea
@@ -795,7 +807,7 @@ const Index = () => {
             <div className="relative animate-scale-in max-w-3xl mx-auto">
               <div className="relative rounded-2xl border-2 border-border bg-card shadow-xl overflow-hidden">
                 {/* Toggle Buttons Inside Chat Box */}
-                <div className="p-3 border-b bg-muted/20">
+                <div className="p-3 border-b bg-muted/20 flex items-center justify-between">
                   <TabsList className="inline-flex h-9 bg-transparent p-0 gap-2">
                     <TabsTrigger 
                       value="text" 
@@ -812,6 +824,18 @@ const Index = () => {
                       Practice Live
                     </TabsTrigger>
                   </TabsList>
+                  
+                  {/* April's Glowing Photo */}
+                  <div className="relative hidden sm:block">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-accent rounded-full blur-lg opacity-60 animate-pulse" />
+                    <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-secondary/40 shadow-md">
+                      <img
+                        src={aprilImage}
+                        alt="April AI"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="p-4">

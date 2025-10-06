@@ -497,11 +497,6 @@ const Index = () => {
             Say it better. Get better results.
           </p>
           
-          {/* New Supporting Text */}
-          <p className="text-base md:text-lg text-muted-foreground px-4">
-            Because how you say it changes everything.
-          </p>
-          
           {/* Supporting Text */}
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 px-4 leading-relaxed">
             Because how you say it shapes what happens next.

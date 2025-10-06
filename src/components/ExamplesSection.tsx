@@ -375,51 +375,53 @@ export const ExamplesSection = () => {
   };
 
   return (
-    <div className="mt-20 md:mt-32 mb-8 md:mb-16 animate-fade-in">
-      <div className="text-center mb-6 md:mb-8 px-4">
-        <div className="inline-flex items-center gap-2 mb-3">
-          <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-secondary animate-pulse" />
-          <h2 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-            The Impact Playbook
-          </h2>
-          <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-accent animate-pulse" />
-        </div>
-        <p className="text-sm md:text-base text-muted-foreground mb-4">
-          Your answer key to better communication. Click any example to see the transformation.
-        </p>
-        {!subscribed && (
-          <p 
-            className="text-xs md:text-sm text-accent font-semibold cursor-pointer hover:text-accent/80 transition-colors"
-            onClick={handleLockedClick}
-          >
-            ✨ Upgrade to unlock unlimited Impact Statements + practice with April AI
-          </p>
-        )}
-      </div>
+    <div className="mt-20 md:mt-32 mb-8 md:mb-16 animate-fade-in px-4">
+      <Card className="bg-gradient-to-br from-secondary/5 via-accent/5 to-primary/5 border-secondary/20 shadow-lg">
+        <CardContent className="p-6 md:p-10">
+          <div className="text-center mb-6 md:mb-8">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-secondary animate-pulse" />
+              <h2 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                The Impact Playbook
+              </h2>
+              <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-accent animate-pulse" />
+            </div>
+            <p className="text-sm md:text-base text-muted-foreground mb-4">
+              Your answer key to better communication. Click any example to see the transformation.
+            </p>
+            {!subscribed && (
+              <p 
+                className="text-xs md:text-sm text-accent font-semibold cursor-pointer hover:text-accent/80 transition-colors"
+                onClick={handleLockedClick}
+              >
+                ✨ Upgrade to unlock unlimited Impact Statements + practice with April AI
+              </p>
+            )}
+          </div>
 
-      {/* Category Filter - Pro Feature */}
-      <div className="mb-6 px-4">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <span className="text-sm font-semibold text-foreground">Filter by Category</span>
-          {!subscribed && <ProFeatureBadge feature="Categories" inline onClick={handleLockedClick} />}
-        </div>
-        <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
-          {CATEGORIES.map((category) => (
-            <Button
-              key={category}
-              onClick={() => subscribed ? setSelectedCategory(category) : handleLockedClick()}
-              variant={selectedCategory === category ? "default" : "outline"}
-              size="sm"
-              disabled={!subscribed && category !== "All"}
-              className={`text-xs md:text-sm ${!subscribed && category !== "All" ? "opacity-50 cursor-pointer" : ""}`}
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
-      </div>
+          {/* Category Filter - Pro Feature */}
+          <div className="mb-6">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <span className="text-sm font-semibold text-foreground">Filter by Category</span>
+              {!subscribed && <ProFeatureBadge feature="Categories" inline onClick={handleLockedClick} />}
+            </div>
+            <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
+              {CATEGORIES.map((category) => (
+                <Button
+                  key={category}
+                  onClick={() => subscribed ? setSelectedCategory(category) : handleLockedClick()}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  size="sm"
+                  disabled={!subscribed && category !== "All"}
+                  className={`text-xs md:text-sm ${!subscribed && category !== "All" ? "opacity-50 cursor-pointer" : ""}`}
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
+          </div>
 
-      <div className="grid gap-4 md:gap-6 md:grid-cols-3 px-4">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-3">
         {displayExamples.map((example, index) => (
           <Card 
             key={index} 
@@ -549,19 +551,21 @@ export const ExamplesSection = () => {
             </Card>
           </>
         )}
-      </div>
-
-      {displayExamples.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">No examples found in this category.</p>
         </div>
-      )}
 
-      <UpgradeDialog 
-        open={showUpgradeDialog} 
-        onOpenChange={setShowUpgradeDialog}
-        feature="unlimited Impact Statements"
-      />
+        {displayExamples.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No examples found in this category.</p>
+          </div>
+        )}
+
+        <UpgradeDialog 
+          open={showUpgradeDialog} 
+          onOpenChange={setShowUpgradeDialog}
+          feature="unlimited Impact Statements"
+        />
+        </CardContent>
+      </Card>
     </div>
   );
 };

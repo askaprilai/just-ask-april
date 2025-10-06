@@ -891,55 +891,7 @@ const Index = () => {
               <p className="text-sm md:text-base text-foreground leading-relaxed italic">&ldquo;{userText}&rdquo;</p>
             </div>
 
-            {/* Comprehensive Analysis Section */}
-            {result.diagnostics && (
-              <div className="space-y-4">
-                {/* Self-Awareness Alert */}
-                {(result.diagnostics.resistance_factors || result.diagnostics.disconnection_risk) && (
-                  <Card className="border-destructive/30 bg-destructive/5">
-                    <CardContent className="p-4 md:p-6">
-                      <div className="flex items-start gap-3 mb-3">
-                        <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-1" />
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-destructive mb-2">Self-Reflection Moment</h3>
-                          <p className="text-xs md:text-sm text-muted-foreground mb-1 font-medium">How your language might be received:</p>
-                        </div>
-                      </div>
-                      
-                      {result.diagnostics.resistance_factors && (
-                        <div className="mb-4 pl-8">
-                          <p className="text-xs md:text-sm font-medium text-destructive/90 mb-1">⚠️ Potential Resistance Triggers:</p>
-                          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{result.diagnostics.resistance_factors}</p>
-                        </div>
-                      )}
-                      
-                      {result.diagnostics.disconnection_risk && (
-                        <div className="mb-4 pl-8">
-                          <p className="text-xs md:text-sm font-medium text-destructive/90 mb-1">💔 Relationship Impact:</p>
-                          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{result.diagnostics.disconnection_risk}</p>
-                        </div>
-                      )}
-                      
-                      {result.diagnostics.intention_question && (
-                        <div className="pl-8 pt-2 border-t border-destructive/20">
-                          <p className="text-xs md:text-sm font-semibold text-foreground italic mt-2">🤔 {result.diagnostics.intention_question}</p>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                )}
-                
-                {/* Intent Summary */}
-                {result.diagnostics.intent_summary && (
-                  <div className="p-4 md:p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg md:rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm">
-                    <p className="text-[10px] md:text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">Your Core Intent</p>
-                    <p className="text-sm md:text-lg text-foreground leading-relaxed">{result.diagnostics.intent_summary}</p>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Impact Statements Header - Now You Know, Here's How to Say It */}
+            {/* Impact Statements Header - Give them results first! */}
             <div className="text-center py-4 md:py-6 mt-2">
               <div className="max-w-2xl mx-auto space-y-3">
                 <div className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-secondary/20 to-accent/20 px-6 py-3 rounded-full border-2 border-secondary/30">
@@ -959,21 +911,132 @@ const Index = () => {
                 </div>
               </div>
             </div>
+          </div>
+        )}
 
-            {/* Pro Fine-tune Feature */}
+        {/* Rewrites - Show impact statements FIRST for immediate dopamine hit! */}
+        {result?.rewrites && (
+          <div className="space-y-4 md:space-y-6">
+            {result.rewrites.map((rewrite, index) => (
+              <Card key={index} className="overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.1)] hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.2)] transition-all duration-300 md:hover:scale-[1.02] border-secondary/20 backdrop-blur-sm animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+                <CardContent className="p-6 md:p-8">
+                  {/* Tone Label */}
+                  <div className="mb-4 md:mb-6">
+                    <Badge className="bg-gradient-to-r from-secondary to-accent text-white text-xs md:text-sm px-3 md:px-4 py-1 md:py-1.5">
+                      {rewrite.tone_label}
+                    </Badge>
+                  </div>
+
+                  {/* 1. IMPACT STATEMENT - THE STAR OF THE SHOW (immediate dopamine!) */}
+                  <div className="mb-6 md:mb-8 p-4 md:p-6 bg-gradient-to-br from-secondary/10 to-accent/5 rounded-xl border-2 border-secondary/20 shadow-inner">
+                    <p className="text-base md:text-xl leading-relaxed text-foreground font-medium">
+                      {rewrite.text}
+                    </p>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <Button
+                      onClick={() => handleCopy(rewrite.text)}
+                      size="sm"
+                      variant="outline"
+                      className="gap-2 hover:bg-secondary/10 hover:border-secondary/50"
+                    >
+                      <Copy className="h-4 w-4" />
+                      <span className="hidden sm:inline">Copy</span>
+                    </Button>
+                    <Button
+                      onClick={() => handlePlayAudio(rewrite.text, index)}
+                      size="sm"
+                      variant="outline"
+                      className="gap-2 hover:bg-accent/10 hover:border-accent/50"
+                    >
+                      <Volume2 className={`h-4 w-4 ${playingAudio === index ? 'animate-pulse text-accent' : ''}`} />
+                      <span className="hidden sm:inline">{playingAudio === index ? 'Playing...' : 'Listen'}</span>
+                    </Button>
+                    {!feedbackGiven[index] && (
+                      <>
+                        <Button
+                          onClick={() => handleFeedback(true, index)}
+                          size="sm"
+                          variant="outline"
+                          className="gap-2 hover:bg-green-500/10 hover:border-green-500/50 hover:text-green-600"
+                        >
+                          <ThumbsUp className="h-4 w-4" />
+                          <span className="hidden sm:inline">Helpful</span>
+                        </Button>
+                        <Button
+                          onClick={() => handleFeedback(false, index)}
+                          size="sm"
+                          variant="outline"
+                          className="gap-2 hover:bg-red-500/10 hover:border-red-500/50 hover:text-red-600"
+                        >
+                          <ThumbsDown className="h-4 w-4" />
+                          <span className="hidden sm:inline">Not helpful</span>
+                        </Button>
+                      </>
+                    )}
+                  </div>
+
+                  {/* 2. WHY THIS WORKS - Intent & Positive Outcome (deeper understanding) */}
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="rationale" className="border-none">
+                      <AccordionTrigger className="text-left hover:no-underline py-3 text-xs md:text-sm font-semibold text-secondary">
+                        <div className="flex items-center gap-2">
+                          <Target className="h-4 w-4" />
+                          Why This Works - See the Intent & Positive Outcome
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pt-2 pb-4">
+                        <div className="space-y-4 text-xs md:text-sm text-muted-foreground leading-relaxed">
+                          <p>{rewrite.rationale}</p>
+                          
+                          {/* Impact Language Pillars */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+                            {Object.entries(rewrite.pillars).map(([key, value]) => (
+                              <div key={key} className={`${pillarColors[key as keyof typeof pillarColors]} p-3 rounded-lg`}>
+                                <p className="text-[10px] md:text-xs font-bold uppercase mb-1 opacity-90">{key}</p>
+                                <p className="text-xs md:text-sm">{value}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    {/* 3. SELF-REFLECTION - Things to Consider (comes last) */}
+                    {rewrite.cautions && (
+                      <AccordionItem value="cautions" className="border-none">
+                        <AccordionTrigger className="text-left hover:no-underline py-3 text-xs md:text-sm font-semibold text-destructive">
+                          <div className="flex items-center gap-2">
+                            <AlertCircle className="h-4 w-4" />
+                            Self-Reflection: Things to Consider
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="pt-2 pb-4">
+                          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{rewrite.cautions}</p>
+                        </AccordionContent>
+                      </AccordionItem>
+                    )}
+                  </Accordion>
+                </CardContent>
+              </Card>
+            ))}
+            
+            {/* Pro Fine-tune Feature - Show AFTER results with enticing example */}
             <Card className="border-2 border-secondary/30 bg-gradient-to-br from-secondary/5 to-accent/5 animate-fade-in">
               <CardContent className="p-4 md:p-6">
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div className="flex items-start gap-3">
                     <Settings2 className="h-5 w-5 text-secondary mt-0.5 shrink-0" />
                     <div>
-                      <h3 className="font-semibold text-base md:text-lg mb-1">Fine-tune Your Results</h3>
+                      <h3 className="font-semibold text-base md:text-lg mb-1">Want Even Better Results?</h3>
                       <p className="text-xs md:text-sm text-muted-foreground">
-                        Get even more precise suggestions by adding context
+                        Fine-tune these suggestions by adding specific context
                       </p>
                     </div>
                   </div>
-                  {!subscribed && (
+                  {(!subscribed || productId !== PRO_PRODUCT_ID) && (
                     <Badge className="bg-gradient-to-r from-secondary to-accent text-white shrink-0">
                       PRO
                     </Badge>
@@ -1020,10 +1083,10 @@ const Index = () => {
                           </div>
                         </div>
 
-                        <div className="pt-2 border-t">
+                        <div>
                           <div className="flex items-center gap-2 mb-2">
                             <Target className="h-3.5 w-3.5 text-secondary" />
-                            <p className="text-xs font-semibold">Outcome</p>
+                            <p className="text-xs font-semibold">Desired Outcome</p>
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {OUTCOMES.map(out => (
@@ -1039,10 +1102,10 @@ const Index = () => {
                           </div>
                         </div>
 
-                        <div className="pt-2 border-t">
+                        <div>
                           <div className="flex items-center gap-2 mb-2">
                             <Smile className="h-3.5 w-3.5 text-secondary" />
-                            <p className="text-xs font-semibold">Desired Emotion</p>
+                            <p className="text-xs font-semibold">Make Them Feel</p>
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {EMOTIONS.map(emo => (
@@ -1058,20 +1121,46 @@ const Index = () => {
                           </div>
                         </div>
 
-                        <Button 
+                        <Button
                           onClick={handleRewrite}
-                          disabled={rewriteLoading}
                           className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white"
+                          disabled={rewriteLoading}
                         >
+                          <RefreshCw className={`h-4 w-4 mr-2 ${rewriteLoading ? 'animate-spin' : ''}`} />
                           Regenerate with Context
                         </Button>
                       </div>
                     </PopoverContent>
                   </Popover>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
+                    {/* Example Preview to Entice Upgrade */}
+                    <div className="p-4 bg-muted/30 rounded-lg border border-secondary/20">
+                      <p className="text-xs font-semibold text-secondary mb-2 flex items-center gap-2">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                        Example Fine-tune
+                      </p>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        "I need to tell my team the project is delayed..."
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <Badge variant="secondary" className="text-[10px]">
+                          Environment: Corporate
+                        </Badge>
+                        <Badge variant="secondary" className="text-[10px]">
+                          Outcome: Motivate
+                        </Badge>
+                        <Badge variant="secondary" className="text-[10px]">
+                          Feel: Confident
+                        </Badge>
+                      </div>
+                      <p className="text-xs italic text-foreground/80 border-l-2 border-secondary pl-3">
+                        "I want to share an important update on our timeline. We've hit a technical challenge that's going to push us back by two weeks, but here's the upside: we're using this time to implement a feature that will save us months down the road..."
+                      </p>
+                    </div>
+                    
                     <p className="text-xs md:text-sm text-muted-foreground">
-                      Unlock fine-tuning to specify environment, outcome, and desired emotion for ultra-precise suggestions.
+                      Unlock fine-tuning to specify environment, outcome, and desired emotion for ultra-precise suggestions tailored to your exact situation.
                     </p>
                     <Button
                       onClick={() => {
@@ -1086,17 +1175,54 @@ const Index = () => {
                 )}
               </CardContent>
             </Card>
-          </div>
-        )}
 
-        {/* Rewrites */}
-        {result?.rewrites && (
-          <div className="space-y-4 md:space-y-6">
-            {result.rewrites.map((rewrite, index) => (
-              <Card key={index} className="overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.1)] hover:shadow-[0_20px_50px_-10px_hsl(var(--secondary)/0.2)] transition-all duration-300 md:hover:scale-[1.02] border-secondary/20 backdrop-blur-sm animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-...
-              </Card>
-            ))}
+            {/* Self-Reflection Section - Show AFTER impact statements & fine-tune */}
+            {result.diagnostics && (
+              <div className="space-y-4 animate-fade-in">
+                {/* Intent Summary */}
+                {result.diagnostics.intent_summary && (
+                  <div className="p-4 md:p-6 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg md:rounded-2xl border border-secondary/30 shadow-lg backdrop-blur-sm">
+                    <p className="text-[10px] md:text-sm font-semibold text-secondary mb-2 uppercase tracking-wide">Your Core Intent</p>
+                    <p className="text-sm md:text-lg text-foreground leading-relaxed">{result.diagnostics.intent_summary}</p>
+                  </div>
+                )}
+                
+                {/* Self-Awareness Alert */}
+                {(result.diagnostics.resistance_factors || result.diagnostics.disconnection_risk) && (
+                  <Card className="border-destructive/30 bg-destructive/5">
+                    <CardContent className="p-4 md:p-6">
+                      <div className="flex items-start gap-3 mb-3">
+                        <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-1" />
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-destructive mb-2">Self-Reflection Moment</h3>
+                          <p className="text-xs md:text-sm text-muted-foreground mb-1 font-medium">How your original language might be received:</p>
+                        </div>
+                      </div>
+                      
+                      {result.diagnostics.resistance_factors && (
+                        <div className="mb-4 pl-8">
+                          <p className="text-xs md:text-sm font-medium text-destructive/90 mb-1">⚠️ Potential Resistance Triggers:</p>
+                          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{result.diagnostics.resistance_factors}</p>
+                        </div>
+                      )}
+                      
+                      {result.diagnostics.disconnection_risk && (
+                        <div className="mb-4 pl-8">
+                          <p className="text-xs md:text-sm font-medium text-destructive/90 mb-1">💔 Relationship Impact:</p>
+                          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{result.diagnostics.disconnection_risk}</p>
+                        </div>
+                      )}
+                      
+                      {result.diagnostics.intention_question && (
+                        <div className="pl-8 pt-2 border-t border-destructive/20">
+                          <p className="text-xs md:text-sm font-semibold text-foreground italic mt-2">🤔 {result.diagnostics.intention_question}</p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            )}
             
             {/* Closing message after rewrites */}
             <div className="text-center py-6 animate-fade-in">

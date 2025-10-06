@@ -635,7 +635,7 @@ const Index = () => {
                             : 'text-foreground'
                         }`}>
                           {result 
-                            ? 'STEP 2: Fine-tune Your Message' 
+                            ? 'STEP 2: Fine-tune - Say it Even Better' 
                             : userText.length > 0 
                             ? 'Optional: Fine-tune Your Message' 
                             : 'Fine-tune Your Message'}
@@ -648,7 +648,7 @@ const Index = () => {
                             : 'text-muted-foreground'
                         }`}>
                           {result 
-                            ? 'Want even better results? Add context here!' 
+                            ? 'Add context to refine your message even more!' 
                             : (environment || outcome || emotion) 
                             ? `${[environment, outcome, emotion].filter(Boolean).length} option(s) selected` 
                             : 'Optional: Add context for better results'}

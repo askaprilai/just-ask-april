@@ -621,7 +621,7 @@ const Index = () => {
                   The Impact Language Method™
                 </h2>
                   <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-                    In the age of AI, being a people person is your edge.<br />
+                    In the age of AI, your human edge is how you communicate.<br />
                     What you say, how you say it, and when you say it that's where influence begins.
                   </p>
                 </div>

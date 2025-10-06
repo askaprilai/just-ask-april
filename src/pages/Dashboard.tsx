@@ -58,7 +58,7 @@ const Dashboard = () => {
         .select('role')
         .eq('user_id', session.user.id)
         .eq('role', 'admin')
-        .single();
+        .maybeSingle();
       
       if (roles) {
         setIsAdmin(true);

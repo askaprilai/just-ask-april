@@ -498,12 +498,9 @@ const Index = () => {
           {/* Text Rewrite Tab */}
           <TabsContent value="text" className="space-y-6 md:space-y-10">
             {/* Input Section with Heading */}
-            <div className="space-y-6 mt-16 md:mt-20 mb-12">
-              <p className="text-base md:text-lg text-center text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Because how you say it shapes what happens next.
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                Transform Your Communication
+            <div className="space-y-3 mt-6 md:mt-8 mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground">
+                Say it better get better results
               </h2>
               
               <div className="relative animate-scale-in max-w-3xl mx-auto">

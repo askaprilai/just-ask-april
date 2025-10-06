@@ -492,11 +492,6 @@ const Index = () => {
             </span>
           </h1>
           
-          {/* Tagline */}
-          <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-3 md:mb-4 px-4">
-            Say it better. Get better results.
-          </p>
-          
           {/* Supporting Text */}
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 px-4 leading-relaxed">
             How you say it shapes what happens next, April helps you get it right.

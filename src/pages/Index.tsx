@@ -824,36 +824,30 @@ const Index = () => {
 
           {/* Voice Practice Tab */}
           <TabsContent value="voice">
-            <div className="space-y-3 mt-6 md:mt-8 mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground">
-                Practice Live Conversations
-              </h2>
-              
-              <div className="relative animate-scale-in max-w-3xl mx-auto">
-                <div className="relative rounded-2xl border-2 border-border bg-card shadow-xl overflow-hidden">
-                  {/* Toggle Buttons Inside Chat Box */}
-                  <div className="p-3 border-b bg-muted/20">
-                    <TabsList className="inline-flex h-9 bg-transparent p-0 gap-2">
-                      <TabsTrigger 
-                        value="text" 
-                        className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
-                      >
-                        <MessageSquare className="mr-1.5 h-3.5 w-3.5" />
-                        Say it better
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="voice" 
-                        className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
-                      >
-                        <Phone className="mr-1.5 h-3.5 w-3.5" />
-                        Practice Live
-                      </TabsTrigger>
-                    </TabsList>
-                  </div>
-                  
-                  <div className="p-4">
-                    <VoiceConversation />
-                  </div>
+            <div className="relative animate-scale-in max-w-3xl mx-auto">
+              <div className="relative rounded-2xl border-2 border-border bg-card shadow-xl overflow-hidden">
+                {/* Toggle Buttons Inside Chat Box */}
+                <div className="p-3 border-b bg-muted/20">
+                  <TabsList className="inline-flex h-9 bg-transparent p-0 gap-2">
+                    <TabsTrigger 
+                      value="text" 
+                      className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
+                    >
+                      <MessageSquare className="mr-1.5 h-3.5 w-3.5" />
+                      Say it better
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="voice" 
+                      className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
+                    >
+                      <Phone className="mr-1.5 h-3.5 w-3.5" />
+                      Practice Live
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+                
+                <div className="p-4">
+                  <VoiceConversation />
                 </div>
               </div>
             </div>

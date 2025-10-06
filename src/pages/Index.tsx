@@ -666,7 +666,7 @@ const Index = () => {
 
             {/* Social Proof Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-16 md:mt-24 mb-16 md:mb-20 space-y-6 pt-8 md:pt-12">
+              <section className="mt-12 md:mt-16 mb-16 md:mb-20 space-y-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Why People Love April</h2>
                 <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                   <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
@@ -702,7 +702,7 @@ const Index = () => {
 
             {/* Benefits Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-16 md:mt-24 space-y-6 pt-12 md:pt-16">
+              <section className="mt-16 md:mt-24 space-y-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h2>
                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
@@ -735,7 +735,7 @@ const Index = () => {
 
             {/* FAQ Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-12 md:mt-16 space-y-6 pt-12 md:pt-16">
+              <section className="mt-12 md:mt-16 space-y-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Frequently Asked Questions</h2>
                 <Accordion type="single" collapsible className="w-full space-y-4">
                   <AccordionItem value="item-1" className="border border-border rounded-lg px-6">

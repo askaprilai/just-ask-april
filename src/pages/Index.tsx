@@ -794,7 +794,7 @@ const Index = () => {
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                       className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white gap-2"
                     >
-                      Get Started Free
+                      Try It Now — Say It Better
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </CardContent>
@@ -1023,62 +1023,9 @@ const Index = () => {
               }}
               className="bg-gradient-to-r from-secondary to-accent hover:from-secondary/90 hover:to-accent/90 text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all"
             >
-              Try It Now
+              Try It Now — Say It Better
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-          </div>
-        </div>
-
-        {/* Social Proof */}
-        <div className="mb-16 md:mb-24">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-foreground">
-            Proven Results: Better Workplace Communication
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="bg-gradient-to-br from-background to-secondary/5">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <Users className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm mb-3 italic">
-                      "I used to rehearse difficult conversations in my head for hours. Now I practice with April and walk in confident."
-                    </p>
-                    <p className="text-xs font-semibold">Sarah M.</p>
-                    <p className="text-xs text-muted-foreground">Team Leader</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-background to-accent/5">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <Award className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm mb-3 italic">
-                      "Before discovery calls, I use April to practice how I will handle objections. My close rate went up."
-                    </p>
-                    <p className="text-xs font-semibold">James K.</p>
-                    <p className="text-xs text-muted-foreground">Sales Professional</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-background to-primary/5">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <Shield className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm mb-3 italic">
-                      "I finally learned how to express what I need without my partner getting defensive. We actually talk now."
-                    </p>
-                    <p className="text-xs font-semibold">Alex T.</p>
-                    <p className="text-xs text-muted-foreground">Partner & Parent</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
 

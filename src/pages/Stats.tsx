@@ -19,8 +19,15 @@ const Stats = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const checkAuthAndFetchStats = async () => {
       try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session) {
+          navigate('/auth');
+          return;
+        }
+
         const { data, error } = await supabase.functions.invoke('impact-index');
         
         if (error) throw error;
@@ -32,8 +39,8 @@ const Stats = () => {
       }
     };
 
-    fetchStats();
-  }, []);
+    checkAuthAndFetchStats();
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-background">

@@ -385,11 +385,6 @@ const Index = () => {
       <div className="absolute bottom-0 left-0 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
       
       <div className="container max-w-5xl mx-auto px-4 py-8 md:py-16 relative">
-        {/* Logo */}
-        <div className="flex justify-center mb-6 md:mb-8">
-          <img src={aprilLogo} alt="Just Ask April Logo" className="h-16 md:h-20 w-auto" />
-        </div>
-        
         {/* Hero Section */}
         <div className="text-center mb-12 md:mb-20 animate-fade-in">
           <div className="inline-block mb-6 md:mb-8 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full border border-secondary/30">
@@ -1123,9 +1118,6 @@ const Index = () => {
         <footer className="mt-12 md:mt-20 py-8 md:py-12 border-t border-border/40 bg-muted/20">
           <div className="max-w-4xl mx-auto px-4">
             <div className="text-center mb-6 md:mb-8">
-              <div className="flex justify-center mb-4">
-                <img src={aprilLogo} alt="Just Ask April Logo" className="h-12 md:h-14 w-auto" />
-              </div>
               <p className="text-xl md:text-2xl font-semibold mb-4 text-foreground">
                 We build workplace relationships that transform lives
               </p>

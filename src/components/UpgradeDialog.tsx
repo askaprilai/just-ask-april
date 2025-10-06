@@ -88,7 +88,7 @@ export const UpgradeDialog = ({ open, onOpenChange, feature = "unlimited Impact 
 
         <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 mb-4">
           <div className="flex items-baseline justify-center gap-2">
-            <span className="text-3xl font-bold">$20</span>
+            <span className="text-3xl font-bold">$10</span>
             <span className="text-muted-foreground">/month</span>
           </div>
           <p className="text-center text-xs text-muted-foreground mt-1">

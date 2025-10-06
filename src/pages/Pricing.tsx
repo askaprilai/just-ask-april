@@ -88,7 +88,7 @@ const Pricing = () => {
     },
     {
       name: "Pro",
-      price: "$20",
+      price: "$10",
       period: "/month",
       description: "For professionals who communicate daily",
       features: [
@@ -367,7 +367,7 @@ const Pricing = () => {
             </div>
             <div className="border border-border rounded-lg p-4 md:p-6">
               <h3 className="font-semibold text-base md:text-lg mb-2">How does billing work?</h3>
-              <p className="text-sm md:text-base text-muted-foreground">You'll be billed $20/month for Pro. Cancel anytime with no fees or penalties.</p>
+              <p className="text-sm md:text-base text-muted-foreground">You'll be billed $10/month for Pro. Cancel anytime with no fees or penalties.</p>
             </div>
           </div>
         </div>

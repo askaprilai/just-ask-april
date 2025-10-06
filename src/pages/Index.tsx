@@ -795,7 +795,7 @@ const Index = () => {
                       <span className="font-semibold">Can I cancel my Pro subscription anytime?</span>
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground">
-                      Yes! Pro subscriptions are $20/month with no long-term commitment. Cancel anytime from your account settings, and you'll retain access until the end of your billing period.
+                      Yes! Pro subscriptions are $10/month with no long-term commitment. Cancel anytime from your account settings, and you'll retain access until the end of your billing period.
                     </AccordionContent>
                   </AccordionItem>
 

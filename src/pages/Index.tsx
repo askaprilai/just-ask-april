@@ -1065,12 +1065,31 @@ const Index = () => {
         {/* Footer */}
         <footer className="mt-12 md:mt-20 py-8 md:py-12 border-t border-border/40 bg-muted/20">
           <div className="max-w-4xl mx-auto px-4">
-            <div className="text-center mb-6 md:mb-8">
-              <p className="text-xl md:text-2xl font-semibold mb-4 text-foreground">
+            <div className="flex flex-col items-center mb-8 md:mb-10">
+              {/* Message Bubble with April */}
+              <div className="relative mb-6">
+                {/* April's Avatar */}
+                <div className="relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-secondary to-accent animate-pulse blur-lg opacity-60"></div>
+                  <div className="relative w-full h-full rounded-full ring-4 ring-secondary/30 bg-background flex items-center justify-center overflow-hidden">
+                    <img src={aprilLogo} alt="Just Ask April AI logo" className="w-full h-full object-cover" />
+                  </div>
+                </div>
+                
+                {/* Speech Bubble */}
+                <div className="relative max-w-md mx-auto">
+                  <div className="bg-gradient-to-br from-secondary/20 to-accent/20 backdrop-blur-sm rounded-3xl px-6 py-4 border-2 border-secondary/30 shadow-lg">
+                    <p className="text-lg md:text-xl font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent text-center">
+                      "When in doubt, just ask April AI"
+                    </p>
+                  </div>
+                  {/* Bubble Tail */}
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[12px] border-r-[12px] border-b-[12px] border-l-transparent border-r-transparent border-b-secondary/30"></div>
+                </div>
+              </div>
+              
+              <p className="text-xl md:text-2xl font-semibold mb-3 text-foreground">
                 We build workplace relationships that transform lives
-              </p>
-              <p className="text-lg md:text-xl font-medium bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent mb-2">
-                When in doubt, just ask April AI
               </p>
               <p className="text-sm md:text-base text-muted-foreground">
                 Professional communication coaching powered by AI

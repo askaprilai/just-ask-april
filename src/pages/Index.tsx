@@ -54,7 +54,7 @@ interface RewriteResponse {
   rewrite_id?: string;
 }
 
-const ENVIRONMENTS = ["Corporate", "SmallBusiness", "Personal", "Relationship"];
+const ENVIRONMENTS = ["Corporate", "SmallBusiness", "Personal", "Relationship", "Education", "Healthcare", "Nonprofit", "Freelance", "Remote"];
 const OUTCOMES = ["Resolve", "Motivate", "Align", "Clarify", "Inspire", "SetBoundary", "Persuade", "Collaborate", "Negotiate", "Support", "Redirect", "Acknowledge"];
 const EMOTIONS = ["Heard", "Motivated", "Respected", "Accountable", "Reassured", "Understood", "Valued", "Confident", "Safe", "Empowered", "Appreciated", "Connected"];
 

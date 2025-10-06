@@ -483,7 +483,7 @@ const Index = () => {
         </div>
 
         {/* Tabbed Interface */}
-        <Tabs defaultValue="text" className="mb-4 md:mb-8">
+        <Tabs defaultValue="text" className="mb-4 md:mb-8" id="input-section">
           <TabsList className="grid w-full grid-cols-2 mb-4 md:mb-8 h-14 md:h-11">
             <TabsTrigger value="text" className="text-xs md:text-base h-full">
               <MessageSquare className="mr-1 md:mr-2 h-4 w-4" />
@@ -1010,6 +1010,21 @@ const Index = () => {
                 Talk it through with April before the real conversation
               </p>
             </div>
+          </div>
+          
+          {/* CTA to scroll back to input */}
+          <div className="text-center mt-8">
+            <Button 
+              size="lg"
+              onClick={() => {
+                const element = document.getElementById('input-section');
+                element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }}
+              className="bg-gradient-to-r from-secondary to-accent hover:from-secondary/90 hover:to-accent/90 text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all"
+            >
+              Try It Now
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
 

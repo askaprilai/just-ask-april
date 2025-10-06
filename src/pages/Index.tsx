@@ -397,7 +397,7 @@ const Index = () => {
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 mb-4 md:mb-5 font-normal px-4 leading-relaxed">Your voice shapes outcomes. Just Ask April AI helps you shape it better.</p>
           <p className="text-base md:text-base text-muted-foreground mb-4 md:mb-5 px-4">
-            Grammarly fixes your grammar. April fixes your impact.
+            Grammarly fixes your grammar. April AI fixes your impact.
           </p>
           
           {/* Quick Benefits */}

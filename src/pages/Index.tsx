@@ -661,58 +661,6 @@ const Index = () => {
               </div>
             )}
 
-            {/* Comparison Table Section */}
-            {!result && !rewriteLoading && (
-              <section className="mb-16 md:mb-24 animate-fade-in">
-                <div className="text-center mb-8 md:mb-12">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                    Not Just Another Writing Tool
-                  </h2>
-                  <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-                    AI that helps you find the right words, your voice at its best
-                  </p>
-                </div>
-                <div className="max-w-4xl mx-auto">
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse bg-card rounded-xl shadow-lg">
-                      <thead>
-                        <tr className="border-b-2 border-border">
-                          <th className="p-4 md:p-6 text-left">
-                            <span className="text-lg md:text-xl font-bold text-muted-foreground">Grammarly</span>
-                          </th>
-                          <th className="p-4 md:p-6 text-left bg-secondary/10">
-                            <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Just Ask April</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-border">
-                        <tr className="hover:bg-muted/50 transition-colors">
-                          <td className="p-4 md:p-6 text-sm md:text-base text-muted-foreground">Corrects mistakes</td>
-                          <td className="p-4 md:p-6 text-sm md:text-base font-medium bg-secondary/5">Improves outcomes</td>
-                        </tr>
-                        <tr className="hover:bg-muted/50 transition-colors">
-                          <td className="p-4 md:p-6 text-sm md:text-base text-muted-foreground">Grammar-focused</td>
-                          <td className="p-4 md:p-6 text-sm md:text-base font-medium bg-secondary/5">Emotion + intention-focused</td>
-                        </tr>
-                        <tr className="hover:bg-muted/50 transition-colors">
-                          <td className="p-4 md:p-6 text-sm md:text-base text-muted-foreground">Transactional</td>
-                          <td className="p-4 md:p-6 text-sm md:text-base font-medium bg-secondary/5">Transformational</td>
-                        </tr>
-                        <tr className="hover:bg-muted/50 transition-colors">
-                          <td className="p-4 md:p-6 text-sm md:text-base text-muted-foreground">Helps you write</td>
-                          <td className="p-4 md:p-6 text-sm md:text-base font-medium bg-secondary/5">Helps you connect</td>
-                        </tr>
-                        <tr className="hover:bg-muted/50 transition-colors">
-                          <td className="p-4 md:p-6 text-sm md:text-base text-muted-foreground">Language precision</td>
-                          <td className="p-4 md:p-6 text-sm md:text-base font-medium bg-secondary/5">Language influence</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </section>
-            )}
-
             {/* The Impact Playbook - Examples Section */}
             {!result && !rewriteLoading && <ExamplesSection />}
 

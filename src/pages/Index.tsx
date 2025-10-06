@@ -916,7 +916,7 @@ const Index = () => {
 
         {/* Before You Speak - Problem Statement */}
         <div className="mb-16 md:mb-24 animate-fade-in mt-16 md:mt-20">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700 dark:text-transparent dark:bg-gradient-to-r dark:from-yellow-400 dark:via-green-400 dark:to-green-500 dark:bg-clip-text">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-foreground">
             Ask April Before You Speak
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -975,7 +975,7 @@ const Index = () => {
 
         {/* How It Works */}
         <div className="mb-16 md:mb-24 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-secondary/10">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-700">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-foreground">
             How AI Communication Coaching Works
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -1031,7 +1031,7 @@ const Index = () => {
 
         {/* Social Proof */}
         <div className="mb-16 md:mb-24">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-gray-700">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-foreground">
             Proven Results: Better Workplace Communication
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

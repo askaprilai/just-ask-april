@@ -494,16 +494,24 @@ const Index = () => {
               <div className="relative animate-scale-in max-w-3xl mx-auto">
                 <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl overflow-hidden">
                   {/* Toggle Buttons Inside Chat Box */}
-                  <TabsList className="w-full grid grid-cols-2 h-12 rounded-none border-b bg-muted/30">
-                    <TabsTrigger value="text" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Say it better
-                    </TabsTrigger>
-                    <TabsTrigger value="voice" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Practice Live
-                    </TabsTrigger>
-                  </TabsList>
+                  <div className="p-3 border-b bg-muted/20">
+                    <TabsList className="inline-flex h-9 bg-transparent p-0 gap-2">
+                      <TabsTrigger 
+                        value="text" 
+                        className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
+                      >
+                        <MessageSquare className="mr-1.5 h-3.5 w-3.5" />
+                        Say it better
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="voice" 
+                        className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
+                      >
+                        <Phone className="mr-1.5 h-3.5 w-3.5" />
+                        Practice Live
+                      </TabsTrigger>
+                    </TabsList>
+                  </div>
                   
                   <Textarea
                     placeholder="What do you want to say? Let April audit your communication and show you how it could land better."
@@ -810,16 +818,24 @@ const Index = () => {
               <div className="relative animate-scale-in max-w-3xl mx-auto">
                 <div className="relative rounded-2xl border-2 border-border bg-card shadow-xl overflow-hidden">
                   {/* Toggle Buttons Inside Chat Box */}
-                  <TabsList className="w-full grid grid-cols-2 h-12 rounded-none border-b bg-muted/30">
-                    <TabsTrigger value="text" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Say it better
-                    </TabsTrigger>
-                    <TabsTrigger value="voice" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Practice Live
-                    </TabsTrigger>
-                  </TabsList>
+                  <div className="p-3 border-b bg-muted/20">
+                    <TabsList className="inline-flex h-9 bg-transparent p-0 gap-2">
+                      <TabsTrigger 
+                        value="text" 
+                        className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
+                      >
+                        <MessageSquare className="mr-1.5 h-3.5 w-3.5" />
+                        Say it better
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="voice" 
+                        className="text-xs px-4 py-1.5 rounded-full data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary data-[state=inactive]:bg-muted/50 data-[state=inactive]:text-muted-foreground hover:bg-muted transition-all"
+                      >
+                        <Phone className="mr-1.5 h-3.5 w-3.5" />
+                        Practice Live
+                      </TabsTrigger>
+                    </TabsList>
+                  </div>
                   
                   <div className="p-4">
                     <VoiceConversation />

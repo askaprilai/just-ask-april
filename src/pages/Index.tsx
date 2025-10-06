@@ -651,18 +651,18 @@ const Index = () => {
                         </div>
                       </div>
                     </span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                       {result && (
-                        <Badge className="bg-yellow-600 text-white text-xs shadow-lg animate-bounce">
+                        <Badge className="bg-yellow-600 text-white text-[10px] sm:text-xs shadow-lg animate-bounce px-2 py-0.5 whitespace-nowrap">
                           Click Here
                         </Badge>
                       )}
                       {!result && (environment || outcome || emotion) && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge variant="secondary" className="text-[10px] sm:text-xs">
                           Active
                         </Badge>
                       )}
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
+                      <ChevronDown className={`h-4 w-4 flex-shrink-0 transition-transform duration-200 ${
                         result 
                           ? 'text-yellow-700 dark:text-yellow-300' 
                           : userText.length > 0 

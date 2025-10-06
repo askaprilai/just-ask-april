@@ -48,7 +48,7 @@ const ImpactMethodDiagram = () => {
     <div className="relative w-full mx-auto px-4 sm:px-8 overflow-visible">
       <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center min-h-[600px] sm:min-h-[700px] md:min-h-[800px] py-12 sm:py-16">
         {/* Central Circle */}
-        <div className="relative w-[160px] h-[160px] sm:w-[240px] sm:h-[240px] md:w-[300px] md:h-[300px] lg:w-[340px] lg:h-[340px] rounded-full border-4 border-[#FDB900] bg-background shadow-2xl flex flex-col items-center justify-center z-10 animate-scale-in">
+        <div className="relative w-[160px] h-[160px] sm:w-[240px] sm:h-[240px] md:w-[300px] md:h-[300px] lg:w-[340px] lg:h-[340px] rounded-full border-4 border-[#FDB900] bg-background shadow-2xl shadow-[#FDB900]/30 flex flex-col items-center justify-center z-10 animate-scale-in">
           <h3 className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-bold text-center mb-1 md:mb-2 px-2">
             THE IMPACT<br />
             LANGUAGE<br />
@@ -63,15 +63,16 @@ const ImpactMethodDiagram = () => {
         {/* Circular Container for Pillars */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[380px] max-h-[380px] sm:max-w-[600px] sm:max-h-[600px] md:max-w-[700px] md:max-h-[700px] lg:max-w-[800px] lg:max-h-[800px]">
           {/* Circle Path (visual guide) */}
-          <svg className="absolute inset-0 w-full h-full -z-10 animate-spin-slow" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet">
+          <svg className="absolute inset-0 w-full h-full -z-10 animate-spin-slow drop-shadow-[0_0_15px_rgba(253,185,0,0.5)]" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet">
             <circle
               cx="400"
               cy="400"
               r="280"
               fill="none"
-              stroke="hsl(var(--muted-foreground) / 0.2)"
-              strokeWidth="2"
+              stroke="hsl(var(--secondary))"
+              strokeWidth="4"
               strokeDasharray="8 8"
+              className="drop-shadow-[0_0_20px_rgba(253,185,0,0.6)]"
             />
           </svg>
 

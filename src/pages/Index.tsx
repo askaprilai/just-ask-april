@@ -488,7 +488,7 @@ const Index = () => {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight px-4">
             <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">ChatGPT writes content.</span>
             <span className="block mt-2 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              April AI drives results driven conversations.
+              April AI drives better conversations.
             </span>
           </h1>
           

@@ -69,6 +69,7 @@ const Dashboard = () => {
   const [detailedStats, setDetailedStats] = useState<ImpactStats>({});
   const [topRewrites, setTopRewrites] = useState<TopRewrite[]>([]);
   const [weekComparison, setWeekComparison] = useState<{ thisWeek: number; lastWeek: number; change: number } | null>(null);
+  const [activeTab, setActiveTab] = useState("chat");
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -215,8 +216,7 @@ const Dashboard = () => {
     }
 
     // Check playbook usage limit for free users (only in playbook tab)
-    const isPlaybookTab = document.querySelector('[data-state="active"][value="playbook"]');
-    if (isPlaybookTab && !subscribed && playbookUsage >= FREE_PLAYBOOK_LIMIT) {
+    if (activeTab === "playbook" && !subscribed && playbookUsage >= FREE_PLAYBOOK_LIMIT) {
       setShowUpgradeDialog(true);
       return;
     }
@@ -247,7 +247,7 @@ const Dashboard = () => {
       incrementUsage();
       
       // Increment playbook usage if in playbook tab
-      if (isPlaybookTab && !subscribed && user) {
+      if (activeTab === "playbook" && !subscribed && user) {
         const today = new Date().toISOString().split('T')[0];
         const playbookKey = `playbook_${user.id}_${today}`;
         const newPlaybookUsage = playbookUsage + 1;
@@ -437,7 +437,7 @@ const Dashboard = () => {
               </Card>
             )}
 
-            <Tabs defaultValue="chat" className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 h-auto mb-6">
                 <TabsTrigger value="chat" className="flex-col md:flex-row py-3 md:py-2">
                   <MessageSquare className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
@@ -479,7 +479,8 @@ const Dashboard = () => {
                     <Button 
                       onClick={handleRewrite}
                       disabled={rewriteLoading || !userText.trim()}
-                      className="w-full"
+                      className="w-full touch-manipulation"
+                      type="button"
                     >
                       {rewriteLoading ? "Optimizing..." : "Say it Better"}
                     </Button>
@@ -741,7 +742,8 @@ const Dashboard = () => {
                     <Button 
                       onClick={handleRewrite}
                       disabled={rewriteLoading || !userText.trim()}
-                      className="w-full"
+                      className="w-full touch-manipulation"
+                      type="button"
                     >
                       {rewriteLoading ? "Optimizing..." : "Say it Better"}
                     </Button>

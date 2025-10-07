@@ -98,7 +98,7 @@ export const UpgradeDialog = ({ open, onOpenChange, feature = "unlimited Impact 
 
         <DialogFooter className="flex-col sm:flex-col gap-2">
           <Button
-            onClick={() => navigate('/pricing')}
+            onClick={() => navigate('/auth')}
             className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white"
             size="lg"
           >

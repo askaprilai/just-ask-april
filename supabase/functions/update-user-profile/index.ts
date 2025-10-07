@@ -46,53 +46,35 @@ Deno.serve(async (req) => {
       )
     }
 
-    console.log('Fetching users list')
+    const { userId, manual_pro_access } = await req.json()
 
-    // List all users
-    const { data: { users }, error: listError } = await supabaseClient.auth.admin.listUsers()
-
-    if (listError) {
-      console.error('Error listing users:', listError)
+    if (!userId) {
       return new Response(
-        JSON.stringify({ error: listError.message }),
+        JSON.stringify({ error: 'userId is required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
-    // Get all user roles
-    const { data: userRoles, error: rolesError } = await supabaseClient
-      .from('user_roles')
-      .select('user_id, role')
+    console.log('Updating profile for user:', userId, { manual_pro_access })
 
-    if (rolesError) {
-      console.error('Error fetching roles:', rolesError)
-    }
-
-    // Get all profiles with manual_pro_access
-    const { data: profiles, error: profilesError } = await supabaseClient
+    // Update the profile
+    const { error: updateError } = await supabaseClient
       .from('profiles')
-      .select('id, manual_pro_access')
+      .update({ manual_pro_access })
+      .eq('id', userId)
 
-    if (profilesError) {
-      console.error('Error fetching profiles:', profilesError)
+    if (updateError) {
+      console.error('Error updating profile:', updateError)
+      return new Response(
+        JSON.stringify({ error: updateError.message }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
     }
 
-    // Combine users with their roles and pro access
-    const usersWithRoles = users.map(u => {
-      const profile = profiles?.find(p => p.id === u.id)
-      return {
-        id: u.id,
-        email: u.email,
-        created_at: u.created_at,
-        roles: userRoles?.filter(r => r.user_id === u.id).map(r => r.role) || [],
-        manual_pro_access: profile?.manual_pro_access || false
-      }
-    })
-
-    console.log('Users fetched successfully:', usersWithRoles.length)
+    console.log('Profile updated successfully')
 
     return new Response(
-      JSON.stringify({ users: usersWithRoles }),
+      JSON.stringify({ success: true }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   } catch (error: any) {

@@ -9,13 +9,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, UserPlus, Shield, UserCog } from "lucide-react";
+import { ArrowLeft, UserPlus, Shield, UserCog, Save, Crown } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface User {
   id: string;
   email: string;
   created_at: string;
   roles: string[];
+  manual_pro_access: boolean;
+}
+
+interface PendingChange {
+  userId: string;
+  manual_pro_access?: boolean;
+  roleChanges?: Array<{ role: string; action: 'add' | 'remove' }>;
 }
 
 export default function Admin() {
@@ -25,6 +33,8 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [pendingChanges, setPendingChanges] = useState<Map<string, PendingChange>>(new Map());
+  const [saving, setSaving] = useState(false);
   
   // Form state
   const [newEmail, setNewEmail] = useState("");
@@ -158,38 +168,90 @@ export default function Admin() {
     }
   };
 
-  const handleRoleChange = async (userId: string, role: string, action: "add" | "remove") => {
+  const handleProAccessChange = (userId: string, checked: boolean) => {
+    const changes = new Map(pendingChanges);
+    const existing = changes.get(userId) || { userId };
+    existing.manual_pro_access = checked;
+    changes.set(userId, existing);
+    setPendingChanges(changes);
+  };
+
+  const handleRoleSelection = (userId: string, value: string) => {
+    const [action, role] = value.split(":");
+    const changes = new Map(pendingChanges);
+    const existing = changes.get(userId) || { userId, roleChanges: [] };
+    if (!existing.roleChanges) existing.roleChanges = [];
+    existing.roleChanges.push({ role, action: action as "add" | "remove" });
+    changes.set(userId, existing);
+    setPendingChanges(changes);
+    
+    toast({
+      title: "Change Queued",
+      description: "Click Save Changes to apply",
+    });
+  };
+
+  const handleSaveChanges = async () => {
+    if (pendingChanges.size === 0) return;
+
     try {
+      setSaving(true);
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) return;
 
-      const { error } = await supabase.functions.invoke("manage-role", {
-        body: {
-          userId,
-          role,
-          action,
-        },
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
+      // Process all pending changes
+      for (const [userId, changes] of pendingChanges.entries()) {
+        // Update pro access if changed
+        if (changes.manual_pro_access !== undefined) {
+          const { error } = await supabase.functions.invoke("update-user-profile", {
+            body: {
+              userId,
+              manual_pro_access: changes.manual_pro_access,
+            },
+            headers: {
+              Authorization: `Bearer ${session.access_token}`,
+            },
+          });
 
-      if (error) throw error;
+          if (error) throw error;
+        }
+
+        // Process role changes
+        if (changes.roleChanges) {
+          for (const roleChange of changes.roleChanges) {
+            const { error } = await supabase.functions.invoke("manage-role", {
+              body: {
+                userId,
+                role: roleChange.role,
+                action: roleChange.action,
+              },
+              headers: {
+                Authorization: `Bearer ${session.access_token}`,
+              },
+            });
+
+            if (error) throw error;
+          }
+        }
+      }
 
       toast({
         title: "Success",
-        description: `Role ${action === "add" ? "added" : "removed"} successfully`,
+        description: "All changes saved successfully",
       });
 
+      setPendingChanges(new Map());
       loadUsers();
     } catch (error: any) {
-      console.error("Error managing role:", error);
+      console.error("Error saving changes:", error);
       toast({
         title: "Error",
-        description: error.message || "Failed to manage role",
+        description: error.message || "Failed to save changes",
         variant: "destructive",
       });
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -207,12 +269,20 @@ export default function Admin() {
           </Button>
         </div>
 
-        <div className="space-y-2">
-          <h1 className="text-4xl font-bold flex items-center gap-3">
-            <Shield className="h-10 w-10 text-primary" />
-            Admin Panel
-          </h1>
-          <p className="text-muted-foreground">Manage users and roles</p>
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <h1 className="text-4xl font-bold flex items-center gap-3">
+              <Shield className="h-10 w-10 text-primary" />
+              Admin Panel
+            </h1>
+            <p className="text-muted-foreground">Manage users and roles</p>
+          </div>
+          {pendingChanges.size > 0 && (
+            <Button onClick={handleSaveChanges} disabled={saving} size="lg">
+              <Save className="h-4 w-4 mr-2" />
+              Save Changes ({pendingChanges.size})
+            </Button>
+          )}
         </div>
 
         {/* Create User Form */}
@@ -290,36 +360,47 @@ export default function Admin() {
                   <TableRow>
                     <TableHead>Email</TableHead>
                     <TableHead>Created At</TableHead>
+                    <TableHead>Pro Access</TableHead>
                     <TableHead>Roles</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {users.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.email}</TableCell>
-                      <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
-                      <TableCell>
-                        <div className="flex gap-2 flex-wrap">
-                          {user.roles.length > 0 ? (
-                            user.roles.map((role) => (
-                              <Badge key={role} variant="secondary">
-                                {role}
-                              </Badge>
-                            ))
-                          ) : (
-                            <span className="text-muted-foreground text-sm">No roles</span>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex gap-2">
-                          <Select
-                            onValueChange={(value) => {
-                              const [action, role] = value.split(":");
-                              handleRoleChange(user.id, role, action as "add" | "remove");
-                            }}
-                          >
+                  {users.map((user) => {
+                    const hasPendingChanges = pendingChanges.has(user.id);
+                    const pending = pendingChanges.get(user.id);
+                    const currentProAccess = pending?.manual_pro_access !== undefined 
+                      ? pending.manual_pro_access 
+                      : user.manual_pro_access;
+                    
+                    return (
+                      <TableRow key={user.id} className={hasPendingChanges ? "bg-muted/50" : ""}>
+                        <TableCell className="font-medium">{user.email}</TableCell>
+                        <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <Checkbox
+                              checked={currentProAccess}
+                              onCheckedChange={(checked) => handleProAccessChange(user.id, checked as boolean)}
+                            />
+                            {currentProAccess && <Crown className="h-4 w-4 text-yellow-500" />}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex gap-2 flex-wrap">
+                            {user.roles.length > 0 ? (
+                              user.roles.map((role) => (
+                                <Badge key={role} variant="secondary">
+                                  {role}
+                                </Badge>
+                              ))
+                            ) : (
+                              <span className="text-muted-foreground text-sm">No roles</span>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Select onValueChange={(value) => handleRoleSelection(user.id, value)}>
                             <SelectTrigger className="w-[140px]">
                               <SelectValue placeholder="Manage roles" />
                             </SelectTrigger>
@@ -332,10 +413,10 @@ export default function Admin() {
                               <SelectItem value="remove:user">Remove User</SelectItem>
                             </SelectContent>
                           </Select>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             )}

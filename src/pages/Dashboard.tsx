@@ -70,6 +70,8 @@ const Dashboard = () => {
   const [topRewrites, setTopRewrites] = useState<TopRewrite[]>([]);
   const [weekComparison, setWeekComparison] = useState<{ thisWeek: number; lastWeek: number; change: number } | null>(null);
   const [activeTab, setActiveTab] = useState("chat");
+  const [isRecording, setIsRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -485,59 +487,65 @@ const Dashboard = () => {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute bottom-6 right-2"
+                        className={`absolute bottom-6 right-2 ${isRecording ? 'bg-destructive text-destructive-foreground' : ''}`}
                         onClick={async () => {
-                          try {
-                            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                            const mediaRecorder = new MediaRecorder(stream);
-                            const chunks: Blob[] = [];
+                          if (isRecording && mediaRecorder) {
+                            // Stop recording
+                            mediaRecorder.stop();
+                            setIsRecording(false);
+                            setMediaRecorder(null);
+                          } else {
+                            // Start recording
+                            try {
+                              const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                              const recorder = new MediaRecorder(stream);
+                              const chunks: Blob[] = [];
 
-                            mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
-                            mediaRecorder.onstop = async () => {
-                              const blob = new Blob(chunks, { type: 'audio/webm' });
-                              const reader = new FileReader();
-                              reader.readAsDataURL(blob);
-                              reader.onloadend = async () => {
-                                const base64 = (reader.result as string).split(',')[1];
-                                
-                                toast({
-                                  title: "Transcribing...",
-                                  description: "Converting your speech to text",
-                                });
+                              recorder.ondataavailable = (e) => chunks.push(e.data);
+                              recorder.onstop = async () => {
+                                const blob = new Blob(chunks, { type: 'audio/webm' });
+                                const reader = new FileReader();
+                                reader.readAsDataURL(blob);
+                                reader.onloadend = async () => {
+                                  const base64 = (reader.result as string).split(',')[1];
+                                  
+                                  toast({
+                                    title: "Transcribing...",
+                                    description: "Converting your speech to text",
+                                  });
 
-                                const { data, error } = await supabase.functions.invoke('speech-to-text', {
-                                  body: { audio: base64 }
-                                });
+                                  const { data, error } = await supabase.functions.invoke('speech-to-text', {
+                                    body: { audio: base64 }
+                                  });
 
-                                if (error) throw error;
-                                setUserText(data.text);
-                                
-                                toast({
-                                  title: "Success",
-                                  description: "Speech transcribed successfully",
-                                });
+                                  if (error || !data?.text) throw error;
+                                  setUserText(data.text);
+                                  
+                                  toast({
+                                    title: "Success",
+                                    description: "Speech transcribed successfully",
+                                  });
+                                };
+                                stream.getTracks().forEach(track => track.stop());
+                                setIsRecording(false);
+                                setMediaRecorder(null);
                               };
-                              stream.getTracks().forEach(track => track.stop());
-                            };
 
-                            mediaRecorder.start();
-                            toast({
-                              title: "Recording...",
-                              description: "Speak now, tap again to stop",
-                            });
-
-                            setTimeout(() => {
-                              if (mediaRecorder.state === 'recording') {
-                                mediaRecorder.stop();
-                              }
-                            }, 5000);
-                          } catch (err) {
-                            console.error('Mic error:', err);
-                            toast({
-                              title: "Error",
-                              description: "Could not access microphone",
-                              variant: "destructive",
-                            });
+                              recorder.start();
+                              setMediaRecorder(recorder);
+                              setIsRecording(true);
+                              toast({
+                                title: "Recording...",
+                                description: "Tap again to stop recording",
+                              });
+                            } catch (err) {
+                              console.error('Mic error:', err);
+                              toast({
+                                title: "Error",
+                                description: "Could not access microphone",
+                                variant: "destructive",
+                              });
+                            }
                           }
                         }}
                       >

@@ -50,6 +50,7 @@ export const UpgradeDialog = ({ open, onOpenChange, feature = "unlimited Impact 
 
   const proFeatures = [
     "Unlimited Impact Statements across all categories",
+    "100 new example cards every week (vs 5 for free)",
     "Practice conversations with April",
     "Advanced tone control",
     "Priority support",

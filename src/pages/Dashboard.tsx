@@ -368,15 +368,52 @@ const Dashboard = () => {
               <TabsContent value="examples" className="space-y-6">
                 <Card>
                   <CardContent className="p-6">
-                    <h3 className="text-2xl font-semibold mb-2">Quick Example Cards</h3>
-                    <p className="text-muted-foreground mb-6">
-                      Browse real-world communication examples for instant inspiration
-                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <h3 className="text-2xl font-semibold mb-2">Quick Example Cards</h3>
+                        <p className="text-muted-foreground">
+                          {subscribed 
+                            ? "100 fresh examples added weekly" 
+                            : "5 examples available this week • Pro users get 100 weekly"}
+                        </p>
+                      </div>
+                      {!subscribed && (
+                        <Button 
+                          onClick={() => setShowUpgradeDialog(true)}
+                          size="sm"
+                          className="bg-gradient-to-r from-secondary to-accent text-white"
+                        >
+                          Upgrade for 100 Weekly
+                        </Button>
+                      )}
+                    </div>
                     
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {EXAMPLES.map((example, index) => (
-                        <Card key={index} className="bg-gradient-to-br from-card to-muted/20 border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg">
-                          <CardContent className="p-4 space-y-3">
+                      {EXAMPLES.map((example, index) => {
+                        const isLocked = !subscribed && index >= 5;
+                        return (
+                        <Card 
+                          key={index} 
+                          className={`bg-gradient-to-br from-card to-muted/20 border-primary/20 transition-all ${
+                            isLocked 
+                              ? 'opacity-40 cursor-not-allowed' 
+                              : 'hover:border-primary/40 hover:shadow-lg'
+                          }`}
+                        >
+                          <CardContent className="p-4 space-y-3 relative">
+                            {isLocked && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-background/60 backdrop-blur-[2px] rounded-lg z-10">
+                                <Button 
+                                  onClick={() => setShowUpgradeDialog(true)}
+                                  size="sm"
+                                  variant="secondary"
+                                  className="bg-gradient-to-r from-secondary to-accent text-white"
+                                >
+                                  Unlock with Pro
+                                </Button>
+                              </div>
+                            )}
+                            
                             {/* Category Badge */}
                             <div className="flex items-center justify-between">
                               <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
@@ -413,7 +450,8 @@ const Dashboard = () => {
                             </div>
                           </CardContent>
                         </Card>
-                      ))}
+                      );
+                      })}
                     </div>
                   </CardContent>
                 </Card>

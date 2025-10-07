@@ -46,11 +46,13 @@ const Dashboard = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
+      
       if (!session?.user) {
+        setAuthLoading(false);
         navigate('/auth');
         return;
       }
-      setUser(session.user);
       
       // Check if user is admin
       console.log('Checking admin status for user:', session.user.id);

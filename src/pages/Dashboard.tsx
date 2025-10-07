@@ -475,12 +475,75 @@ const Dashboard = () => {
                 <Card>
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold mb-4">Transform Your Message</h3>
-                    <Textarea
-                      placeholder="Type or paste what you want to say..."
-                      value={userText}
-                      onChange={(e) => setUserText(e.target.value)}
-                      className="min-h-[150px] mb-4"
-                    />
+                    <div className="relative">
+                      <Textarea
+                        placeholder="Type or paste what you want to say..."
+                        value={userText}
+                        onChange={(e) => setUserText(e.target.value)}
+                        className="min-h-[150px] mb-4 pr-12"
+                      />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute bottom-6 right-2"
+                        onClick={async () => {
+                          try {
+                            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                            const mediaRecorder = new MediaRecorder(stream);
+                            const chunks: Blob[] = [];
+
+                            mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
+                            mediaRecorder.onstop = async () => {
+                              const blob = new Blob(chunks, { type: 'audio/webm' });
+                              const reader = new FileReader();
+                              reader.readAsDataURL(blob);
+                              reader.onloadend = async () => {
+                                const base64 = (reader.result as string).split(',')[1];
+                                
+                                toast({
+                                  title: "Transcribing...",
+                                  description: "Converting your speech to text",
+                                });
+
+                                const { data, error } = await supabase.functions.invoke('speech-to-text', {
+                                  body: { audio: base64 }
+                                });
+
+                                if (error) throw error;
+                                setUserText(data.text);
+                                
+                                toast({
+                                  title: "Success",
+                                  description: "Speech transcribed successfully",
+                                });
+                              };
+                              stream.getTracks().forEach(track => track.stop());
+                            };
+
+                            mediaRecorder.start();
+                            toast({
+                              title: "Recording...",
+                              description: "Speak now, tap again to stop",
+                            });
+
+                            setTimeout(() => {
+                              if (mediaRecorder.state === 'recording') {
+                                mediaRecorder.stop();
+                              }
+                            }, 5000);
+                          } catch (err) {
+                            console.error('Mic error:', err);
+                            toast({
+                              title: "Error",
+                              description: "Could not access microphone",
+                              variant: "destructive",
+                            });
+                          }
+                        }}
+                      >
+                        <Mic className="h-5 w-5" />
+                      </Button>
+                    </div>
                     <Button 
                       onClick={handleRewrite}
                       disabled={rewriteLoading || !userText.trim()}

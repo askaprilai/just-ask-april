@@ -643,7 +643,7 @@ const Index = () => {
                         size="lg"
                         className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white font-semibold px-8"
                       >
-                        Start Communicating Better Today
+                        Try It Free
                       </Button>
                     )}
                     {user && !subscribed && (

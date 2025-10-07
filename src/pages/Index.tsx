@@ -632,9 +632,14 @@ const Index = () => {
               <section className="mb-12 md:mb-16 animate-fade-in px-4">
                 <Card className="bg-gradient-to-br from-secondary/10 via-accent/10 to-primary/10 border-secondary/20 shadow-lg">
                   <CardContent className="p-8 md:p-12 text-center">
-                    <p className="text-xl md:text-2xl text-accent font-semibold mb-6 leading-relaxed max-w-2xl mx-auto">
-                      Say it better with Just Ask April.
-                    </p>
+                    <div className="flex flex-col items-center gap-6 mb-6">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden ring-4 ring-secondary/30 bg-background">
+                        <img src={aprilLogo} alt="Just Ask April logo" className="w-full h-full object-cover" />
+                      </div>
+                      <p className="text-xl md:text-2xl text-accent font-semibold leading-relaxed max-w-2xl mx-auto">
+                        When in doubt, just ask April
+                      </p>
+                    </div>
                     {!user && (
                       <Button 
                         onClick={() => {

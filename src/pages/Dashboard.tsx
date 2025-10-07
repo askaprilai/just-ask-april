@@ -174,9 +174,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex h-screen bg-background">
-      {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-80' : 'w-0'} transition-all duration-300 border-r border-border bg-card overflow-hidden flex flex-col`}>
+    <div className="flex flex-col md:flex-row h-screen bg-background">
+      {/* Sidebar - Bottom on mobile, Left on desktop */}
+      <div className={`${sidebarOpen ? 'h-64 md:h-auto md:w-80' : 'h-0 md:w-0'} transition-all duration-300 order-2 md:order-1 border-t md:border-t-0 md:border-r border-border bg-card overflow-hidden flex flex-col`}>
         <div className="p-4 border-b border-border flex items-center justify-between">
           <h2 className="font-semibold text-lg">Impact Statements</h2>
           <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
@@ -238,7 +238,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col order-1 md:order-2">
         {/* Header */}
         <div className="h-16 border-b border-border flex items-center justify-between px-6 bg-card">
           <div className="flex items-center">
@@ -274,22 +274,22 @@ const Dashboard = () => {
             </div>
 
             <Tabs defaultValue="chat" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 mb-6">
-                <TabsTrigger value="chat">
-                  <MessageSquare className="h-4 w-4 mr-2" />
-                  Chat
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-2 h-auto mb-6">
+                <TabsTrigger value="chat" className="flex-col md:flex-row py-3 md:py-2">
+                  <MessageSquare className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
+                  <span className="text-xs md:text-sm">Chat</span>
                 </TabsTrigger>
-                <TabsTrigger value="voice">
-                  <Mic className="h-4 w-4 mr-2" />
-                  Voice AI
+                <TabsTrigger value="voice" className="flex-col md:flex-row py-3 md:py-2">
+                  <Mic className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
+                  <span className="text-xs md:text-sm">Voice AI</span>
                 </TabsTrigger>
-                <TabsTrigger value="playbook">
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Impact Playbook
+                <TabsTrigger value="playbook" className="flex-col md:flex-row py-3 md:py-2">
+                  <BookOpen className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
+                  <span className="text-xs md:text-sm">Playbook</span>
                 </TabsTrigger>
-                <TabsTrigger value="examples">
-                  <Lightbulb className="h-4 w-4 mr-2" />
-                  Example Cards
+                <TabsTrigger value="examples" className="flex-col md:flex-row py-3 md:py-2">
+                  <Lightbulb className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
+                  <span className="text-xs md:text-sm">Examples</span>
                 </TabsTrigger>
               </TabsList>
 

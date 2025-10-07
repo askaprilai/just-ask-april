@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb, Shield } from "lucide-react";
+import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb, Shield, TrendingUp, Award, Target, TrendingDown, User as UserIcon } from "lucide-react";
 import { EXAMPLES } from "@/components/ExamplesSection";
 import { useToast } from "@/hooks/use-toast";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -18,12 +18,31 @@ import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
 import { useSubscription } from "@/contexts/SubscriptionContext";
 import { Badge } from "@/components/ui/badge";
 import { UpgradeDialog } from "@/components/UpgradeDialog";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface ImpactStatement {
   id: string;
   raw_text: string;
   environment: string;
   outcome: string;
+  created_at: string;
+}
+
+interface ImpactStats {
+  [key: string]: {
+    total: number;
+    helpful: number;
+    rate: number;
+  };
+}
+
+interface TopRewrite {
+  id: string;
+  raw_text: string;
+  environment: string;
+  outcome: string;
+  inferred_emotion?: string;
+  desired_emotion?: string;
   created_at: string;
 }
 
@@ -47,6 +66,9 @@ const Dashboard = () => {
   const [playbookUsage, setPlaybookUsage] = useState(0);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   const [impactIndex, setImpactIndex] = useState<number | null>(null);
+  const [detailedStats, setDetailedStats] = useState<ImpactStats>({});
+  const [topRewrites, setTopRewrites] = useState<TopRewrite[]>([]);
+  const [weekComparison, setWeekComparison] = useState<{ thisWeek: number; lastWeek: number; change: number } | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -115,7 +137,7 @@ const Dashboard = () => {
       setImpactStatements(data || []);
     }
 
-    // Load impact index from feedback
+    // Load impact index and detailed stats
     const { data: feedbackData } = await supabase
       .from('feedback')
       .select('helpful')
@@ -126,6 +148,54 @@ const Dashboard = () => {
       const totalCount = feedbackData.length;
       const index = Math.round((helpfulCount / totalCount) * 100);
       setImpactIndex(index);
+    }
+
+    // Calculate week comparison
+    const now = new Date();
+    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+
+    const { data: thisWeekFeedback } = await supabase
+      .from('feedback')
+      .select('helpful')
+      .eq('user_id', userId)
+      .gte('created_at', oneWeekAgo.toISOString());
+
+    const { data: lastWeekFeedback } = await supabase
+      .from('feedback')
+      .select('helpful')
+      .eq('user_id', userId)
+      .gte('created_at', twoWeeksAgo.toISOString())
+      .lt('created_at', oneWeekAgo.toISOString());
+
+    if (thisWeekFeedback && thisWeekFeedback.length > 0) {
+      const thisWeekRate = Math.round(
+        (thisWeekFeedback.filter(f => f.helpful).length / thisWeekFeedback.length) * 100
+      );
+      
+      let lastWeekRate = 0;
+      if (lastWeekFeedback && lastWeekFeedback.length > 0) {
+        lastWeekRate = Math.round(
+          (lastWeekFeedback.filter(f => f.helpful).length / lastWeekFeedback.length) * 100
+        );
+      }
+
+      setWeekComparison({
+        thisWeek: thisWeekRate,
+        lastWeek: lastWeekRate,
+        change: thisWeekRate - lastWeekRate
+      });
+    }
+
+    // Load detailed stats from edge function
+    try {
+      const { data: statsData, error: statsError } = await supabase.functions.invoke('impact-index');
+      if (!statsError && statsData) {
+        setDetailedStats(statsData.stats || {});
+        setTopRewrites(statsData.topRewrites || []);
+      }
+    } catch (err) {
+      console.error('Error loading detailed stats:', err);
     }
   };
 
@@ -295,24 +365,26 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col order-1 md:order-2">
         {/* Header */}
-        <div className="h-16 border-b border-border flex items-center justify-between px-6 bg-card">
+        <div className="h-16 border-b border-border flex items-center justify-between px-4 md:px-6 bg-card">
           <div className="flex items-center">
             {!sidebarOpen && (
-              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="mr-4">
+              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="mr-2 md:mr-4">
                 <Menu className="h-5 w-5" />
               </Button>
             )}
-            <h1 className="text-xl font-semibold">Just Ask April</h1>
+            <h1 className="text-lg md:text-xl font-semibold">Just Ask April</h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 md:gap-2">
+            <ThemeToggle />
             {isAdmin && (
               <Button onClick={() => navigate('/admin')} variant="outline" size="sm" className="hidden md:flex">
                 <Shield className="h-4 w-4 mr-2" />
                 Admin Panel
               </Button>
             )}
-            <Button onClick={handleSignOut} variant="ghost" size="sm" className="md:hidden">
+            <Button onClick={handleSignOut} variant="ghost" size="sm">
               <LogOut className="h-4 w-4" />
+              <span className="sr-only md:not-sr-only md:ml-2">Logout</span>
             </Button>
           </div>
         </div>
@@ -366,7 +438,7 @@ const Dashboard = () => {
             )}
 
             <Tabs defaultValue="chat" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-2 h-auto mb-6">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 h-auto mb-6">
                 <TabsTrigger value="chat" className="flex-col md:flex-row py-3 md:py-2">
                   <MessageSquare className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
                   <span className="text-xs md:text-sm">Chat</span>
@@ -387,6 +459,10 @@ const Dashboard = () => {
                 <TabsTrigger value="examples" className="flex-col md:flex-row py-3 md:py-2">
                   <Lightbulb className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
                   <span className="text-xs md:text-sm">Examples</span>
+                </TabsTrigger>
+                <TabsTrigger value="mystats" className="flex-col md:flex-row py-3 md:py-2">
+                  <TrendingUp className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
+                  <span className="text-xs md:text-sm">My Stats</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -746,6 +822,131 @@ const Dashboard = () => {
                   </>
                 )}
 
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-6 text-center">The Impact Language Method™</h3>
+                    <ImpactMethodDiagram />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="mystats" className="space-y-6">
+                {/* Week Comparison */}
+                {weekComparison && (
+                  <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-accent/30">
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Week-over-Week Progress</h3>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-muted-foreground mb-2">This Week</p>
+                          <div className="flex items-baseline gap-3">
+                            <span className="text-3xl font-bold text-primary">{weekComparison.thisWeek}%</span>
+                            <div className={`flex items-center gap-1 text-sm font-medium ${
+                              weekComparison.change > 0 ? 'text-green-600' : 
+                              weekComparison.change < 0 ? 'text-red-600' : 
+                              'text-muted-foreground'
+                            }`}>
+                              {weekComparison.change > 0 ? (
+                                <TrendingUp className="h-4 w-4" />
+                              ) : weekComparison.change < 0 ? (
+                                <TrendingDown className="h-4 w-4" />
+                              ) : null}
+                              {weekComparison.change > 0 ? '+' : ''}{weekComparison.change}%
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-muted-foreground mb-2">Last Week</p>
+                          <p className="text-2xl font-semibold text-muted-foreground">{weekComparison.lastWeek}%</p>
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-4">
+                        {weekComparison.change > 0 
+                          ? `Great progress! You're ${weekComparison.change}% more effective this week.`
+                          : weekComparison.change < 0
+                          ? `Keep practicing. Every conversation is a learning opportunity.`
+                          : `Consistent performance. Keep up the good work!`
+                        }
+                      </p>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Detailed Performance Stats */}
+                {Object.keys(detailedStats).length > 0 && (
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Performance by Context</h3>
+                      <div className="space-y-4">
+                        {Object.entries(detailedStats)
+                          .sort((a, b) => b[1].rate - a[1].rate)
+                          .map(([key, data]) => {
+                            const [environment, outcome] = key.split('_');
+                            const isHighPerformance = data.rate >= 85;
+                            
+                            return (
+                              <div key={key} className={`p-4 rounded-lg border ${isHighPerformance ? "border-primary/50 bg-primary/5" : "border-border"}`}>
+                                <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center gap-2">
+                                    <h4 className="font-semibold capitalize">
+                                      {environment} · {outcome}
+                                    </h4>
+                                    {isHighPerformance && <Award className="h-4 w-4 text-primary" />}
+                                  </div>
+                                  <span className="text-xl font-bold text-primary">{data.rate}%</span>
+                                </div>
+                                <div className="w-full bg-muted rounded-full h-2 overflow-hidden mb-2">
+                                  <div 
+                                    className="h-full bg-gradient-to-r from-secondary to-accent transition-all duration-500"
+                                    style={{ width: `${data.rate}%` }}
+                                  />
+                                </div>
+                                <div className="flex justify-between text-xs text-muted-foreground">
+                                  <span>{data.helpful} helpful of {data.total} uses</span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Top Impact Statements */}
+                {topRewrites.length > 0 && (
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Your Top Impact Statements</h3>
+                      <div className="space-y-3">
+                        {topRewrites.map((rewrite) => (
+                          <div key={rewrite.id} className="p-3 bg-muted/30 rounded-lg border border-border">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="flex gap-2 text-xs">
+                                <Badge variant="outline">{rewrite.environment}</Badge>
+                                <Badge variant="outline">{rewrite.outcome}</Badge>
+                              </div>
+                              <Award className="h-4 w-4 text-primary flex-shrink-0" />
+                            </div>
+                            <p className="text-sm">"{rewrite.raw_text}"</p>
+                            {(rewrite.inferred_emotion || rewrite.desired_emotion) && (
+                              <div className="mt-2 flex gap-2 text-xs text-muted-foreground">
+                                {rewrite.inferred_emotion && <span>From: {rewrite.inferred_emotion}</span>}
+                                {rewrite.desired_emotion && (
+                                  <>
+                                    <span>→</span>
+                                    <span className="text-primary">To: {rewrite.desired_emotion}</span>
+                                  </>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Impact Method */}
                 <Card>
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold mb-6 text-center">The Impact Language Method™</h3>

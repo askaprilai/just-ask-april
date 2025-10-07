@@ -128,13 +128,21 @@ export const MobileNav = ({ user }: MobileNavProps) => {
           >
             Privacy
           </Button>
-          {user && (
+          {user ? (
             <Button 
-              variant="outline" 
+              variant="destructive"
               className="w-full justify-start text-lg h-12 mt-4"
               onClick={handleSignOut}
             >
               Sign Out
+            </Button>
+          ) : (
+            <Button 
+              variant="default"
+              className="w-full justify-start text-lg h-12 mt-4 bg-gradient-to-r from-secondary to-accent"
+              onClick={() => handleNavigate('/auth')}
+            >
+              Sign In
             </Button>
           )}
         </nav>

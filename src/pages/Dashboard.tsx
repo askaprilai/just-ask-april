@@ -365,16 +365,16 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col order-1 md:order-2">
         {/* Header */}
-        <div className="h-16 border-b border-border flex items-center justify-between px-4 md:px-6 bg-card">
-          <div className="flex items-center">
+        <div className="h-16 border-b border-border flex items-center justify-between px-3 md:px-6 bg-card">
+          <div className="flex items-center gap-2">
             {!sidebarOpen && (
-              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="mr-2 md:mr-4">
+              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="md:mr-2">
                 <Menu className="h-5 w-5" />
               </Button>
             )}
-            <h1 className="text-lg md:text-xl font-semibold">Just Ask April</h1>
+            <h1 className="text-base md:text-xl font-semibold truncate">Just Ask April</h1>
           </div>
-          <div className="flex items-center gap-1 md:gap-2">
+          <div className="flex items-center gap-1.5 md:gap-2">
             <ThemeToggle />
             {isAdmin && (
               <Button onClick={() => navigate('/admin')} variant="outline" size="sm" className="hidden md:flex">
@@ -384,12 +384,12 @@ const Dashboard = () => {
             )}
             <Button 
               onClick={handleSignOut} 
-              variant="outline" 
+              variant="destructive" 
               size="sm"
-              className="border-destructive/50 hover:bg-destructive hover:text-destructive-foreground"
+              className="h-9 px-3"
             >
-              <LogOut className="h-4 w-4 md:mr-2" />
-              <span className="hidden md:inline">Logout</span>
+              <LogOut className="h-4 w-4 mr-1.5" />
+              <span className="text-sm font-medium">Logout</span>
             </Button>
           </div>
         </div>

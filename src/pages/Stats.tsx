@@ -146,11 +146,13 @@ const Stats = () => {
                   {userName ? userName.charAt(0).toUpperCase() : <User className="h-8 w-8" />}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <h2 className="text-2xl font-bold">{userName || "Your Profile"}</h2>
-                    <Badge variant="outline" className="text-xs">Preview</Badge>
+                    <Badge className="bg-gradient-to-r from-secondary to-accent text-white border-0 text-xs">
+                      PRO
+                    </Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground">Communication Impact Profile</p>
+                  <p className="text-sm text-muted-foreground">Communication Impact Profile · 10 Roleplays</p>
                 </div>
               </div>
             </div>
@@ -233,7 +235,7 @@ const Stats = () => {
             </div>
 
             {/* Biggest Impact Areas */}
-            <Card className="mb-8 bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/20 shadow-lg">
+            <Card className="mb-8 bg-gradient-to-br from-[hsl(177,100%,95%)] to-[hsl(177,80%,92%)] dark:from-[hsl(177,50%,15%)] dark:to-[hsl(177,40%,18%)] backdrop-blur-sm border-primary/20 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center gap-2">
                   <Award className="h-6 w-6 text-primary" />

@@ -333,6 +333,38 @@ const Dashboard = () => {
               </p>
             </div>
 
+            {/* Impact Index Card */}
+            {impactIndex !== null && (
+              <Card className="mb-8 bg-gradient-to-br from-secondary/10 to-accent/10 border-primary/30">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-1">Your Impact Index</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Success rate across all your communications
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-4xl font-bold text-primary">{impactIndex}%</div>
+                      <p className="text-xs text-muted-foreground">Overall Score</p>
+                    </div>
+                  </div>
+                  <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-secondary to-accent transition-all duration-500"
+                      style={{ width: `${impactIndex}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    {impactIndex >= 90 ? "Exceptional! Your communication is consistently hitting the mark." :
+                     impactIndex >= 75 ? "Great work! You're mastering the Impact Language Method." :
+                     impactIndex >= 60 ? "Good progress. Keep refining your approach." :
+                     "Every conversation is a learning opportunity. Keep practicing!"}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
             <Tabs defaultValue="chat" className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-2 h-auto mb-6">
                 <TabsTrigger value="chat" className="flex-col md:flex-row py-3 md:py-2">

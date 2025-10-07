@@ -258,6 +258,19 @@ const Dashboard = () => {
         {/* Content Area */}
         <div className="flex-1 overflow-auto">
           <div className="max-w-5xl mx-auto p-6">
+            {/* Welcome Message */}
+            <div className="mb-8 p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
+              <h2 className="text-2xl font-bold mb-2">
+                Welcome back, {user?.email?.split('@')[0] || 'there'}! 👋
+              </h2>
+              <p className="text-muted-foreground">
+                {subscribed 
+                  ? "You're on the Pro plan with unlimited access to all features."
+                  : `You have ${FREE_USAGE_LIMIT - dailyUsage} rewrites remaining today on your free plan.`
+                }
+              </p>
+            </div>
+
             <Tabs defaultValue="chat" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-6">
                 <TabsTrigger value="chat">

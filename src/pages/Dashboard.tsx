@@ -304,12 +304,17 @@ const Dashboard = () => {
             )}
             <h1 className="text-xl font-semibold">Just Ask April</h1>
           </div>
-          {isAdmin && (
-            <Button onClick={() => navigate('/admin')} variant="outline" size="sm">
-              <Shield className="h-4 w-4 mr-2" />
-              Admin Panel
+          <div className="flex items-center gap-2">
+            {isAdmin && (
+              <Button onClick={() => navigate('/admin')} variant="outline" size="sm" className="hidden md:flex">
+                <Shield className="h-4 w-4 mr-2" />
+                Admin Panel
+              </Button>
+            )}
+            <Button onClick={handleSignOut} variant="ghost" size="sm" className="md:hidden">
+              <LogOut className="h-4 w-4" />
             </Button>
-          )}
+          </div>
         </div>
 
         {/* Content Area */}
@@ -388,6 +393,39 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 )}
+
+                {/* Chat History */}
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4">Recent Impact Statements</h3>
+                    <div className="space-y-2">
+                      {impactStatements.length === 0 ? (
+                        <p className="text-sm text-muted-foreground text-center py-8">
+                          No impact statements yet. Start creating!
+                        </p>
+                      ) : (
+                        impactStatements.map((statement) => (
+                          <Card key={statement.id} className="cursor-pointer hover:bg-accent/50 transition-colors">
+                            <CardContent className="p-3">
+                              <p className="text-sm line-clamp-2 mb-2">{statement.raw_text}</p>
+                              <div className="flex gap-2 flex-wrap">
+                                <Badge variant="outline" className="text-xs">
+                                  {statement.environment}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {statement.outcome}
+                                </Badge>
+                              </div>
+                              <p className="text-xs text-muted-foreground mt-2">
+                                {new Date(statement.created_at).toLocaleDateString()}
+                              </p>
+                            </CardContent>
+                          </Card>
+                        ))
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
 
               <TabsContent value="voice">

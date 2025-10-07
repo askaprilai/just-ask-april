@@ -40,7 +40,7 @@ const Stats = () => {
         
         if (!session) {
           // Show example data for non-logged-in users
-          setUserName("Demo User");
+          setUserName("Sally Sunshine");
           setStats({
             'Work_Action': { total: 24, helpful: 22, rate: 92 },
             'Work_Recognition': { total: 18, helpful: 17, rate: 94 },
@@ -53,17 +53,8 @@ const Stats = () => {
           return;
         }
 
-        // Get user profile for name
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('email')
-          .eq('id', session.user.id)
-          .single();
-        
-        if (profile?.email) {
-          const name = profile.email.split('@')[0];
-          setUserName(name.charAt(0).toUpperCase() + name.slice(1));
-        }
+        // Set user name to Sally Sunshine
+        setUserName("Sally Sunshine");
 
         // Calculate week comparison
         const now = new Date();
@@ -241,12 +232,70 @@ const Stats = () => {
               </Card>
             </div>
 
+            {/* Biggest Impact Areas */}
+            <Card className="mb-8 bg-gradient-to-br from-primary/10 to-accent/10 border-primary/30">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Award className="h-6 w-6 text-primary" />
+                  Sally's Biggest Impact Areas
+                </CardTitle>
+                <CardDescription>
+                  Where the Impact Language Method™ transformed her communication most
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {Object.entries(stats)
+                  .sort((a, b) => b[1].rate - a[1].rate)
+                  .slice(0, 3)
+                  .map(([key, data], index) => {
+                    const [environment, outcome] = key.split('_');
+                    const medals = ['🥇', '🥈', '🥉'];
+                    
+                    return (
+                      <div key={key} className="bg-background/80 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                        <div className="flex items-start gap-3">
+                          <span className="text-2xl">{medals[index]}</span>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <h3 className="font-semibold text-lg capitalize">
+                                {environment} · {outcome}
+                              </h3>
+                              <span className="text-2xl font-bold text-primary">{data.rate}%</span>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
+                              <div className="flex items-center gap-1">
+                                <Target className="h-4 w-4 text-muted-foreground" />
+                                <span className="text-muted-foreground">{data.total} uses</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <TrendingUp className="h-4 w-4 text-green-600" />
+                                <span className="text-green-600">{data.helpful} successful</span>
+                              </div>
+                              <div className="text-muted-foreground">
+                                Impact: {index === 0 ? 'Exceptional' : index === 1 ? 'Outstanding' : 'Excellent'}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                <div className="bg-accent/20 rounded-lg p-4 mt-4">
+                  <p className="text-sm text-muted-foreground">
+                    <strong className="text-foreground">Sally's Secret:</strong> By focusing on emotional transformation 
+                    (moving from frustration → confidence and uncertainty → clarity), she's mastered the art of 
+                    turning challenging conversations into opportunities for connection and action.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Impact Method Framework */}
             <Card className="mb-8 overflow-hidden">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl">The Impact Language Method™</CardTitle>
                 <CardDescription>
-                  Your stats below show how well you're applying each pillar
+                  Sally's stats below show how well she's applying each pillar
                 </CardDescription>
               </CardHeader>
               <CardContent className="pb-8">

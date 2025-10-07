@@ -126,7 +126,7 @@ const Stats = () => {
   const InsightIcon = insight.icon;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-[hsl(50,100%,90%)] via-[hsl(90,60%,85%)] to-[hsl(90,70%,90%)] dark:from-[hsl(50,60%,25%)] dark:via-[hsl(90,40%,30%)] dark:to-[hsl(90,50%,25%)]">
       <div className="container max-w-6xl mx-auto px-4 py-6 md:py-8">
         <Button 
           variant="ghost" 
@@ -138,7 +138,7 @@ const Stats = () => {
         </Button>
 
         {/* Profile Header */}
-        <Card className="mb-8 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+        <Card className="mb-8 bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/20 shadow-lg">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-4">
@@ -209,19 +209,19 @@ const Stats = () => {
           <>
             {/* Overview Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              <Card>
+              <Card className="bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
                 <CardHeader className="pb-3">
                   <CardDescription>Total Rewrites</CardDescription>
                   <CardTitle className="text-3xl font-bold text-primary">{totalRewrites}</CardTitle>
                 </CardHeader>
               </Card>
-              <Card>
+              <Card className="bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
                 <CardHeader className="pb-3">
                   <CardDescription>Average Success Rate</CardDescription>
                   <CardTitle className="text-3xl font-bold text-primary">{avgRate}%</CardTitle>
                 </CardHeader>
               </Card>
-              <Card className="md:col-span-1">
+              <Card className="md:col-span-1 bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
                 <CardHeader className="pb-3 flex-row items-start gap-3">
                   <InsightIcon className={`h-5 w-5 mt-1 ${insight.color}`} />
                   <div>
@@ -233,7 +233,7 @@ const Stats = () => {
             </div>
 
             {/* Biggest Impact Areas */}
-            <Card className="mb-8 bg-gradient-to-br from-primary/10 to-accent/10 border-primary/30">
+            <Card className="mb-8 bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/20 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center gap-2">
                   <Award className="h-6 w-6 text-primary" />
@@ -252,7 +252,7 @@ const Stats = () => {
                     const medals = ['🥇', '🥈', '🥉'];
                     
                     return (
-                      <div key={key} className="bg-background/80 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                      <div key={key} className="bg-white/60 dark:bg-background/60 backdrop-blur-sm rounded-lg p-4 border border-primary/20 shadow-sm">
                         <div className="flex items-start gap-3">
                           <span className="text-2xl">{medals[index]}</span>
                           <div className="flex-1">
@@ -280,7 +280,7 @@ const Stats = () => {
                       </div>
                     );
                   })}
-                <div className="bg-accent/20 rounded-lg p-4 mt-4">
+                <div className="bg-accent/20 backdrop-blur-sm rounded-lg p-4 mt-4 border border-accent/30">
                   <p className="text-sm text-muted-foreground">
                     <strong className="text-foreground">Sally's Secret:</strong> By focusing on emotional transformation 
                     (moving from frustration → confidence and uncertainty → clarity), she's mastered the art of 
@@ -291,7 +291,7 @@ const Stats = () => {
             </Card>
 
             {/* Impact Method Framework */}
-            <Card className="mb-8 overflow-hidden">
+            <Card className="mb-8 overflow-hidden bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/10 shadow-lg">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl">The Impact Language Method™</CardTitle>
                 <CardDescription>
@@ -305,7 +305,7 @@ const Stats = () => {
 
             {/* Top Impact Statements */}
             {topRewrites.length > 0 && (
-              <Card className="mb-8">
+              <Card className="mb-8 bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
                 <CardHeader>
                   <CardTitle className="text-2xl">Top Impact Statements</CardTitle>
                   <CardDescription>
@@ -352,7 +352,7 @@ const Stats = () => {
             </div>
 
             {Object.keys(stats).length === 0 ? (
-              <Card>
+              <Card className="bg-white/80 dark:bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
                 <CardContent className="py-12 text-center px-4">
                   <p className="text-sm md:text-base text-muted-foreground">
                     No feedback data yet. Start using April to see your impact!
@@ -366,7 +366,7 @@ const Stats = () => {
                   const isHighPerformance = data.rate >= 85;
                   
                   return (
-                    <Card key={key} className={isHighPerformance ? "border-primary/50" : ""}>
+                    <Card key={key} className={`bg-white/80 dark:bg-card/80 backdrop-blur-sm shadow-md ${isHighPerformance ? "border-primary/50" : "border-primary/10"}`}>
                       <CardHeader className="px-4 md:px-6 py-4">
                         <div className="flex items-start justify-between">
                           <div>

@@ -46,6 +46,7 @@ const Dashboard = () => {
   const FREE_PLAYBOOK_LIMIT = 2;
   const [playbookUsage, setPlaybookUsage] = useState(0);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const [impactIndex, setImpactIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -112,6 +113,19 @@ const Dashboard = () => {
       console.error('Error loading impact statements:', error);
     } else {
       setImpactStatements(data || []);
+    }
+
+    // Load impact index from feedback
+    const { data: feedbackData } = await supabase
+      .from('feedback')
+      .select('helpful')
+      .eq('user_id', userId);
+
+    if (feedbackData && feedbackData.length > 0) {
+      const helpfulCount = feedbackData.filter(f => f.helpful).length;
+      const totalCount = feedbackData.length;
+      const index = Math.round((helpfulCount / totalCount) * 100);
+      setImpactIndex(index);
     }
   };
 
@@ -240,6 +254,21 @@ const Dashboard = () => {
         </ScrollArea>
 
         <div className="p-4 border-t border-border">
+          {impactIndex !== null && (
+            <div className="mb-4 p-3 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg border border-primary/20">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-semibold">Your Impact Index</span>
+                <span className="text-2xl font-bold text-primary">{impactIndex}%</span>
+              </div>
+              <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-secondary to-accent transition-all duration-500"
+                  style={{ width: `${impactIndex}%` }}
+                />
+              </div>
+            </div>
+          )}
+          
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm text-muted-foreground">
               {subscribed ? 'Pro' : 'Free'} Plan

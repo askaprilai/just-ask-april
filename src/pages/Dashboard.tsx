@@ -543,15 +543,13 @@ const Dashboard = () => {
               <TabsContent value="examples" className="space-y-6">
                 <Card>
                   <CardContent className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <h3 className="text-2xl font-semibold mb-2">Quick Example Cards</h3>
-                        <p className="text-muted-foreground">
-                          {subscribed 
-                            ? "100 fresh examples added weekly" 
-                            : "5 examples available this week • Pro users get 100 weekly"}
-                        </p>
-                      </div>
+                    <div className="mb-4">
+                      <h3 className="text-2xl font-semibold mb-2">Quick Example Cards</h3>
+                      <p className="text-muted-foreground mb-3">
+                        {subscribed 
+                          ? "100 fresh examples added weekly" 
+                          : "5 examples available this week • Pro users get 100 weekly"}
+                      </p>
                       {!subscribed && (
                         <Button 
                           onClick={() => setShowUpgradeDialog(true)}

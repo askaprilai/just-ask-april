@@ -30,7 +30,7 @@ const AuthPage = () => {
         if (redirectToCheckout) {
           handleCheckout();
         } else {
-          navigate("/");
+          navigate("/dashboard");
         }
       }
     });
@@ -43,7 +43,7 @@ const AuthPage = () => {
         if (redirectToCheckout) {
           handleCheckout();
         } else {
-          navigate("/");
+          navigate("/dashboard");
         }
       }
     });
@@ -81,7 +81,7 @@ const AuthPage = () => {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`,
+          emailRedirectTo: `${window.location.origin}/dashboard`,
         },
       });
 

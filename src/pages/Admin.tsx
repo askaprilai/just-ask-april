@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, UserPlus, Shield, UserCog, Save, Crown } from "lucide-react";
+import { ArrowLeft, UserPlus, Shield, UserCog, Save, Crown, Download } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface User {
@@ -260,6 +260,49 @@ export default function Admin() {
     }
   };
 
+  const handleExportCSV = () => {
+    if (users.length === 0) {
+      toast({
+        title: "No Data",
+        description: "No users to export",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Create CSV content
+    const headers = ["Email", "Created At", "Manual Pro Access", "Roles"];
+    const rows = users.map(user => [
+      user.email,
+      new Date(user.created_at).toLocaleString(),
+      user.manual_pro_access ? "Yes" : "No",
+      user.roles.join("; ") || "None"
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(","))
+    ].join("\n");
+
+    // Create and download the file
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute("href", url);
+    link.setAttribute("download", `users_export_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = "hidden";
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+      title: "Export Successful",
+      description: `Exported ${users.length} users to CSV`,
+    });
+  };
+
   if (!isAdmin) {
     return null;
   }
@@ -282,12 +325,18 @@ export default function Admin() {
             </h1>
             <p className="text-muted-foreground">Manage users and roles</p>
           </div>
-          {pendingChanges.size > 0 && (
-            <Button onClick={handleSaveChanges} disabled={saving} size="lg" className="animate-pulse">
-              <Save className="h-4 w-4 mr-2" />
-              {saving ? "Saving..." : `Save ${pendingChanges.size} Change${pendingChanges.size > 1 ? 's' : ''}`}
+          <div className="flex gap-3">
+            <Button onClick={handleExportCSV} variant="outline" size="lg" disabled={users.length === 0}>
+              <Download className="h-4 w-4 mr-2" />
+              Export CSV
             </Button>
-          )}
+            {pendingChanges.size > 0 && (
+              <Button onClick={handleSaveChanges} disabled={saving} size="lg" className="animate-pulse">
+                <Save className="h-4 w-4 mr-2" />
+                {saving ? "Saving..." : `Save ${pendingChanges.size} Change${pendingChanges.size > 1 ? 's' : ''}`}
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Create User Form */}

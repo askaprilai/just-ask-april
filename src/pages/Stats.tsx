@@ -151,6 +151,9 @@ const Stats = () => {
                     <Badge className="bg-gradient-to-r from-secondary to-accent text-white border-0 text-xs">
                       PRO
                     </Badge>
+                    <Badge variant="outline" className="text-xs border-primary/30">
+                      PREVIEW
+                    </Badge>
                   </div>
                   <p className="text-sm text-muted-foreground">Communication Impact Profile · 10 Roleplays</p>
                 </div>

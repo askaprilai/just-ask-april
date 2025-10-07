@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, TrendingUp, Award, Target } from "lucide-react";
+import { ArrowLeft, TrendingUp, Award, Target, TrendingDown, User } from "lucide-react";
 import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
 
 interface ImpactStats {
@@ -29,6 +30,8 @@ const Stats = () => {
   const [stats, setStats] = useState<ImpactStats>({});
   const [topRewrites, setTopRewrites] = useState<TopRewrite[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userName, setUserName] = useState<string>("");
+  const [weekComparison, setWeekComparison] = useState<{ thisWeek: number; lastWeek: number; change: number } | null>(null);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -37,6 +40,7 @@ const Stats = () => {
         
         if (!session) {
           // Show example data for non-logged-in users
+          setUserName("Demo User");
           setStats({
             'Work_Action': { total: 24, helpful: 22, rate: 92 },
             'Work_Recognition': { total: 18, helpful: 17, rate: 94 },
@@ -44,8 +48,60 @@ const Stats = () => {
             'Personal_Recognition': { total: 12, helpful: 11, rate: 92 },
             'Personal_Delay': { total: 8, helpful: 7, rate: 88 },
           });
+          setWeekComparison({ thisWeek: 91, lastWeek: 85, change: 6 });
           setLoading(false);
           return;
+        }
+
+        // Get user profile for name
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('email')
+          .eq('id', session.user.id)
+          .single();
+        
+        if (profile?.email) {
+          const name = profile.email.split('@')[0];
+          setUserName(name.charAt(0).toUpperCase() + name.slice(1));
+        }
+
+        // Calculate week comparison
+        const now = new Date();
+        const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+
+        // Get this week's feedback
+        const { data: thisWeekFeedback } = await supabase
+          .from('feedback')
+          .select('helpful')
+          .eq('user_id', session.user.id)
+          .gte('created_at', oneWeekAgo.toISOString());
+
+        // Get last week's feedback
+        const { data: lastWeekFeedback } = await supabase
+          .from('feedback')
+          .select('helpful')
+          .eq('user_id', session.user.id)
+          .gte('created_at', twoWeeksAgo.toISOString())
+          .lt('created_at', oneWeekAgo.toISOString());
+
+        if (thisWeekFeedback && thisWeekFeedback.length > 0) {
+          const thisWeekRate = Math.round(
+            (thisWeekFeedback.filter(f => f.helpful).length / thisWeekFeedback.length) * 100
+          );
+          
+          let lastWeekRate = 0;
+          if (lastWeekFeedback && lastWeekFeedback.length > 0) {
+            lastWeekRate = Math.round(
+              (lastWeekFeedback.filter(f => f.helpful).length / lastWeekFeedback.length) * 100
+            );
+          }
+
+          setWeekComparison({
+            thisWeek: thisWeekRate,
+            lastWeek: lastWeekRate,
+            change: thisWeekRate - lastWeekRate
+          });
         }
 
         const { data, error } = await supabase.functions.invoke('impact-index');
@@ -89,6 +145,63 @@ const Stats = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home
         </Button>
+
+        {/* Profile Header */}
+        <Card className="mb-8 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-secondary to-accent flex items-center justify-center text-white text-2xl font-bold">
+                  {userName ? userName.charAt(0).toUpperCase() : <User className="h-8 w-8" />}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h2 className="text-2xl font-bold">{userName || "Your Profile"}</h2>
+                    <Badge variant="outline" className="text-xs">Preview</Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Communication Impact Profile</p>
+                </div>
+              </div>
+            </div>
+            
+            {weekComparison && (
+              <div className="bg-background/50 rounded-lg p-4 mt-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Week-over-Week Progress</p>
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-2xl font-bold">{weekComparison.thisWeek}%</span>
+                      <div className={`flex items-center gap-1 text-sm font-medium ${
+                        weekComparison.change > 0 ? 'text-green-600' : 
+                        weekComparison.change < 0 ? 'text-red-600' : 
+                        'text-muted-foreground'
+                      }`}>
+                        {weekComparison.change > 0 ? (
+                          <TrendingUp className="h-4 w-4" />
+                        ) : weekComparison.change < 0 ? (
+                          <TrendingDown className="h-4 w-4" />
+                        ) : null}
+                        {weekComparison.change > 0 ? '+' : ''}{weekComparison.change}%
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground">Last Week</p>
+                    <p className="text-lg font-semibold text-muted-foreground">{weekComparison.lastWeek}%</p>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  {weekComparison.change > 0 
+                    ? `Great progress! You're ${weekComparison.change}% more effective this week.`
+                    : weekComparison.change < 0
+                    ? `Keep practicing. Every conversation is a learning opportunity.`
+                    : `Consistent performance. Keep up the good work!`
+                  }
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         <div className="mb-8 md:mb-12 text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-3">My Impact Index</h1>

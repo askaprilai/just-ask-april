@@ -497,7 +497,7 @@ const Index = () => {
           
           {/* Supporting Text */}
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground/70 mb-6 md:mb-8 px-4 leading-relaxed">
-            Improve how you communicate at work. April AI helps you say it better, handle tough conversations, and drive positive results every time.
+            April AI—the AI conversation coach that helps you communicate with clarity, confidence, and impact.
           </p>
         </div>
 

@@ -158,29 +158,37 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-8 sm:p-4 relative overflow-hidden">
       {/* Background Gradient Orbs */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-secondary/10 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
+      <div className="absolute top-0 right-0 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] md:w-[600px] md:h-[600px] bg-secondary/10 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] md:w-[500px] md:h-[500px] bg-accent/10 rounded-full blur-3xl -z-10" />
 
       <Card className="w-full max-w-md shadow-[0_10px_40px_-10px_hsl(var(--secondary)/0.15)] border-secondary/20">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+        <CardHeader className="text-center space-y-2 px-4 sm:px-6 pt-6 pb-4">
+          <CardTitle className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
             Just Ask April AI
           </CardTitle>
-          <CardDescription>Sign in to access your communication coach</CardDescription>
+          <CardDescription className="text-sm sm:text-base">
+            Sign in to access your communication coach
+          </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 sm:px-6 pb-6">
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 h-11 sm:h-10">
+              <TabsTrigger value="signin" className="text-sm sm:text-base">
+                Sign In
+              </TabsTrigger>
+              <TabsTrigger value="signup" className="text-sm sm:text-base">
+                Sign Up
+              </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="signin">
-              <form onSubmit={handleSignIn} className="space-y-4">
+            <TabsContent value="signin" className="mt-4 sm:mt-6">
+              <form onSubmit={handleSignIn} className="space-y-4 sm:space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-email" className="text-sm sm:text-base">
+                    Email
+                  </Label>
                   <Input
                     id="signin-email"
                     type="email"
@@ -188,10 +196,13 @@ const AuthPage = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="h-11 sm:h-10 text-base sm:text-sm"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">Password</Label>
+                  <Label htmlFor="signin-password" className="text-sm sm:text-base">
+                    Password
+                  </Label>
                   <div className="relative">
                     <Input
                       id="signin-password"
@@ -199,17 +210,17 @@ const AuthPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="pr-10"
+                      className="pr-12 h-11 sm:h-10 text-base sm:text-sm"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
                     >
                       {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
+                        <EyeOff className="h-5 w-5 sm:h-4 sm:w-4" />
                       ) : (
-                        <Eye className="h-4 w-4" />
+                        <Eye className="h-5 w-5 sm:h-4 sm:w-4" />
                       )}
                     </button>
                   </div>
@@ -218,7 +229,7 @@ const AuthPage = () => {
                   <Button
                     type="button"
                     variant="link"
-                    className="px-0 text-sm text-muted-foreground hover:text-foreground"
+                    className="px-0 h-auto text-sm text-muted-foreground hover:text-foreground"
                     onClick={() => setShowForgotPassword(true)}
                   >
                     Forgot password?
@@ -226,7 +237,7 @@ const AuthPage = () => {
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-secondary to-accent"
+                  className="w-full h-11 sm:h-10 text-base sm:text-sm bg-gradient-to-r from-secondary to-accent"
                   disabled={loading}
                 >
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -235,10 +246,12 @@ const AuthPage = () => {
               </form>
             </TabsContent>
 
-            <TabsContent value="signup">
-              <form onSubmit={handleSignUp} className="space-y-4">
+            <TabsContent value="signup" className="mt-4 sm:mt-6">
+              <form onSubmit={handleSignUp} className="space-y-4 sm:space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email" className="text-sm sm:text-base">
+                    Email
+                  </Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -246,10 +259,13 @@ const AuthPage = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="h-11 sm:h-10 text-base sm:text-sm"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password" className="text-sm sm:text-base">
+                    Password
+                  </Label>
                   <div className="relative">
                     <Input
                       id="signup-password"
@@ -258,27 +274,27 @@ const AuthPage = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       minLength={6}
-                      className="pr-10"
+                      className="pr-12 h-11 sm:h-10 text-base sm:text-sm"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
                     >
                       {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
+                        <EyeOff className="h-5 w-5 sm:h-4 sm:w-4" />
                       ) : (
-                        <Eye className="h-4 w-4" />
+                        <Eye className="h-5 w-5 sm:h-4 sm:w-4" />
                       )}
                     </button>
                   </div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs sm:text-xs text-muted-foreground">
                     Minimum 6 characters
                   </p>
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-secondary to-accent"
+                  className="w-full h-11 sm:h-10 text-base sm:text-sm bg-gradient-to-r from-secondary to-accent"
                   disabled={loading}
                 >
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -292,16 +308,18 @@ const AuthPage = () => {
 
       {/* Forgot Password Dialog */}
       <Dialog open={showForgotPassword} onOpenChange={setShowForgotPassword}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-md mx-4">
           <DialogHeader>
-            <DialogTitle>Reset Password</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-xl sm:text-2xl">Reset Password</DialogTitle>
+            <DialogDescription className="text-sm sm:text-base">
               Enter your email address and we'll send you a link to reset your password.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleForgotPassword} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="reset-email">Email</Label>
+              <Label htmlFor="reset-email" className="text-sm sm:text-base">
+                Email
+              </Label>
               <Input
                 id="reset-email"
                 type="email"
@@ -309,18 +327,24 @@ const AuthPage = () => {
                 value={resetEmail}
                 onChange={(e) => setResetEmail(e.target.value)}
                 required
+                className="h-11 sm:h-10 text-base sm:text-sm"
               />
             </div>
-            <div className="flex gap-2 justify-end">
+            <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setShowForgotPassword(false)}
                 disabled={resetLoading}
+                className="h-11 sm:h-10 text-base sm:text-sm w-full sm:w-auto"
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={resetLoading}>
+              <Button 
+                type="submit" 
+                disabled={resetLoading}
+                className="h-11 sm:h-10 text-base sm:text-sm w-full sm:w-auto"
+              >
                 {resetLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Send Reset Link
               </Button>

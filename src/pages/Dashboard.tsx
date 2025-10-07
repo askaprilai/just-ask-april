@@ -17,6 +17,7 @@ import VoiceConversation from "@/components/VoiceConversation";
 import ImpactMethodDiagram from "@/components/ImpactMethodDiagram";
 import { useSubscription } from "@/contexts/SubscriptionContext";
 import { Badge } from "@/components/ui/badge";
+import { UpgradeDialog } from "@/components/UpgradeDialog";
 
 interface ImpactStatement {
   id: string;
@@ -42,6 +43,9 @@ const Dashboard = () => {
   const [outcome, setOutcome] = useState<string>("");
   const [desiredEmotion, setDesiredEmotion] = useState<string>("");
   const FREE_USAGE_LIMIT = 10;
+  const FREE_PLAYBOOK_LIMIT = 2;
+  const [playbookUsage, setPlaybookUsage] = useState(0);
+  const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -53,6 +57,12 @@ const Dashboard = () => {
         navigate('/auth');
         return;
       }
+      
+      // Load playbook usage
+      const today = new Date().toISOString().split('T')[0];
+      const playbookKey = `playbook_${session.user.id}_${today}`;
+      const storedPlaybook = localStorage.getItem(playbookKey);
+      setPlaybookUsage(storedPlaybook ? parseInt(storedPlaybook, 10) : 0);
       
       // Check if user is admin
       console.log('Checking admin status for user:', session.user.id);
@@ -120,6 +130,13 @@ const Dashboard = () => {
       return;
     }
 
+    // Check playbook usage limit for free users (only in playbook tab)
+    const isPlaybookTab = document.querySelector('[data-state="active"][value="playbook"]');
+    if (isPlaybookTab && !subscribed && playbookUsage >= FREE_PLAYBOOK_LIMIT) {
+      setShowUpgradeDialog(true);
+      return;
+    }
+
     if (!canUseFeature) {
       toast({
         title: "Usage limit reached",
@@ -144,6 +161,15 @@ const Dashboard = () => {
       
       setResult(data);
       incrementUsage();
+      
+      // Increment playbook usage if in playbook tab
+      if (isPlaybookTab && !subscribed && user) {
+        const today = new Date().toISOString().split('T')[0];
+        const playbookKey = `playbook_${user.id}_${today}`;
+        const newPlaybookUsage = playbookUsage + 1;
+        setPlaybookUsage(newPlaybookUsage);
+        localStorage.setItem(playbookKey, newPlaybookUsage.toString());
+      }
       
       if (user) {
         loadImpactStatements(user.id);
@@ -283,9 +309,14 @@ const Dashboard = () => {
                   <Mic className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
                   <span className="text-xs md:text-sm">Voice AI</span>
                 </TabsTrigger>
-                <TabsTrigger value="playbook" className="flex-col md:flex-row py-3 md:py-2">
+                <TabsTrigger value="playbook" className="flex-col md:flex-row py-3 md:py-2 relative">
                   <BookOpen className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
                   <span className="text-xs md:text-sm">Playbook</span>
+                  {!subscribed && (
+                    <Badge variant="outline" className="ml-1 text-[10px] px-1 py-0 h-4 border-accent/30 text-accent">
+                      PRO
+                    </Badge>
+                  )}
                 </TabsTrigger>
                 <TabsTrigger value="examples" className="flex-col md:flex-row py-3 md:py-2">
                   <Lightbulb className="h-5 w-5 md:h-4 md:w-4 md:mr-2 mb-1 md:mb-0" />
@@ -388,7 +419,29 @@ const Dashboard = () => {
                 </Card>
               </TabsContent>
 
-              <TabsContent value="playbook" className="space-y-6">
+              <TabsContent value="playbook" className="space-y-6" data-state="active" data-value="playbook">
+                {!subscribed && (
+                  <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-accent/30">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-semibold mb-1">Impact Playbook - Pro Feature</p>
+                          <p className="text-sm text-muted-foreground">
+                            {playbookUsage}/{FREE_PLAYBOOK_LIMIT} free uses remaining today
+                          </p>
+                        </div>
+                        <Button 
+                          onClick={() => setShowUpgradeDialog(true)}
+                          size="sm"
+                          className="bg-gradient-to-r from-secondary to-accent text-white"
+                        >
+                          Upgrade to Pro
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                
                 <Card>
                   <CardContent className="p-6">
                     <h3 className="text-2xl font-semibold mb-6">Say it better</h3>
@@ -415,6 +468,11 @@ const Dashboard = () => {
                               <SelectItem value="family">Family</SelectItem>
                               <SelectItem value="formal">Formal</SelectItem>
                               <SelectItem value="casual">Casual</SelectItem>
+                              <SelectItem value="professional">Professional</SelectItem>
+                              <SelectItem value="personal">Personal</SelectItem>
+                              <SelectItem value="academic">Academic</SelectItem>
+                              <SelectItem value="romantic">Romantic</SelectItem>
+                              <SelectItem value="public">Public Speaking</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -431,6 +489,13 @@ const Dashboard = () => {
                               <SelectItem value="inspire">Inspire</SelectItem>
                               <SelectItem value="connect">Connect</SelectItem>
                               <SelectItem value="resolve">Resolve</SelectItem>
+                              <SelectItem value="motivate">Motivate</SelectItem>
+                              <SelectItem value="negotiate">Negotiate</SelectItem>
+                              <SelectItem value="apologize">Apologize</SelectItem>
+                              <SelectItem value="thank">Thank</SelectItem>
+                              <SelectItem value="request">Request</SelectItem>
+                              <SelectItem value="decline">Decline</SelectItem>
+                              <SelectItem value="celebrate">Celebrate</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -447,6 +512,15 @@ const Dashboard = () => {
                               <SelectItem value="enthusiastic">Enthusiastic</SelectItem>
                               <SelectItem value="calm">Calm</SelectItem>
                               <SelectItem value="assertive">Assertive</SelectItem>
+                              <SelectItem value="warm">Warm</SelectItem>
+                              <SelectItem value="professional">Professional</SelectItem>
+                              <SelectItem value="grateful">Grateful</SelectItem>
+                              <SelectItem value="respectful">Respectful</SelectItem>
+                              <SelectItem value="optimistic">Optimistic</SelectItem>
+                              <SelectItem value="understanding">Understanding</SelectItem>
+                              <SelectItem value="determined">Determined</SelectItem>
+                              <SelectItem value="compassionate">Compassionate</SelectItem>
+                              <SelectItem value="excited">Excited</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -546,6 +620,12 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      
+      <UpgradeDialog 
+        open={showUpgradeDialog}
+        onOpenChange={setShowUpgradeDialog}
+        feature="the Impact Playbook"
+      />
     </div>
   );
 };

@@ -102,7 +102,7 @@ export const UpgradeDialog = ({ open, onOpenChange, feature = "unlimited Impact 
             className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white"
             size="lg"
           >
-            Sign up for free
+            Get Started Free
           </Button>
           <Button
             variant="ghost"

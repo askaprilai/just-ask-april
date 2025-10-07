@@ -480,23 +480,23 @@ const Index = () => {
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
           {/* Supporting Description */}
-          <p className="text-sm md:text-base text-muted-foreground mb-4 uppercase tracking-wide font-semibold">
+          <p className="text-base md:text-lg text-muted-foreground mb-4 uppercase tracking-wide font-semibold animate-slide-up">
             AI Communication Tool for Better Work Conversations
           </p>
           
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight px-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight px-4 animate-scale-in">
             <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Say it better. Get better results.
             </span>
           </h1>
           
-          <p className="text-xl sm:text-2xl md:text-3xl font-semibold mb-6 md:mb-8 px-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+          <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 md:mb-8 px-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-slide-up">
             How you say it shapes what happens next, April AI helps you get it right.
           </p>
           
           {/* Supporting Text */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground/70 mb-6 md:mb-8 px-4 leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground/70 mb-6 md:mb-8 px-4 leading-relaxed animate-fade-in">
             April AI—the AI conversation coach that helps you communicate with clarity, confidence, and impact.
           </p>
         </div>
@@ -546,7 +546,7 @@ const Index = () => {
                     placeholder={`Type here what you want to say.\nExample: ${animatedPlaceholder}`}
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
-                    className="min-h-[180px] md:min-h-[160px] text-sm md:text-base leading-relaxed border-0 rounded-none pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
+                    className="min-h-[180px] md:min-h-[160px] text-base md:text-lg leading-relaxed border-0 rounded-none pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && userText.trim()) {
                         handleRewrite();
@@ -669,35 +669,35 @@ const Index = () => {
 
             {/* Social Proof Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-20 md:mt-32 mb-16 md:mb-20 space-y-6">
-                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Why People Love Asking April</h2>
+              <section className="mt-20 md:mt-32 mb-16 md:mb-20 space-y-6 animate-fade-in">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">Why People Love Asking April</h2>
                 <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
+                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 animate-slide-up">
                     <div className="flex gap-1 mb-3">
                       {[...Array(5)].map((_, i) => (
-                        <span key={i} className="text-secondary text-sm">★</span>
+                        <span key={i} className="text-secondary text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-sm md:text-base text-muted-foreground mb-3">"This changed how I communicate at work. My messages are clearer and get better responses."</p>
-                    <p className="text-xs md:text-sm font-medium text-foreground">— Sarah M., Product Manager</p>
+                    <p className="text-base md:text-lg text-muted-foreground mb-3">"This changed how I communicate at work. My messages are clearer and get better responses."</p>
+                    <p className="text-sm md:text-base font-medium text-foreground">— Sarah M., Product Manager</p>
                   </div>
-                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
+                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 animate-slide-up">
                     <div className="flex gap-1 mb-3">
                       {[...Array(5)].map((_, i) => (
-                        <span key={i} className="text-secondary text-sm">★</span>
+                        <span key={i} className="text-secondary text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-sm md:text-base text-muted-foreground mb-3">"Finally, a tool that actually helps me say what I mean without sounding harsh or unclear."</p>
-                    <p className="text-xs md:text-sm font-medium text-foreground">— James L., Team Lead</p>
+                    <p className="text-base md:text-lg text-muted-foreground mb-3">"Finally, a tool that actually helps me say what I mean without sounding harsh or unclear."</p>
+                    <p className="text-sm md:text-base font-medium text-foreground">— James L., Team Lead</p>
                   </div>
-                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-shadow">
+                  <div className="bg-card border border-border rounded-xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 animate-slide-up">
                     <div className="flex gap-1 mb-3">
                       {[...Array(5)].map((_, i) => (
-                        <span key={i} className="text-secondary text-sm">★</span>
+                        <span key={i} className="text-secondary text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-sm md:text-base text-muted-foreground mb-3">"The voice practice feature helped me prepare for difficult conversations. Game changer!"</p>
-                    <p className="text-xs md:text-sm font-medium text-foreground">— Maria K., Sales Director</p>
+                    <p className="text-base md:text-lg text-muted-foreground mb-3">"The voice practice feature helped me prepare for difficult conversations. Game changer!"</p>
+                    <p className="text-sm md:text-base font-medium text-foreground">— Maria K., Sales Director</p>
                   </div>
                 </div>
               </section>
@@ -705,32 +705,32 @@ const Index = () => {
 
             {/* Benefits Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-20 md:mt-32 space-y-6">
-                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h2>
+              <section className="mt-20 md:mt-32 space-y-6 animate-fade-in">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">Built on Proven Communication Principles</h2>
                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-all hover:scale-105 animate-slide-up">
+                    <h4 className="font-semibold text-lg md:text-xl mb-2">
                       Impact Language Method™
                     </h4>
-                    <p className="text-sm md:text-base text-muted-foreground">Based on 5 core communication pillars that drive real results in professional and personal settings.</p>
+                    <p className="text-base md:text-lg text-muted-foreground">Based on 5 core communication pillars that drive real results in professional and personal settings.</p>
                   </div>
-                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-all hover:scale-105 animate-slide-up">
+                    <h4 className="font-semibold text-lg md:text-xl mb-2">
                       Context-Aware Suggestions
                     </h4>
-                    <p className="text-sm md:text-base text-muted-foreground">Get rewrites tailored to your specific situation, desired outcome, and emotional tone.</p>
+                    <p className="text-base md:text-lg text-muted-foreground">Get rewrites tailored to your specific situation, desired outcome, and emotional tone.</p>
                   </div>
-                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-all hover:scale-105 animate-slide-up">
+                    <h4 className="font-semibold text-lg md:text-xl mb-2">
                       Instant Results
                     </h4>
-                    <p className="text-sm md:text-base text-muted-foreground">No more staring at blank screens. Get 3 professional alternatives in seconds.</p>
+                    <p className="text-base md:text-lg text-muted-foreground">No more staring at blank screens. Get 3 professional alternatives in seconds.</p>
                   </div>
-                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-colors">
-                    <h4 className="font-semibold text-base md:text-lg mb-2">
+                  <div className="border border-border rounded-xl p-4 md:p-6 hover:border-secondary/50 transition-all hover:scale-105 animate-slide-up">
+                    <h4 className="font-semibold text-lg md:text-xl mb-2">
                       Practice Mode
                     </h4>
-                    <p className="text-sm md:text-base text-muted-foreground">Rehearse difficult conversations with AI feedback before the real thing.</p>
+                    <p className="text-base md:text-lg text-muted-foreground">Rehearse difficult conversations with AI feedback before the real thing.</p>
                   </div>
                 </div>
               </section>
@@ -738,60 +738,60 @@ const Index = () => {
 
             {/* FAQ Section */}
             {!result && !rewriteLoading && (
-              <section className="mt-20 md:mt-32 space-y-6">
-                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Frequently Asked Questions</h2>
+              <section className="mt-20 md:mt-32 space-y-6 animate-fade-in">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">Frequently Asked Questions</h2>
                 <Accordion type="single" collapsible className="w-full space-y-4">
-                  <AccordionItem value="item-1" className="border border-border rounded-lg px-6">
+                  <AccordionItem value="item-1" className="border border-border rounded-lg px-6 animate-slide-up">
                     <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">How does April help me communicate better?</span>
+                      <span className="font-semibold text-base md:text-lg">How does April help me communicate better?</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+                    <AccordionContent className="text-muted-foreground text-base md:text-lg">
                       April uses the proven Impact Language Method™ to transform your messages into clear, confident communication. Simply type what you want to say, and April provides 3 professionally crafted alternatives tailored to your situation, tone, and desired outcome.
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="item-2" className="border border-border rounded-lg px-6">
+                  <AccordionItem value="item-2" className="border border-border rounded-lg px-6 animate-slide-up">
                     <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">Is my information private and secure?</span>
+                      <span className="font-semibold text-base md:text-lg">Is my information private and secure?</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+                    <AccordionContent className="text-muted-foreground text-base md:text-lg">
                       Absolutely. Your messages are processed securely and never shared with third parties. We use enterprise-grade encryption to protect your data, and you can delete your history at any time.
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="item-3" className="border border-border rounded-lg px-6">
+                  <AccordionItem value="item-3" className="border border-border rounded-lg px-6 animate-slide-up">
                     <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">What's included in the free version?</span>
+                      <span className="font-semibold text-base md:text-lg">What's included in the free version?</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+                    <AccordionContent className="text-muted-foreground text-base md:text-lg">
                       The free version includes 10 Impact Statement rewrites per month across all categories. It's perfect for trying out April and handling occasional communication needs.
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="item-4" className="border border-border rounded-lg px-6">
+                  <AccordionItem value="item-4" className="border border-border rounded-lg px-6 animate-slide-up">
                     <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">Can I cancel my Pro subscription anytime?</span>
+                      <span className="font-semibold text-base md:text-lg">Can I cancel my Pro subscription anytime?</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+                    <AccordionContent className="text-muted-foreground text-base md:text-lg">
                       Yes! Pro subscriptions are $10/month with no long-term commitment. Cancel anytime from your account settings, and you'll retain access until the end of your billing period.
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="item-5" className="border border-border rounded-lg px-6">
+                  <AccordionItem value="item-5" className="border border-border rounded-lg px-6 animate-slide-up">
                     <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">What makes April different from other AI writing tools?</span>
+                      <span className="font-semibold text-base md:text-lg">What makes April different from other AI writing tools?</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+                    <AccordionContent className="text-muted-foreground text-base md:text-lg">
                       April is specifically designed for communication, not general content writing. It's built on 20+ years of professional communication expertise and the Impact Language Method™, focusing on real-world conversations, emails, and messages that need to land just right.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
 
                 {/* Final CTA */}
-                <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-secondary/20 mt-8">
+                <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-secondary/20 mt-8 animate-scale-in">
                   <CardContent className="p-6 md:p-8 text-center">
-                    <h4 className="text-xl md:text-2xl font-bold mb-3">Ready to communicate with confidence?</h4>
-                    <p className="text-muted-foreground mb-6">Join thousands who've transformed their communication with April</p>
+                    <h4 className="text-2xl md:text-3xl font-bold mb-3">Ready to communicate with confidence?</h4>
+                    <p className="text-base md:text-lg text-muted-foreground mb-6">Join thousands who've transformed their communication with April</p>
                     <Button 
                       size="lg" 
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

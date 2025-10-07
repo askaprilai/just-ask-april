@@ -382,9 +382,14 @@ const Dashboard = () => {
                 Admin Panel
               </Button>
             )}
-            <Button onClick={handleSignOut} variant="ghost" size="sm">
-              <LogOut className="h-4 w-4" />
-              <span className="sr-only md:not-sr-only md:ml-2">Logout</span>
+            <Button 
+              onClick={handleSignOut} 
+              variant="outline" 
+              size="sm"
+              className="border-destructive/50 hover:bg-destructive hover:text-destructive-foreground"
+            >
+              <LogOut className="h-4 w-4 md:mr-2" />
+              <span className="hidden md:inline">Logout</span>
             </Button>
           </div>
         </div>
@@ -831,6 +836,19 @@ const Dashboard = () => {
               </TabsContent>
 
               <TabsContent value="mystats" className="space-y-6">
+                {/* Impact Language Method Training - Featured at Top */}
+                <Card className="bg-gradient-to-br from-[#FDB900]/10 to-[#E77F00]/10 border-2 border-[#FDB900]">
+                  <CardContent className="p-6">
+                    <div className="text-center mb-4">
+                      <h3 className="text-xl font-bold mb-2">The Impact Language Method™</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Master these 5 pillars to transform your communication
+                      </p>
+                    </div>
+                    <ImpactMethodDiagram />
+                  </CardContent>
+                </Card>
+
                 {/* Week Comparison */}
                 {weekComparison && (
                   <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-accent/30">
@@ -945,14 +963,6 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 )}
-
-                {/* Impact Method */}
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold mb-6 text-center">The Impact Language Method™</h3>
-                    <ImpactMethodDiagram />
-                  </CardContent>
-                </Card>
               </TabsContent>
             </Tabs>
           </div>

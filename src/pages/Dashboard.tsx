@@ -308,7 +308,7 @@ const Dashboard = () => {
                       disabled={rewriteLoading || !userText.trim()}
                       className="w-full"
                     >
-                      {rewriteLoading ? "Rewriting..." : "Rewrite with Impact"}
+                      {rewriteLoading ? "Optimizing..." : "Say it Better"}
                     </Button>
                   </CardContent>
                 </Card>
@@ -458,7 +458,7 @@ const Dashboard = () => {
                       disabled={rewriteLoading || !userText.trim()}
                       className="w-full"
                     >
-                      {rewriteLoading ? "Rewriting..." : "Rewrite with Impact"}
+                      {rewriteLoading ? "Optimizing..." : "Say it Better"}
                     </Button>
                   </CardContent>
                 </Card>

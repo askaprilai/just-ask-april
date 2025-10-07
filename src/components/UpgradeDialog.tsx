@@ -98,19 +98,18 @@ export const UpgradeDialog = ({ open, onOpenChange, feature = "unlimited Impact 
 
         <DialogFooter className="flex-col sm:flex-col gap-2">
           <Button
-            onClick={handleUpgrade}
-            disabled={checkoutLoading}
+            onClick={() => navigate('/pricing')}
             className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white"
             size="lg"
           >
-            {checkoutLoading ? 'Loading...' : 'Sign up for free'}
+            Sign up for free
           </Button>
           <Button
             variant="ghost"
-            onClick={() => navigate('/pricing')}
+            onClick={() => onOpenChange(false)}
             className="w-full"
           >
-            View All Plans
+            Maybe later
           </Button>
         </DialogFooter>
       </DialogContent>

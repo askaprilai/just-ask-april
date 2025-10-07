@@ -496,8 +496,8 @@ const Index = () => {
           </p>
           
           {/* Supporting Text */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 px-4 leading-relaxed">
-            Lead every conversation to a decision
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground/70 mb-6 md:mb-8 px-4 leading-relaxed">
+            Turn every conversation into progress. April AI helps you say it right when it matters most.
           </p>
         </div>
 

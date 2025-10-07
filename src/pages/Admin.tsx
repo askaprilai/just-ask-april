@@ -174,6 +174,11 @@ export default function Admin() {
     existing.manual_pro_access = checked;
     changes.set(userId, existing);
     setPendingChanges(changes);
+    
+    toast({
+      title: checked ? "Pro Access Enabled" : "Pro Access Disabled",
+      description: "Click Save Changes to apply this update",
+    });
   };
 
   const handleRoleSelection = (userId: string, value: string) => {
@@ -278,9 +283,9 @@ export default function Admin() {
             <p className="text-muted-foreground">Manage users and roles</p>
           </div>
           {pendingChanges.size > 0 && (
-            <Button onClick={handleSaveChanges} disabled={saving} size="lg">
+            <Button onClick={handleSaveChanges} disabled={saving} size="lg" className="animate-pulse">
               <Save className="h-4 w-4 mr-2" />
-              Save Changes ({pendingChanges.size})
+              {saving ? "Saving..." : `Save ${pendingChanges.size} Change${pendingChanges.size > 1 ? 's' : ''}`}
             </Button>
           )}
         </div>
@@ -360,7 +365,7 @@ export default function Admin() {
                   <TableRow>
                     <TableHead>Email</TableHead>
                     <TableHead>Created At</TableHead>
-                    <TableHead>Pro Access</TableHead>
+                    <TableHead className="text-center">Manual Pro Access</TableHead>
                     <TableHead>Roles</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
@@ -378,12 +383,26 @@ export default function Admin() {
                         <TableCell className="font-medium">{user.email}</TableCell>
                         <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Checkbox
-                              checked={currentProAccess}
-                              onCheckedChange={(checked) => handleProAccessChange(user.id, checked as boolean)}
-                            />
-                            {currentProAccess && <Crown className="h-4 w-4 text-yellow-500" />}
+                          <div className="flex items-center justify-center gap-3">
+                            <div className="flex items-center gap-2">
+                              <Checkbox
+                                checked={currentProAccess}
+                                onCheckedChange={(checked) => handleProAccessChange(user.id, checked as boolean)}
+                                id={`pro-${user.id}`}
+                              />
+                              <Label htmlFor={`pro-${user.id}`} className="cursor-pointer text-sm">
+                                {currentProAccess ? "Enabled" : "Disabled"}
+                              </Label>
+                            </div>
+                            {currentProAccess && (
+                              <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100">
+                                <Crown className="h-3 w-3 mr-1" />
+                                Pro
+                              </Badge>
+                            )}
+                            {hasPendingChanges && pending?.manual_pro_access !== undefined && (
+                              <Badge variant="outline" className="text-xs">Pending</Badge>
+                            )}
                           </div>
                         </TableCell>
                         <TableCell>

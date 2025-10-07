@@ -9,7 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, UserPlus, Shield, UserCog, Save, Crown, Download } from "lucide-react";
+import { ArrowLeft, UserPlus, Shield, UserCog, Save, Crown, Download, Bell } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface User {
@@ -35,6 +36,11 @@ export default function Admin() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [pendingChanges, setPendingChanges] = useState<Map<string, PendingChange>>(new Map());
   const [saving, setSaving] = useState(false);
+  
+  // Announcement state
+  const [announcementTitle, setAnnouncementTitle] = useState("");
+  const [announcementMessage, setAnnouncementMessage] = useState("");
+  const [creatingAnnouncement, setCreatingAnnouncement] = useState(false);
   
   // Form state
   const [newEmail, setNewEmail] = useState("");
@@ -303,6 +309,54 @@ export default function Admin() {
     });
   };
 
+  const handleCreateAnnouncement = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!announcementTitle.trim() || !announcementMessage.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Title and message are required",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      setCreatingAnnouncement(true);
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) return;
+
+      const { error } = await supabase
+        .from("announcements")
+        .insert({
+          title: announcementTitle,
+          message: announcementMessage,
+          created_by: user.id,
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Announcement created! All users will see it.",
+      });
+
+      // Reset form
+      setAnnouncementTitle("");
+      setAnnouncementMessage("");
+    } catch (error: any) {
+      console.error("Error creating announcement:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create announcement",
+        variant: "destructive",
+      });
+    } finally {
+      setCreatingAnnouncement(false);
+    }
+  };
+
   if (!isAdmin) {
     return null;
   }
@@ -330,12 +384,15 @@ export default function Admin() {
               <Download className="h-4 w-4 mr-2" />
               Export CSV
             </Button>
-            {pendingChanges.size > 0 && (
-              <Button onClick={handleSaveChanges} disabled={saving} size="lg" className="animate-pulse">
-                <Save className="h-4 w-4 mr-2" />
-                {saving ? "Saving..." : `Save ${pendingChanges.size} Change${pendingChanges.size > 1 ? 's' : ''}`}
-              </Button>
-            )}
+            <Button 
+              onClick={handleSaveChanges} 
+              disabled={saving || pendingChanges.size === 0} 
+              size="lg" 
+              className={pendingChanges.size > 0 ? "animate-pulse" : ""}
+            >
+              <Save className="h-4 w-4 mr-2" />
+              {saving ? "Saving..." : pendingChanges.size > 0 ? `Save ${pendingChanges.size} Change${pendingChanges.size > 1 ? 's' : ''}` : 'Save Changes'}
+            </Button>
           </div>
         </div>
 
@@ -389,6 +446,47 @@ export default function Admin() {
               </div>
               <Button type="submit" disabled={creating}>
                 {creating ? "Creating..." : "Create User"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* Create Announcement Form */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Bell className="h-5 w-5" />
+              Create Announcement
+            </CardTitle>
+            <CardDescription>Notify all users about new examples or updates</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleCreateAnnouncement} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="announcement-title">Title</Label>
+                <Input
+                  id="announcement-title"
+                  type="text"
+                  placeholder="New Examples Released!"
+                  value={announcementTitle}
+                  onChange={(e) => setAnnouncementTitle(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="announcement-message">Message</Label>
+                <Textarea
+                  id="announcement-message"
+                  placeholder="Check out our latest communication examples..."
+                  value={announcementMessage}
+                  onChange={(e) => setAnnouncementMessage(e.target.value)}
+                  className="min-h-[100px]"
+                  required
+                />
+              </div>
+              <Button type="submit" disabled={creatingAnnouncement}>
+                <Bell className="h-4 w-4 mr-2" />
+                {creatingAnnouncement ? "Creating..." : "Send Announcement to All Users"}
               </Button>
             </form>
           </CardContent>

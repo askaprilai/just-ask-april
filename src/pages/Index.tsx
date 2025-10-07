@@ -23,6 +23,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useTypewriter } from "@/hooks/useTypewriter";
+import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 
 interface Rewrite {
   text: string;
@@ -477,6 +478,9 @@ const Index = () => {
       </nav>
       
       <div className="container max-w-5xl mx-auto px-4 py-8 md:py-12 relative">
+        {/* Announcement Banner */}
+        <AnnouncementBanner user={user} />
+        
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
           {/* Supporting Description */}

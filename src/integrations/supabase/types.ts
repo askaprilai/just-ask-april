@@ -44,6 +44,33 @@ export type Database = {
         }
         Relationships: []
       }
+      announcements: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: string
+          is_active: boolean
+          message: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          id?: string
+          is_active?: boolean
+          message: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_active?: boolean
+          message?: string
+          title?: string
+        }
+        Relationships: []
+      }
       feedback: {
         Row: {
           created_at: string
@@ -87,18 +114,21 @@ export type Database = {
           created_at: string
           email: string | null
           id: string
+          manual_pro_access: boolean
           updated_at: string
         }
         Insert: {
           created_at?: string
           email?: string | null
           id: string
+          manual_pro_access?: boolean
           updated_at?: string
         }
         Update: {
           created_at?: string
           email?: string | null
           id?: string
+          manual_pro_access?: boolean
           updated_at?: string
         }
         Relationships: []
@@ -147,6 +177,35 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      user_announcements: {
+        Row: {
+          announcement_id: string
+          id: string
+          seen_at: string
+          user_id: string
+        }
+        Insert: {
+          announcement_id: string
+          id?: string
+          seen_at?: string
+          user_id: string
+        }
+        Update: {
+          announcement_id?: string
+          id?: string
+          seen_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_announcements_announcement_id_fkey"
+            columns: ["announcement_id"]
+            isOneToOne: false
+            referencedRelation: "announcements"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

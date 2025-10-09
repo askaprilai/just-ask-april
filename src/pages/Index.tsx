@@ -495,6 +495,18 @@ const Index = () => {
             </span>
           </h1>
           
+          {/* Core Message Section */}
+          <div className="max-w-3xl mx-auto mb-6 md:mb-8 px-4 animate-fade-in">
+            <div className="bg-gradient-to-r from-secondary/10 via-accent/10 to-primary/10 rounded-2xl p-6 md:p-8 border border-border/50 backdrop-blur-sm">
+              <p className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+                Every business problem is a communication problem.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                April AI is a human connection tool that uses communication as the lever for performance, scale, and results.
+              </p>
+            </div>
+          </div>
+          
           <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 md:mb-8 px-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-slide-up">
             How you say it shapes what happens next, April AI helps you get it right.
           </p>

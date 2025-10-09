@@ -506,15 +506,6 @@ const Index = () => {
               </p>
             </div>
           </div>
-          
-          <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 md:mb-8 px-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-slide-up">
-            How you say it shapes what happens next, April AI helps you get it right.
-          </p>
-          
-          {/* Supporting Text */}
-          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground/70 mb-6 md:mb-8 px-4 leading-relaxed animate-fade-in">
-            April AI—the AI conversation coach that helps you communicate with clarity, confidence, and impact.
-          </p>
         </div>
 
         {/* Tabbed Interface */}
@@ -626,6 +617,18 @@ const Index = () => {
                 </div>
               </div>
             </div>
+
+            {/* Supporting messaging below input */}
+            <div className="text-center mb-8 md:mb-12 animate-fade-in max-w-4xl mx-auto px-4">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                How you say it shapes what happens next, April AI helps you get it right.
+              </p>
+              
+              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground/70 leading-relaxed">
+                April AI—the AI conversation coach that helps you communicate with clarity, confidence, and impact.
+              </p>
+            </div>
+
 
             {/* Impact Language Method Diagram */}
             {!result && !rewriteLoading && (

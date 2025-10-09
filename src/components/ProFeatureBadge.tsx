@@ -9,9 +9,7 @@ interface ProFeatureBadgeProps {
 }
 
 export const ProFeatureBadge = ({ feature, inline = false, onClick }: ProFeatureBadgeProps) => {
-  const { subscribed, productId } = useSubscription();
-  const PRO_PRODUCT_ID = 'prod_TB6tW8iBKEha8e';
-  const isPro = subscribed && productId === PRO_PRODUCT_ID;
+  const { isPro } = useSubscription();
 
   if (isPro) return null;
 

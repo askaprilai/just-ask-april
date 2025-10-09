@@ -11,6 +11,7 @@ interface SubscriptionContextType {
   dailyUsage: number;
   incrementUsage: () => void;
   canUseFeature: boolean;
+  isPro: boolean;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
@@ -127,6 +128,7 @@ export const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
         dailyUsage,
         incrementUsage,
         canUseFeature,
+        isPro,
       }}
     >
       {children}

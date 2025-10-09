@@ -16,8 +16,7 @@ const ELEVENLABS_AGENT_ID = '7QG56pLLidBy9m2egJfA';
 
 const VoiceConversation = () => {
   const { toast } = useToast();
-  const { subscribed, productId } = useSubscription();
-  const isPro = subscribed && productId === 'prod_TB6tW8iBKEha8e';
+  const { isPro } = useSubscription();
   const [transcript, setTranscript] = useState<Array<{ role: string; content: string }>>([]);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   

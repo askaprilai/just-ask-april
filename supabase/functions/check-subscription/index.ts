@@ -43,6 +43,25 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
+    // Check for manual pro access first
+    const { data: profile } = await supabaseClient
+      .from('profiles')
+      .select('manual_pro_access')
+      .eq('id', user.id)
+      .single();
+    
+    if (profile?.manual_pro_access) {
+      logStep("User has manual pro access");
+      return new Response(JSON.stringify({
+        subscribed: true,
+        product_id: 'prod_TB6tW8iBKEha8e', // Pro product ID
+        subscription_end: null
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
     const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
     

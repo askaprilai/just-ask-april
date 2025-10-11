@@ -61,20 +61,57 @@ const VoiceConversation = () => {
     }
 
     try {
+      console.log('Starting conversation...');
+      
+      // Check if browser supports necessary APIs
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('Your browser does not support microphone access. Please use Chrome, Firefox, or Safari.');
+      }
+
+      console.log('Requesting microphone permission...');
+      
       // Request microphone permission
-      await navigator.mediaDevices.getUserMedia({ audio: true });
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+        console.log('Microphone permission granted');
+      } catch (micError: any) {
+        console.error('Microphone permission error:', micError);
+        
+        if (micError.name === 'NotAllowedError' || micError.name === 'PermissionDeniedError') {
+          throw new Error('Microphone access was denied. Please allow microphone access in your browser settings and try again.');
+        } else if (micError.name === 'NotFoundError') {
+          throw new Error('No microphone found. Please connect a microphone and try again.');
+        } else if (micError.name === 'NotReadableError') {
+          throw new Error('Microphone is already in use by another application. Please close other apps using the microphone and try again.');
+        } else {
+          throw new Error(`Microphone error: ${micError.message}`);
+        }
+      }
+      
+      console.log('Getting signed URL from edge function...');
       
       // Get signed URL from our edge function
       const { data, error } = await supabase.functions.invoke('elevenlabs-signed-url', {
         body: { agentId: ELEVENLABS_AGENT_ID }
       });
 
-      if (error) throw error;
-      if (!data?.signed_url) throw new Error('No signed URL received');
+      if (error) {
+        console.error('Edge function error:', error);
+        throw error;
+      }
+      
+      if (!data?.signed_url) {
+        console.error('No signed URL in response:', data);
+        throw new Error('No signed URL received');
+      }
+
+      console.log('Signed URL received, starting ElevenLabs session...');
 
       // Start the conversation with ElevenLabs using signed URL
       await conversation.startSession({ signedUrl: data.signed_url });
       setTranscript([]);
+      
+      console.log('Conversation started successfully');
     } catch (error) {
       console.error('Error starting conversation:', error);
       toast({

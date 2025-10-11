@@ -73,7 +73,6 @@ const Index = () => {
   const { toast } = useToast();
   const { subscribed, dailyUsage, incrementUsage, canUseFeature, productId } = useSubscription();
   const { trackEvent } = useAnalytics();
-  const animatedPlaceholder = useTypewriter(PLACEHOLDER_EXAMPLES, 80, 40, 2500);
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [userText, setUserText] = useState("");
@@ -550,7 +549,7 @@ const Index = () => {
                   </div>
                   
                   <Textarea
-                    placeholder={`Type here what you want to say.\nExample: ${animatedPlaceholder}`}
+                    placeholder="Type here what you want to say.\nExample: I want to ask for a raise but don't know how"
                     value={userText}
                     onChange={(e) => setUserText(e.target.value.slice(0, 1500))}
                     className="min-h-[180px] md:min-h-[160px] text-base md:text-lg leading-relaxed border-0 rounded-none pr-24 md:pr-28 pb-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-white dark:bg-white text-foreground placeholder:text-muted-foreground"

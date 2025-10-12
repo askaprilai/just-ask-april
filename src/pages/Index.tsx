@@ -497,7 +497,7 @@ const Index = () => {
                 Every business problem is a communication problem.
               </p>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                April AI is a human connection tool that uses communication as the lever for performance, scale, and results.
+                AI that transforms how people talk, lead, and work — driving clarity, accountability, and performance across every team.
               </p>
             </div>
           </div>

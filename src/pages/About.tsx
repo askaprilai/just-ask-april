@@ -28,7 +28,7 @@ const About = () => {
               The Impact Language Method™ — Backed by Science.
             </h2>
             <p className="text-xl sm:text-2xl md:text-3xl font-light mb-6 md:mb-8 px-2">
-              Say it Better. Get Better Results.
+              Better Communication. Better Results.
             </p>
           </div>
 

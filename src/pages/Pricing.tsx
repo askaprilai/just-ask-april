@@ -150,7 +150,7 @@ const Pricing = () => {
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent px-2">
-            Say It Better, Get Better Results
+            Better Communication. Better Results.
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 mb-3">
             Join thousands of professionals who communicate with confidence

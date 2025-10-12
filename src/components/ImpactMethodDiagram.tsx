@@ -48,7 +48,7 @@ const ImpactMethodDiagram = () => {
             THE IMPACT LANGUAGE METHOD™
           </h3>
           <p className="text-xs text-muted-foreground">
-            Say it Better. Get Better Results.
+            Better Communication. Better Results.
           </p>
         </div>
         
@@ -92,8 +92,8 @@ const ImpactMethodDiagram = () => {
               METHOD™
             </h3>
             <p className="text-[9px] sm:text-xs md:text-sm lg:text-base text-center text-muted-foreground font-medium px-2">
-              Say it Better.<br />
-              Get Better Results.
+              Better Communication.<br />
+              Better Results.
             </p>
           </div>
 

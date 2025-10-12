@@ -491,7 +491,7 @@ const Index = () => {
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight px-4 animate-scale-in">
             <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Say it better. Get better results.
+              Better Communication. Better Results.
             </span>
           </h1>
           

@@ -483,11 +483,6 @@ const Index = () => {
         
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
-          {/* Supporting Description */}
-          <p className="text-base md:text-lg text-muted-foreground mb-4 uppercase tracking-wide font-semibold animate-slide-up">
-            AI Communication Tool for Better Work Conversations
-          </p>
-          
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight px-4 animate-scale-in">
             <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">

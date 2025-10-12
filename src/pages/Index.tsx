@@ -484,7 +484,7 @@ const Index = () => {
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight px-4 animate-scale-in">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 px-4 animate-scale-in font-headline" style={{ lineHeight: '1.2' }}>
             <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Better Communication. Better Results.
             </span>
@@ -493,10 +493,10 @@ const Index = () => {
           {/* Core Message Section */}
           <div className="max-w-3xl mx-auto mb-6 md:mb-8 px-4 animate-fade-in">
             <div className="bg-gradient-to-r from-secondary/10 via-accent/10 to-primary/10 rounded-2xl p-6 md:p-8 border border-border/50 backdrop-blur-sm">
-              <p className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+              <p className="text-xl md:text-2xl font-semibold text-foreground mb-3 font-body" style={{ lineHeight: '1.35' }}>
                 Every business problem is a communication problem.
               </p>
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              <p className="text-base md:text-lg text-muted-foreground font-body" style={{ lineHeight: '1.4' }}>
                 AI that transforms how people talk, lead, and work — driving clarity, accountability, and performance across every team.
               </p>
             </div>

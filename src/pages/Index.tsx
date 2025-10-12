@@ -517,6 +517,16 @@ const Index = () => {
             <div className="space-y-3 mb-8">
               
               <div className="relative animate-scale-in max-w-3xl mx-auto">
+                {/* Ripple Effect on Load */}
+                <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-full animate-ripple"></div>
+                </div>
+                
+                {/* Light Sweep Effect */}
+                <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-transparent w-1/2 h-full animate-light-sweep"></div>
+                </div>
+                
                 <div className="relative rounded-2xl border-2 border-border bg-white dark:bg-white shadow-xl overflow-hidden">
                   {/* Toggle Buttons Inside Chat Box */}
                   <div className="p-3 border-b bg-muted/20 flex items-center gap-3">

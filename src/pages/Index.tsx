@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ChevronDown, Building2, Target, Smile, History as HistoryIcon, AlertCircle, RefreshCw, Shield, Users, Award, ChevronRight, Settings2 } from "lucide-react";
+import { Copy, ThumbsUp, ThumbsDown, Volume2, BarChart3, Mic, MessageSquare, Phone, ArrowRight, ArrowDown, ChevronDown, Building2, Target, Smile, History as HistoryIcon, AlertCircle, RefreshCw, Shield, Users, Award, ChevronRight, Settings2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ExamplesSection } from "@/components/ExamplesSection";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -481,29 +481,35 @@ const Index = () => {
         {/* Announcement Banner */}
         <AnnouncementBanner user={user} />
         
-        {/* Hero Section */}
-        <div className="text-center mb-8 md:mb-10 animate-fade-in max-w-4xl mx-auto">
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 px-4 animate-scale-in font-headline" style={{ lineHeight: '1.2' }}>
-            <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Better Communication. Better Results.
-            </span>
-          </h1>
+        {/* Hero Section - Restructured with Chat as Centerpiece */}
+        <div className="text-center mb-12 md:mb-16 animate-fade-in max-w-4xl mx-auto">
+          {/* Top-Centered Headline with Generous Whitespace */}
+          <div className="mb-8 md:mb-12 space-y-4 md:space-y-6">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold animate-scale-in font-headline" style={{ lineHeight: '1.2' }}>
+              <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                Better Communication. Better Results.
+              </span>
+            </h1>
+            
+            {/* Subheadline - One-Third the Weight */}
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-body font-light max-w-3xl mx-auto px-4" style={{ lineHeight: '1.4' }}>
+              AI that transforms how people talk, lead, and work — driving clarity, accountability, and performance across every team.
+            </p>
+          </div>
           
-          {/* Core Message Section */}
-          <div className="max-w-3xl mx-auto mb-6 md:mb-8 px-4 animate-fade-in">
-            <div className="bg-gradient-to-r from-secondary/10 via-accent/10 to-primary/10 rounded-2xl p-6 md:p-8 border border-border/50 backdrop-blur-sm">
-              <p className="text-xl md:text-2xl font-semibold text-foreground mb-3 font-body" style={{ lineHeight: '1.35' }}>
-                Every business problem is a communication problem.
-              </p>
-              <p className="text-base md:text-lg text-muted-foreground font-body" style={{ lineHeight: '1.4' }}>
-                AI that transforms how people talk, lead, and work — driving clarity, accountability, and performance across every team.
-              </p>
+          {/* CTA Arrow Pointing to Chat */}
+          <div className="flex flex-col items-center gap-2 mb-8 animate-fade-in">
+            <p className="text-sm md:text-base text-accent font-semibold uppercase tracking-wide">
+              Try it now
+            </p>
+            <div className="flex flex-col items-center">
+              <div className="w-px h-8 bg-gradient-to-b from-accent to-transparent"></div>
+              <ArrowDown className="h-6 w-6 text-accent animate-bounce" />
             </div>
           </div>
         </div>
 
-        {/* Tabbed Interface */}
+        {/* Tabbed Interface - Chat Box as Hero Centerpiece */}
         <Tabs defaultValue="text" className="mb-4 md:mb-6" id="input-section">
           {/* Text Rewrite Tab */}
           <TabsContent value="text" className="space-y-6 md:space-y-10">
@@ -613,13 +619,12 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Supporting messaging below input */}
-            <div className="text-center mb-8 md:mb-12 animate-fade-in max-w-4xl mx-auto px-4">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                How you say it shapes what happens next, April AI helps you get it right.
+            {/* Supporting messaging below input - Anchored Text */}
+            <div className="text-center mt-10 md:mt-12 mb-8 md:mb-12 animate-fade-in max-w-4xl mx-auto px-4">
+              <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-3 font-body" style={{ lineHeight: '1.35' }}>
+                Every business problem is a communication problem.
               </p>
-              
-              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground/70 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground/80 leading-relaxed font-body">
                 April AI—the AI conversation coach that helps you communicate with clarity, confidence, and impact.
               </p>
             </div>

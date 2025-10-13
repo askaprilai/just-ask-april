@@ -22,31 +22,38 @@ const VoiceConversation = () => {
   
   const conversation = useConversation({
     onConnect: () => {
-      console.log('Connected to ElevenLabs');
+      console.log('✅ Connected to ElevenLabs');
       toast({
         title: "Connected",
         description: "Voice conversation started with April",
       });
     },
     onDisconnect: () => {
-      console.log('Disconnected from ElevenLabs');
+      console.log('❌ Disconnected from ElevenLabs');
     },
     onMessage: (message) => {
-      console.log('Received message:', message);
+      console.log('📨 Received message:', message);
+      console.log('Message source:', message.source);
+      console.log('Message content:', message.message);
       
       if (message.source === 'user') {
+        console.log('🎤 User spoke:', message.message);
         setTranscript(prev => [...prev, { role: 'user', content: message.message }]);
       } else if (message.source === 'ai') {
+        console.log('🤖 AI responded:', message.message);
         setTranscript(prev => [...prev, { role: 'assistant', content: message.message }]);
       }
     },
     onError: (error) => {
-      console.error('ElevenLabs error:', error);
+      console.error('❌ ElevenLabs error:', error);
       toast({
         title: "Error",
         description: typeof error === 'string' ? error : "Failed to connect to voice service",
         variant: "destructive",
       });
+    },
+    onModeChange: (mode) => {
+      console.log('🔄 Mode changed to:', mode);
     },
   });
 

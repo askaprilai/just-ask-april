@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Mic, MicOff, Lock } from 'lucide-react';
+import { Mic, MicOff, Lock, Save } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { ProFeatureBadge } from '@/components/ProFeatureBadge';
 import { UpgradeDialog } from '@/components/UpgradeDialog';
@@ -131,6 +131,44 @@ const VoiceConversation = () => {
 
   const endConversation = async () => {
     await conversation.endSession();
+  };
+
+  const saveTranscript = async () => {
+    if (transcript.length === 0) {
+      toast({
+        title: "No transcript",
+        description: "There's no conversation to save yet",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Not authenticated');
+
+      const { error } = await supabase
+        .from('voice_transcripts')
+        .insert({
+          user_id: user.id,
+          transcript: transcript,
+          summary: `Voice practice session with ${transcript.length} messages`
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Saved!",
+        description: "Your conversation has been saved to History",
+      });
+    } catch (error) {
+      console.error('Error saving transcript:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save transcript",
+        variant: "destructive",
+      });
+    }
   };
 
   useEffect(() => {
@@ -277,7 +315,7 @@ const VoiceConversation = () => {
               </p>
             </div>
 
-            <div className="flex gap-3 justify-center md:justify-start">
+            <div className="flex gap-3 justify-center md:justify-start flex-wrap">
               {conversation.status !== 'connected' ? (
                 <Button
                   onClick={startConversation}
@@ -288,15 +326,28 @@ const VoiceConversation = () => {
                   Start Voice Practice
                 </Button>
               ) : (
-                <Button
-                  onClick={endConversation}
-                  size="lg"
-                  variant="destructive"
-                  className="gap-2"
-                >
-                  <MicOff className="w-4 h-4" />
-                  End Conversation
-                </Button>
+                <>
+                  <Button
+                    onClick={endConversation}
+                    size="lg"
+                    variant="destructive"
+                    className="gap-2"
+                  >
+                    <MicOff className="w-4 h-4" />
+                    End Conversation
+                  </Button>
+                  {transcript.length > 0 && (
+                    <Button
+                      onClick={saveTranscript}
+                      size="lg"
+                      variant="secondary"
+                      className="gap-2"
+                    >
+                      <Save className="w-4 h-4" />
+                      Save Notes
+                    </Button>
+                  )}
+                </>
               )}
             </div>
 

@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb, Shield, TrendingUp, Award, Target, TrendingDown, User as UserIcon } from "lucide-react";
+import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb, Shield, TrendingUp, Award, Target, TrendingDown, User as UserIcon, History as HistoryIcon } from "lucide-react";
 import { EXAMPLES } from "@/components/ExamplesSection";
 import { useToast } from "@/hooks/use-toast";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -351,6 +351,10 @@ const Dashboard = () => {
               </p>
             )}
           </div>
+          <Button onClick={() => navigate('/history')} variant="secondary" className="w-full mb-2" size="sm">
+            <HistoryIcon className="h-4 w-4 mr-2" />
+            View History
+          </Button>
           {isAdmin && (
             <Button onClick={() => navigate('/admin')} variant="secondary" className="w-full mb-2" size="sm">
               <Shield className="h-4 w-4 mr-2" />

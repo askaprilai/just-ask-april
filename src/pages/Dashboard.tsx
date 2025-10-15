@@ -74,13 +74,30 @@ const Dashboard = () => {
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
 
   useEffect(() => {
+    let mounted = true;
+    
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!mounted) return;
+      
       setUser(session?.user || null);
       
       if (!session?.user) {
-        setAuthLoading(false);
-        navigate('/auth');
+        // Give Supabase a moment to restore the session from storage
+        setTimeout(() => {
+          if (!mounted) return;
+          supabase.auth.getSession().then(({ data: { session: retrySession } }) => {
+            if (retrySession?.user) {
+              setUser(retrySession.user);
+              setAuthLoading(false);
+              loadImpactStatements(retrySession.user.id);
+            } else {
+              setAuthLoading(false);
+              navigate('/auth');
+            }
+          });
+        }, 100);
         return;
       }
       
@@ -115,6 +132,8 @@ const Dashboard = () => {
     checkAuth();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return;
+      
       if (!session?.user) {
         navigate('/auth');
       } else {
@@ -123,7 +142,10 @@ const Dashboard = () => {
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [navigate]);
 
   const loadImpactStatements = async (userId: string) => {
@@ -911,11 +933,163 @@ const Dashboard = () => {
               </TabsContent>
 
               <TabsContent value="mystats" className="space-y-6">
-                {/* Impact Language Method Training - Featured at Top */}
-                <Card className="bg-gradient-to-br from-[#FDB900]/10 to-[#E77F00]/10 border-2 border-[#FDB900]">
+                {/* Profile Header */}
+                <Card className="bg-gradient-to-br from-secondary/10 to-accent/10 border-primary/20 shadow-lg">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-r from-secondary to-accent flex items-center justify-center text-white text-2xl font-bold">
+                          {user?.email ? user.email.charAt(0).toUpperCase() : <UserIcon className="h-8 w-8" />}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <h2 className="text-2xl font-bold">{user?.email?.split('@')[0] || "Your Profile"}</h2>
+                            {subscribed && (
+                              <Badge className="bg-gradient-to-r from-secondary to-accent text-white border-0 text-xs">
+                                PRO
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-sm text-muted-foreground">Communication Impact Profile</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {weekComparison && (
+                      <div className="bg-background/50 rounded-lg p-4 mt-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">Week-over-Week Progress</p>
+                            <div className="flex items-baseline gap-3">
+                              <span className="text-2xl font-bold">{weekComparison.thisWeek}%</span>
+                              <div className={`flex items-center gap-1 text-sm font-medium ${
+                                weekComparison.change > 0 ? 'text-green-600' : 
+                                weekComparison.change < 0 ? 'text-red-600' : 
+                                'text-muted-foreground'
+                              }`}>
+                                {weekComparison.change > 0 ? (
+                                  <TrendingUp className="h-4 w-4" />
+                                ) : weekComparison.change < 0 ? (
+                                  <TrendingDown className="h-4 w-4" />
+                                ) : null}
+                                {weekComparison.change > 0 ? '+' : ''}{weekComparison.change}%
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-xs text-muted-foreground">Last Week</p>
+                            <p className="text-lg font-semibold text-muted-foreground">{weekComparison.lastWeek}%</p>
+                          </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-3">
+                          {weekComparison.change > 0 
+                            ? `Great progress! You're ${weekComparison.change}% more effective this week.`
+                            : weekComparison.change < 0
+                            ? `Keep practicing. Every conversation is a learning opportunity.`
+                            : `Consistent performance. Keep up the good work!`
+                          }
+                        </p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Overview Cards */}
+                {Object.keys(detailedStats).length > 0 && (
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <Card className="bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
+                        <CardContent className="pt-6">
+                          <p className="text-sm text-muted-foreground mb-1">Total Rewrites</p>
+                          <p className="text-3xl font-bold text-primary">
+                            {Object.values(detailedStats).reduce((sum, data) => sum + data.total, 0)}
+                          </p>
+                        </CardContent>
+                      </Card>
+                      <Card className="bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
+                        <CardContent className="pt-6">
+                          <p className="text-sm text-muted-foreground mb-1">Average Success Rate</p>
+                          <p className="text-3xl font-bold text-primary">
+                            {Object.values(detailedStats).length > 0 
+                              ? Math.round(Object.values(detailedStats).reduce((sum, data) => sum + data.rate, 0) / Object.values(detailedStats).length)
+                              : 0}%
+                          </p>
+                        </CardContent>
+                      </Card>
+                      <Card className="bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
+                        <CardContent className="pt-6 flex items-start gap-3">
+                          <Award className="h-5 w-5 mt-1 text-primary" />
+                          <div>
+                            <p className="text-sm text-muted-foreground mb-1">Your Impact</p>
+                            <p className="text-sm font-medium">
+                              {impactIndex && impactIndex >= 90 ? "Exceptional! Hitting the mark." :
+                               impactIndex && impactIndex >= 75 ? "Great work! Mastering it." :
+                               impactIndex && impactIndex >= 60 ? "Good progress. Keep refining." :
+                               "Keep practicing!"}
+                            </p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* Biggest Impact Areas */}
+                    <Card className="bg-gradient-to-br from-secondary/10 to-accent/10 border-primary/20 shadow-lg">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Award className="h-6 w-6 text-primary" />
+                          <h3 className="text-xl font-semibold">Your Biggest Impact Areas</h3>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Where the Impact Language Method™ transforms your communication most
+                        </p>
+                        <div className="space-y-3">
+                          {Object.entries(detailedStats)
+                            .sort((a, b) => b[1].rate - a[1].rate)
+                            .slice(0, 3)
+                            .map(([key, data], index) => {
+                              const [environment, outcome] = key.split('_');
+                              const medals = ['🥇', '🥈', '🥉'];
+                              
+                              return (
+                                <div key={key} className="bg-card/60 backdrop-blur-sm rounded-lg p-4 border border-primary/20 shadow-sm">
+                                  <div className="flex items-start gap-3">
+                                    <span className="text-2xl">{medals[index]}</span>
+                                    <div className="flex-1">
+                                      <div className="flex items-center justify-between mb-2">
+                                        <h4 className="font-semibold text-lg capitalize">
+                                          {environment} · {outcome}
+                                        </h4>
+                                        <span className="text-2xl font-bold text-primary">{data.rate}%</span>
+                                      </div>
+                                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
+                                        <div className="flex items-center gap-1">
+                                          <Target className="h-4 w-4 text-muted-foreground" />
+                                          <span className="text-muted-foreground">{data.total} uses</span>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                          <TrendingUp className="h-4 w-4 text-green-600" />
+                                          <span className="text-green-600">{data.helpful} successful</span>
+                                        </div>
+                                        <div className="text-muted-foreground">
+                                          Impact: {index === 0 ? 'Exceptional' : index === 1 ? 'Outstanding' : 'Excellent'}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </>
+                )}
+
+                {/* Impact Language Method Training */}
+                <Card className="bg-gradient-to-br from-[#FDB900]/10 to-[#E77F00]/10 border-2 border-[#FDB900] overflow-hidden">
                   <CardContent className="p-6">
                     <div className="text-center mb-4">
-                      <h3 className="text-xl font-bold mb-2">The Impact Language Method™</h3>
+                      <h3 className="text-2xl font-bold mb-2">The Impact Language Method™</h3>
                       <p className="text-sm text-muted-foreground mb-4">
                         Master these 5 pillars to transform your communication
                       </p>
@@ -924,43 +1098,42 @@ const Dashboard = () => {
                   </CardContent>
                 </Card>
 
-                {/* Week Comparison */}
-                {weekComparison && (
-                  <Card className="bg-gradient-to-r from-secondary/10 to-accent/10 border-accent/30">
+                {/* Top Impact Statements */}
+                {topRewrites.length > 0 && (
+                  <Card className="bg-card/80 backdrop-blur-sm border-primary/10 shadow-md">
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold mb-4">Week-over-Week Progress</h3>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm text-muted-foreground mb-2">This Week</p>
-                          <div className="flex items-baseline gap-3">
-                            <span className="text-3xl font-bold text-primary">{weekComparison.thisWeek}%</span>
-                            <div className={`flex items-center gap-1 text-sm font-medium ${
-                              weekComparison.change > 0 ? 'text-green-600' : 
-                              weekComparison.change < 0 ? 'text-red-600' : 
-                              'text-muted-foreground'
-                            }`}>
-                              {weekComparison.change > 0 ? (
-                                <TrendingUp className="h-4 w-4" />
-                              ) : weekComparison.change < 0 ? (
-                                <TrendingDown className="h-4 w-4" />
-                              ) : null}
-                              {weekComparison.change > 0 ? '+' : ''}{weekComparison.change}%
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-sm text-muted-foreground mb-2">Last Week</p>
-                          <p className="text-2xl font-semibold text-muted-foreground">{weekComparison.lastWeek}%</p>
-                        </div>
-                      </div>
-                      <p className="text-sm text-muted-foreground mt-4">
-                        {weekComparison.change > 0 
-                          ? `Great progress! You're ${weekComparison.change}% more effective this week.`
-                          : weekComparison.change < 0
-                          ? `Keep practicing. Every conversation is a learning opportunity.`
-                          : `Consistent performance. Keep up the good work!`
-                        }
+                      <h3 className="text-xl font-semibold mb-4">Top Impact Statements</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Your most effective rewrites that got results
                       </p>
+                      <div className="space-y-3">
+                        {topRewrites.map((rewrite) => (
+                          <div key={rewrite.id} className="p-4 bg-muted/30 rounded-lg border border-border/50 hover:border-primary/30 transition-colors">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <span className="capitalize font-medium">{rewrite.environment}</span>
+                                <span>·</span>
+                                <span className="capitalize">{rewrite.outcome}</span>
+                              </div>
+                              <Award className="h-4 w-4 text-primary flex-shrink-0" />
+                            </div>
+                            <p className="text-sm leading-relaxed">"{rewrite.raw_text}"</p>
+                            {(rewrite.inferred_emotion || rewrite.desired_emotion) && (
+                              <div className="mt-2 flex gap-2 text-xs">
+                                {rewrite.inferred_emotion && (
+                                  <span className="text-muted-foreground">From: {rewrite.inferred_emotion}</span>
+                                )}
+                                {rewrite.desired_emotion && (
+                                  <>
+                                    <span className="text-muted-foreground">→</span>
+                                    <span className="text-primary font-medium">To: {rewrite.desired_emotion}</span>
+                                  </>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </CardContent>
                   </Card>
                 )}
@@ -969,7 +1142,10 @@ const Dashboard = () => {
                 {Object.keys(detailedStats).length > 0 && (
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold mb-4">Performance by Context</h3>
+                      <h3 className="text-xl font-semibold mb-2">Your Performance by Context</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        See how effectively you communicate across different environments and outcomes
+                      </p>
                       <div className="space-y-4">
                         {Object.entries(detailedStats)
                           .sort((a, b) => b[1].rate - a[1].rate)
@@ -981,59 +1157,31 @@ const Dashboard = () => {
                               <div key={key} className={`p-4 rounded-lg border ${isHighPerformance ? "border-primary/50 bg-primary/5" : "border-border"}`}>
                                 <div className="flex items-center justify-between mb-2">
                                   <div className="flex items-center gap-2">
-                                    <h4 className="font-semibold capitalize">
+                                    <h4 className="font-semibold capitalize text-lg">
                                       {environment} · {outcome}
                                     </h4>
-                                    {isHighPerformance && <Award className="h-4 w-4 text-primary" />}
+                                    {isHighPerformance && <Award className="h-5 w-5 text-primary" />}
                                   </div>
-                                  <span className="text-xl font-bold text-primary">{data.rate}%</span>
+                                  <span className="text-2xl font-bold text-primary">{data.rate}%</span>
                                 </div>
-                                <div className="w-full bg-muted rounded-full h-2 overflow-hidden mb-2">
+                                <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden mb-2">
                                   <div 
                                     className="h-full bg-gradient-to-r from-secondary to-accent transition-all duration-500"
                                     style={{ width: `${data.rate}%` }}
                                   />
                                 </div>
-                                <div className="flex justify-between text-xs text-muted-foreground">
+                                <div className="flex justify-between text-sm text-muted-foreground">
                                   <span>{data.helpful} helpful of {data.total} uses</span>
+                                  <span className="font-medium">
+                                    {data.rate >= 90 ? 'Exceptional' : 
+                                     data.rate >= 80 ? 'Excellent' : 
+                                     data.rate >= 70 ? 'Good' : 
+                                     'Improving'}
+                                  </span>
                                 </div>
                               </div>
                             );
                           })}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Top Impact Statements */}
-                {topRewrites.length > 0 && (
-                  <Card>
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold mb-4">Your Top Impact Statements</h3>
-                      <div className="space-y-3">
-                        {topRewrites.map((rewrite) => (
-                          <div key={rewrite.id} className="p-3 bg-muted/30 rounded-lg border border-border">
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="flex gap-2 text-xs">
-                                <Badge variant="outline">{rewrite.environment}</Badge>
-                                <Badge variant="outline">{rewrite.outcome}</Badge>
-                              </div>
-                              <Award className="h-4 w-4 text-primary flex-shrink-0" />
-                            </div>
-                            <p className="text-sm">"{rewrite.raw_text}"</p>
-                            {(rewrite.inferred_emotion || rewrite.desired_emotion) && (
-                              <div className="mt-2 flex gap-2 text-xs text-muted-foreground">
-                                {rewrite.inferred_emotion && <span>From: {rewrite.inferred_emotion}</span>}
-                                {rewrite.desired_emotion && (
-                                  <>
-                                    <span>→</span>
-                                    <span className="text-primary">To: {rewrite.desired_emotion}</span>
-                                  </>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        ))}
                       </div>
                     </CardContent>
                   </Card>

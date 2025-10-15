@@ -36,70 +36,46 @@ const Stats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session) {
-          // Show example data for non-logged-in users
-          setUserName("Sally Sunshine");
-          setStats({
-            'Work_Action': { total: 24, helpful: 22, rate: 92 },
-            'Work_Recognition': { total: 18, helpful: 17, rate: 94 },
-            'Work_Input': { total: 15, helpful: 13, rate: 87 },
-            'Personal_Recognition': { total: 12, helpful: 11, rate: 92 },
-            'Personal_Delay': { total: 8, helpful: 7, rate: 88 },
-          });
-          setWeekComparison({ thisWeek: 91, lastWeek: 85, change: 6 });
-          setLoading(false);
-          return;
-        }
-
-        // Set user name to Sally Sunshine
+        // Always show example data for demo/preview mode
         setUserName("Sally Sunshine");
-
-        // Calculate week comparison
-        const now = new Date();
-        const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-        const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
-
-        // Get this week's feedback
-        const { data: thisWeekFeedback } = await supabase
-          .from('feedback')
-          .select('helpful')
-          .eq('user_id', session.user.id)
-          .gte('created_at', oneWeekAgo.toISOString());
-
-        // Get last week's feedback
-        const { data: lastWeekFeedback } = await supabase
-          .from('feedback')
-          .select('helpful')
-          .eq('user_id', session.user.id)
-          .gte('created_at', twoWeeksAgo.toISOString())
-          .lt('created_at', oneWeekAgo.toISOString());
-
-        if (thisWeekFeedback && thisWeekFeedback.length > 0) {
-          const thisWeekRate = Math.round(
-            (thisWeekFeedback.filter(f => f.helpful).length / thisWeekFeedback.length) * 100
-          );
-          
-          let lastWeekRate = 0;
-          if (lastWeekFeedback && lastWeekFeedback.length > 0) {
-            lastWeekRate = Math.round(
-              (lastWeekFeedback.filter(f => f.helpful).length / lastWeekFeedback.length) * 100
-            );
+        setStats({
+          'Work_Action': { total: 24, helpful: 22, rate: 92 },
+          'Work_Recognition': { total: 18, helpful: 17, rate: 94 },
+          'Work_Input': { total: 15, helpful: 13, rate: 87 },
+          'Personal_Recognition': { total: 12, helpful: 11, rate: 92 },
+          'Personal_Delay': { total: 8, helpful: 7, rate: 88 },
+        });
+        setTopRewrites([
+          {
+            id: '1',
+            raw_text: "I need you to finish this report by tomorrow because it's urgent.",
+            environment: 'Work',
+            outcome: 'Action',
+            inferred_emotion: 'Frustration',
+            desired_emotion: 'Confidence',
+            created_at: new Date().toISOString()
+          },
+          {
+            id: '2',
+            raw_text: "Great job on the presentation! Your insights really made an impact.",
+            environment: 'Work',
+            outcome: 'Recognition',
+            inferred_emotion: 'Gratitude',
+            desired_emotion: 'Appreciation',
+            created_at: new Date().toISOString()
+          },
+          {
+            id: '3',
+            raw_text: "What are your thoughts on the new process we discussed?",
+            environment: 'Work',
+            outcome: 'Input',
+            inferred_emotion: 'Curiosity',
+            desired_emotion: 'Collaboration',
+            created_at: new Date().toISOString()
           }
-
-          setWeekComparison({
-            thisWeek: thisWeekRate,
-            lastWeek: lastWeekRate,
-            change: thisWeekRate - lastWeekRate
-          });
-        }
-
-        const { data, error } = await supabase.functions.invoke('impact-index');
-        
-        if (error) throw error;
-        setStats(data.stats || {});
-        setTopRewrites(data.topRewrites || []);
+        ]);
+        setWeekComparison({ thisWeek: 91, lastWeek: 85, change: 6 });
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching stats:", error);
       } finally {

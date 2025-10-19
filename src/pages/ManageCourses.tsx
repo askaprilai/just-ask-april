@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Plus, Upload, Trash2, Edit, GripVertical } from "lucide-react";
+import { Plus, Upload, Trash2, Edit, GripVertical, GraduationCap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Course {
@@ -289,7 +289,15 @@ export default function ManageCourses() {
 
           {/* Lessons Column */}
           <div>
-            {selectedCourse && (
+            {!selectedCourse ? (
+              <Card className="p-12 text-center">
+                <GraduationCap className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-xl font-semibold mb-2">Select a Course</h3>
+                <p className="text-muted-foreground">
+                  Click on a course from the left to upload lessons and manage videos
+                </p>
+              </Card>
+            ) : (
               <>
                 <Card className="p-6 mb-6">
                   <h2 className="text-xl font-semibold mb-4">Upload New Lesson</h2>

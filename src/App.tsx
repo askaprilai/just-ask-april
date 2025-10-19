@@ -17,6 +17,9 @@ import History from "./pages/History";
 import Analytics from "./pages/Analytics";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
+import Learning from "./pages/Learning";
+import LessonPlayer from "./pages/LessonPlayer";
+import ManageCourses from "./pages/ManageCourses";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +43,9 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/history" element={<History />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/learning" element={<Learning />} />
+            <Route path="/learning/:courseId/:lessonId" element={<LessonPlayer />} />
+            <Route path="/manage-courses" element={<ManageCourses />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

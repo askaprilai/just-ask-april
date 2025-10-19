@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb, Shield, TrendingUp, Award, Target, TrendingDown, User as UserIcon, History as HistoryIcon } from "lucide-react";
+import { MessageSquare, Mic, BookOpen, LogOut, Menu, X, ArrowRight, Lightbulb, Shield, TrendingUp, Award, Target, TrendingDown, User as UserIcon, History as HistoryIcon, GraduationCap } from "lucide-react";
 import { EXAMPLES } from "@/components/ExamplesSection";
 import { useToast } from "@/hooks/use-toast";
 import VoiceConversation from "@/components/VoiceConversation";
@@ -377,11 +377,21 @@ const Dashboard = () => {
             <HistoryIcon className="h-4 w-4 mr-2" />
             View History
           </Button>
+          <Button onClick={() => navigate('/learning')} variant="secondary" className="w-full mb-2" size="sm">
+            <GraduationCap className="h-4 w-4 mr-2" />
+            Learning Platform
+          </Button>
           {isAdmin && (
-            <Button onClick={() => navigate('/admin')} variant="secondary" className="w-full mb-2" size="sm">
-              <Shield className="h-4 w-4 mr-2" />
-              Admin Panel
-            </Button>
+            <>
+              <Button onClick={() => navigate('/manage-courses')} variant="secondary" className="w-full mb-2" size="sm">
+                <BookOpen className="h-4 w-4 mr-2" />
+                Manage Courses
+              </Button>
+              <Button onClick={() => navigate('/admin')} variant="secondary" className="w-full mb-2" size="sm">
+                <Shield className="h-4 w-4 mr-2" />
+                Admin Panel
+              </Button>
+            </>
           )}
           <Button onClick={handleSignOut} variant="outline" className="w-full" size="sm">
             <LogOut className="h-4 w-4 mr-2" />

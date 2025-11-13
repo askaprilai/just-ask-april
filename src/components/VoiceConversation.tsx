@@ -7,6 +7,7 @@ import { Mic, MicOff, Lock, Save } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { ProFeatureBadge } from '@/components/ProFeatureBadge';
 import { UpgradeDialog } from '@/components/UpgradeDialog';
+import { LearningPathDialog } from '@/components/LearningPathDialog';
 import aprilImage from '@/assets/april-headshot.jpeg';
 import { useConversation } from '@11labs/react';
 import { supabase } from '@/integrations/supabase/client';
@@ -19,6 +20,10 @@ const VoiceConversation = () => {
   const { isPro } = useSubscription();
   const [transcript, setTranscript] = useState<Array<{ role: string; content: string }>>([]);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const [showLearningPath, setShowLearningPath] = useState(false);
+  const [suggestedCourses, setSuggestedCourses] = useState<any[]>([]);
+  const [learningPathSummary, setLearningPathSummary] = useState('');
+  const [isGeneratingSuggestions, setIsGeneratingSuggestions] = useState(false);
   
   const conversation = useConversation({
     onConnect: () => {
@@ -147,20 +152,51 @@ const VoiceConversation = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
-      const { error } = await supabase
+      // Save the transcript
+      const { data: savedTranscript, error } = await supabase
         .from('voice_transcripts')
         .insert({
           user_id: user.id,
           transcript: transcript,
           summary: `Voice practice session with ${transcript.length} messages`
-        });
+        })
+        .select()
+        .single();
 
       if (error) throw error;
 
       toast({
         title: "Saved!",
-        description: "Your conversation has been saved to History",
+        description: "Analyzing your conversation to suggest courses...",
       });
+
+      // Generate learning path suggestions
+      setIsGeneratingSuggestions(true);
+      
+      try {
+        const { data: suggestionData, error: suggestionError } = await supabase.functions.invoke(
+          'suggest-learning-path',
+          {
+            body: { transcript_id: savedTranscript.id }
+          }
+        );
+
+        if (suggestionError) throw suggestionError;
+
+        if (suggestionData?.success && suggestionData.suggestion) {
+          setSuggestedCourses(suggestionData.suggestion.suggested_courses || []);
+          setLearningPathSummary(suggestionData.suggestion.analysis_summary || '');
+          setShowLearningPath(true);
+        }
+      } catch (suggestionError) {
+        console.error('Error generating suggestions:', suggestionError);
+        toast({
+          title: "Saved",
+          description: "Conversation saved, but couldn't generate course suggestions",
+        });
+      } finally {
+        setIsGeneratingSuggestions(false);
+      }
     } catch (error) {
       console.error('Error saving transcript:', error);
       toast({
@@ -267,6 +303,12 @@ const VoiceConversation = () => {
           onOpenChange={setShowUpgradeDialog}
           feature="Voice Practice with April AI"
         />
+        <LearningPathDialog
+          open={showLearningPath}
+          onOpenChange={setShowLearningPath}
+          courses={suggestedCourses}
+          analysisSummary={learningPathSummary}
+        />
       </>
     );
   }
@@ -342,9 +384,10 @@ const VoiceConversation = () => {
                       size="lg"
                       variant="secondary"
                       className="gap-2"
+                      disabled={isGeneratingSuggestions}
                     >
                       <Save className="w-4 h-4" />
-                      Save Notes
+                      {isGeneratingSuggestions ? 'Analyzing...' : 'Save Notes'}
                     </Button>
                   )}
                 </>

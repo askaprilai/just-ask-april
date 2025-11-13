@@ -9,6 +9,9 @@ verify_jwt = true
 [functions.impact-index]
 verify_jwt = true
 
+[functions.suggest-learning-path]
+verify_jwt = true
+
 [functions.realtime-token]
 verify_jwt = false
 
